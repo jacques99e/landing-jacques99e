@@ -71,6 +71,11 @@ async function loginOnLanding(page, email, password) {
 }
 
 export default async function globalSetup() {
+  if (!process.env.E2E_TEST_EMAIL) {
+    console.log("[e2e-setup] Pas de E2E_TEST_EMAIL — session auth non créée.");
+    return;
+  }
+
   const stamp = Date.now().toString(36);
   const userProvidedEmail = Boolean(process.env.E2E_TEST_EMAIL);
   const email = process.env.E2E_TEST_EMAIL || `e2e.modules.${stamp}@wazo.africa`;

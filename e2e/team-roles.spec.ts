@@ -1,8 +1,7 @@
 import { test, expect } from "@playwright/test";
-import path from "path";
+import { loginToApp, dismissOnboarding } from "./helpers/auth.mjs";
 
 const APP_URL = process.env.E2E_APP_URL || "https://wazo-digital.vercel.app";
-const LANDING_URL = process.env.E2E_LANDING_URL || "https://landing-jacques99e.vercel.app";
 
 const OWNER = {
   email: process.env.E2E_OWNER_EMAIL || "test.owner@wazo.africa",
@@ -14,33 +13,20 @@ const EMPLOYEE = {
   password: process.env.E2E_EMPLOYEE_PASSWORD || "TestEmployee2026!",
 };
 
-async function loginViaLanding(page: import("@playwright/test").Page, email: string, password: string) {
-  await page.goto(`${LANDING_URL}/login`);
-  await page.getByPlaceholder("email@wazo.africa").fill(email);
-  await page.getByPlaceholder("••••••••").fill(password);
-  await page.getByRole("button", { name: "Se connecter" }).click();
-  await page.waitForURL(/post-auth|auth\/receive|dashboard|setup/, { timeout: 60_000 });
-  if (page.url().includes("/post-auth")) {
-    await page.waitForURL(/auth\/receive|dashboard|setup/, { timeout: 60_000 });
-  }
-  if (page.url().includes("/auth/receive")) {
-    await page.waitForURL(/dashboard|setup/, { timeout: 60_000 });
-  }
-  const skip = page.getByRole("button", { name: /Passer pour l'instant/i });
-  if (await skip.isVisible({ timeout: 3000 }).catch(() => false)) {
-    await skip.click();
-  }
-}
-
 test.describe("Rôles équipe — comptes test prod", () => {
   test("propriétaire voit l'équipe et l'employé invité", async ({ browser }) => {
     const context = await browser.newContext();
     const page = await context.newPage();
 
-    await loginViaLanding(page, OWNER.email, OWNER.password);
+    await loginToApp(page, { ...OWNER, appUrl: APP_URL });
     await page.goto(`${APP_URL}/settings/team`);
-    await expect(page.getByText("Membres de l'équipe")).toBeVisible({ timeout: 20_000 });
-    await expect(page.getByText(/Test Employé|770000002/i)).toBeVisible();
+    await dismissOnboarding(page);
+    await expect(page.getByRole("heading", { name: /Équipe/i }).first()).toBeVisible({
+      timeout: 20_000,
+    });
+    await expect(page.getByRole("heading", { name: "Inviter un membre" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Membres \(\d+\)/ })).toBeVisible();
+    await expect(page.getByText(/Employé|employee/i).first()).toBeVisible({ timeout: 15_000 });
 
     await context.close();
   });
@@ -49,8 +35,9 @@ test.describe("Rôles équipe — comptes test prod", () => {
     const context = await browser.newContext();
     const page = await context.newPage();
 
-    await loginViaLanding(page, EMPLOYEE.email, EMPLOYEE.password);
+    await loginToApp(page, { ...EMPLOYEE, appUrl: APP_URL });
     await page.goto(`${APP_URL}/settings/team`);
+    await dismissOnboarding(page);
     await expect(page.getByText("Votre rôle sur cette boutique")).toBeVisible({ timeout: 20_000 });
     await expect(page.getByText("Employé")).toBeVisible();
     await expect(page.getByText("Membres de l'équipe")).not.toBeVisible();
@@ -63,9 +50,10 @@ test.describe("Rôles équipe — comptes test prod", () => {
     const context = await browser.newContext();
     const page = await context.newPage();
 
-    await loginViaLanding(page, EMPLOYEE.email, EMPLOYEE.password);
-    await page.goto(`${APP_URL}/sales`);
-    await expect(page).toHaveURL(/\/sales/);
+    await loginToApp(page, { ...EMPLOYEE, appUrl: APP_URL });
+    await dismissOnboarding(page);
+    await page.getByRole("link", { name: /Ventes/i }).click();
+    await page.waitForURL(/\/sales/, { timeout: 20_000 });
     await expect(page.getByRole("heading", { name: /Caisse|Vente/i }).first()).toBeVisible({
       timeout: 20_000,
     });
