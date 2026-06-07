@@ -39,6 +39,11 @@ export default defineConfig({
       },
     },
     {
+      name: "team-roles",
+      testMatch: /team-roles\.spec\.ts/,
+      use: { baseURL: LANDING_URL },
+    },
+    {
       name: "demo-video",
       testMatch: /demo-video\.spec\.ts/,
       use: {
