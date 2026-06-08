@@ -20,6 +20,9 @@ export const APP_STATS = [
   { value: "MoMo", label: "Mobile Money" },
 ] as const;
 
+/** Numéro WhatsApp support (lien wa.me sans + ni espaces) */
+export const WHATSAPP_SUPPORT = "+22893924040";
+
 export const NAV_LINKS = [
   { label: "L'application", href: "#application" },
   { label: "Démo", href: "#demo" },

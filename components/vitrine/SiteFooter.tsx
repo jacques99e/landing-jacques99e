@@ -2,6 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { MessageCircle } from "lucide-react";
 import { resolveAppUrl } from "@/lib/public-urls";
+import { WHATSAPP_SUPPORT } from "@/lib/vitrine-data";
+
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_SUPPORT.replace(/\D/g, "")}`;
 
 export function SiteFooter() {
   const appUrl = resolveAppUrl();
@@ -57,13 +60,13 @@ export function SiteFooter() {
           <p className="font-semibold">Contact</p>
           <ul className="mt-3 space-y-2 text-sm text-[#1A1A1A]/70">
             <li>
-              <a href="https://wa.me/22890000000" target="_blank" rel="noreferrer">
-                WhatsApp support
+              <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                WhatsApp {WHATSAPP_SUPPORT}
               </a>
             </li>
           </ul>
           <a
-            href="https://wa.me/22890000000"
+            href={WHATSAPP_URL}
             target="_blank"
             rel="noreferrer"
             aria-label="WhatsApp"
