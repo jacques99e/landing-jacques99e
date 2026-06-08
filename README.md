@@ -155,20 +155,46 @@ La protection est appliquée **avant le rendu** par `proxy.ts`, et redoublée c�
 
 ---
 
-## Déploiement sur Vercel
+## Déploiement sur Vercel (Git + auto-deploy)
 
-1. Pousse le projet sur un dépôt GitHub / GitLab / Bitbucket.
-2. Sur <https://vercel.com>, **New Project** → importe le dépôt.
-3. Framework détecté automatiquement : **Next.js** (aucune config requise).
-4. Ajoute les variables d'environnement (**Settings → Environment Variables**) :
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-5. **Deploy**.
-6. Une fois l'URL de production connue, retourne dans Supabase et ajoute :
-   - **Site URL** = l'URL Vercel
-   - **Redirect URL** = `https://<ton-app>.vercel.app/auth/callback`
+| | |
+|---|---|
+| **Repo GitHub** | [github.com/jacques99e/landing-jacques99e](https://github.com/jacques99e/landing-jacques99e) |
+| **Projet Vercel** | `landing-jacques99e` |
+| **URL prod** | https://landing-jacques99e.vercel.app |
+| **Branche prod** | `master` |
 
-> Astuce : ajoute aussi les URLs de preview Vercel (`https://*-<projet>.vercel.app/auth/callback`) dans les Redirect URLs Supabase si tu utilises les déploiements de preview.
+Le dépôt est **déjà connecté** à Vercel : chaque `git push` sur `master` déclenche un déploiement production.
+
+### Workflow quotidien
+
+```bash
+git add .
+git commit -m "feat: ma modification"
+git push origin master
+```
+
+Suivi : [Vercel → landing-jacques99e → Deployments](https://vercel.com/jacques99es-projects/landing-jacques99e).
+
+### Variables d'environnement (Production)
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `NEXT_PUBLIC_APP_URL` → `https://wazo-digital.vercel.app`
+
+### Supabase (auth)
+
+- **Site URL** = `https://landing-jacques99e.vercel.app`
+- **Redirect URL** = `https://landing-jacques99e.vercel.app/auth/callback`
+- Ajoute aussi les previews : `https://*-landing-jacques99e*.vercel.app/auth/callback`
+
+### Déploiement manuel (secours)
+
+```bash
+vercel deploy --prod --yes
+```
+
+Utiliser seulement si le réseau local coupe le suivi Git ; le flux normal reste `git push`.
 
 ---
 
