@@ -27,16 +27,6 @@ test.describe("Landing — pages publiques", () => {
     await expect(page.getByText("BUSINESS", { exact: true }).first()).toBeVisible();
   });
 
-  test("démo MoMo PayDunya (section premium)", async ({ page }) => {
-    await page.goto("/");
-    await page.getByText("Démo interactive").scrollIntoViewIfNeeded();
-    await expect(page.getByText("Boutique Wazo Demo")).toBeVisible();
-    await expect(page.getByText("Lien créé").first()).toBeVisible();
-    await expect(page.getByText("Client paie").first()).toBeVisible();
-    await expect(page.getByText("Vente en caisse").first()).toBeVisible();
-    await expect(page.getByText(/Payé ✓ — 100 000 FCFA/)).toBeVisible();
-  });
-
   test("liens inscription par module", async ({ page }) => {
     for (const mod of MODULES) {
       await page.goto(`/register?module=${mod}`);

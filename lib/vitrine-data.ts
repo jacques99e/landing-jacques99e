@@ -15,27 +15,9 @@ import {
 
 export const APP_STATS = [
   { value: "6", label: "modules métier" },
-  { value: "Nexus", label: "score continental" },
-  { value: "Premium", label: "outils exclusifs" },
+  { value: "100%", label: "mobile & PWA" },
+  { value: "Offline", label: "mode hors ligne" },
   { value: "MoMo", label: "Mobile Money" },
-] as const;
-
-export const WAZO_PREMIUM_HIGHLIGHTS = [
-  "Wazo Nexus — score santé business 0-100",
-  "Caisse Vocale en français (marché sans clavier)",
-  "Tontine Digitale pour commerçants",
-  "Agri Radar — alertes maladies & prix",
-  "Santé Sentinel — veille vaccinale communautaire",
-  "Fleet Pulse — flotte & carburant FCFA/km",
-  "Micro-Badges vérifiables par QR",
-  "Passeport Produit pour export international",
-  "Liens MoMo PayDunya LIVE — paiement 1 clic + notif",
-] as const;
-
-export const MOMO_FLOW_STEPS = [
-  { step: "1", title: "Créer le lien", detail: "Depuis la caisse, la voix ou /sales/liens" },
-  { step: "2", title: "Client paie", detail: "Orange, MTN, Moov — page publique sécurisée" },
-  { step: "3", title: "Auto-sync", detail: "Vente en caisse + notif push & e-mail marchand" },
 ] as const;
 
 /** Numéro WhatsApp support (lien wa.me sans + ni espaces) */
@@ -45,7 +27,6 @@ export const NAV_LINKS = [
   { label: "L'application", href: "#application" },
   { label: "Démo", href: "#demo" },
   { label: "Modules", href: "#modules" },
-  { label: "Premium", href: "#premium" },
   { label: "Portails", href: "#portails" },
   { label: "Tarifs", href: "/tarifs" },
   { label: "FAQ", href: "#faq" },
@@ -79,10 +60,10 @@ export const APP_MODULES: AppModule[] = [
     title: "Commerce",
     tagline: "Caisse, stock et boutique WhatsApp",
     features: [
-      "Caisse Vocale — vendre à la voix en français",
-      "Tontine Digitale + carnet crédit WhatsApp",
-      "Wazo Nexus score & catalogue MoMo",
-      "Boutique publique hors ligne",
+      "Caisse MoMo + reçu WhatsApp automatique",
+      "Carnet crédit client avec relance",
+      "Catalogue & boutique publique sans appli",
+      "Caisse hors ligne avec sync auto",
     ],
     color: "bg-[#075E54]",
   },
@@ -93,10 +74,10 @@ export const APP_MODULES: AppModule[] = [
     title: "Agriculture",
     tagline: "Champs, intrants et prix marchés",
     features: [
-      "Agri Radar — maladies & signaux prix",
-      "Calendrier cultural + météo GPS",
-      "Prix marchés & rendement kg/ha",
-      "Vente récolte en 1 clic",
+      "Calendrier cultural (semis → récolte)",
+      "Météo GPS + conseils agricoles",
+      "Prix marchés locaux comparables",
+      "Rendement kg/ha & vente récolte",
     ],
     color: "bg-emerald-700",
   },
@@ -107,10 +88,10 @@ export const APP_MODULES: AppModule[] = [
     title: "Santé",
     tagline: "Patients, RDV et rappels",
     features: [
-      "Santé Sentinel — veille épidémique",
-      "Mini pharmacie + dossiers patients",
-      "RDV + rappels WhatsApp/SMS",
-      "Téléconsultation directe",
+      "Dossiers patients + ordonnances PDF",
+      "Mini pharmacie avec alertes stock",
+      "RDV du jour + rappels WhatsApp/SMS",
+      "Téléconsultation via WhatsApp",
     ],
     color: "bg-rose-600",
   },
@@ -121,10 +102,10 @@ export const APP_MODULES: AppModule[] = [
     title: "Logistique",
     tagline: "Livraisons et suivi client",
     features: [
-      "Fleet Pulse — flotte & carburant",
-      "Tournée optimisée + /suivi public",
-      "MoMo à la livraison",
-      "Preuve photo/signature",
+      "Tournée du jour + partage WhatsApp",
+      "Portail public /suivi sans compte",
+      "Paiement MoMo à la livraison",
+      "Preuve de livraison photo/signature",
     ],
     color: "bg-sky-600",
   },
@@ -135,10 +116,10 @@ export const APP_MODULES: AppModule[] = [
     title: "Formation",
     tagline: "Cours, élèves et certificats",
     features: [
-      "Micro-Badges QR vérifiables",
-      "Présences PDF + portail /formation",
-      "Cours hors ligne faible data",
-      "Certificats bailleurs",
+      "Feuille de présence + export PDF",
+      "Portail /formation sans installation",
+      "Cours hors ligne (faible data)",
+      "Certificats PDF avec QR vérifiable",
     ],
     color: "bg-amber-600",
   },
@@ -149,10 +130,10 @@ export const APP_MODULES: AppModule[] = [
     title: "Traçabilité",
     tagline: "Preuve d'origine infalsifiable",
     features: [
-      "Passeport Produit export UE",
-      "QR étiquettes → /trace public",
-      "Hash GPS + contrats coop",
-      "Grand livre infalsifiable",
+      "QR sur étiquettes → portail /trace",
+      "Hash GPS infalsifiable à l'origine",
+      "Contrats numériques coopératives",
+      "Grand livre vérifiable pour export",
     ],
     color: "bg-indigo-600",
   },

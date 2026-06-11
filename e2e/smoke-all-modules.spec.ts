@@ -12,26 +12,8 @@ const MODULE_PAGES: Record<string, string[]> = {
   blockchain: ["/blockchain", "/blockchain/assets/new", "/blockchain/contracts"],
 };
 
-const PREMIUM_ROUTES = [
-  "/nexus",
-  "/sales/voice",
-  "/sales/tontine",
-  "/sales/credit",
-  "/sales/liens",
-  "/agriculture/radar",
-  "/agriculture/calendrier",
-  "/health/sentinel",
-  "/health/pharmacie",
-  "/logistics/fleet",
-  "/logistics/tournee",
-  "/education/badges",
-  "/education/presence",
-  "/blockchain/passport",
-  "/blockchain/qr",
-];
-
 const APP_CORE = ["/dashboard", "/settings", "/settings/notifications", "/settings/team", "/help", "/analytics"];
-const PUBLIC_APP = ["/suivi", "/formation", "/trace", "/login", "/paiement/WZTEST"];
+const PUBLIC_APP = ["/suivi", "/formation", "/trace", "/login"];
 const LANDING_PAGES = ["/", "/tarifs", "/register", "/login"];
 
 test.describe("Smoke E2E — sans authentification", () => {
@@ -57,13 +39,6 @@ test.describe("Smoke E2E — sans authentification", () => {
     });
   }
 
-  for (const route of PREMIUM_ROUTES) {
-    test(`Premium — ${route} accessible (HTTP)`, async ({ request }) => {
-      const res = await request.get(`${APP_URL}${route}`, { maxRedirects: 0 });
-      expect(res.status(), route).toBeLessThan(500);
-    });
-  }
-
   for (const [module, routes] of Object.entries(MODULE_PAGES)) {
     for (const route of routes) {
       test(`Module ${module} — ${route} accessible (HTTP)`, async ({ request }) => {
@@ -72,27 +47,6 @@ test.describe("Smoke E2E — sans authentification", () => {
       });
     }
   }
-
-  test("API MoMo history répond (protégée)", async ({ request }) => {
-    const res = await request.get(`${APP_URL}/api/payments/momo-link/history`, { maxRedirects: 0 });
-    expect([200, 401, 403]).toContain(res.status());
-  });
-
-  test("API MoMo summary répond (protégée)", async ({ request }) => {
-    const res = await request.get(`${APP_URL}/api/payments/momo-link/summary`, { maxRedirects: 0 });
-    expect([200, 401, 403]).toContain(res.status());
-  });
-
-  test("API MoMo analytics répond (protégée)", async ({ request }) => {
-    const res = await request.get(`${APP_URL}/api/payments/momo-link/analytics`, { maxRedirects: 0 });
-    expect([200, 401, 403]).toContain(res.status());
-  });
-
-  test("Landing section Premium MoMo visible", async ({ page }) => {
-    await page.goto(`${LANDING_URL}/#premium`);
-    await expect(page.getByRole("heading", { name: /MoMo PayDunya LIVE/i })).toBeVisible();
-    await expect(page.getByText(/Étape 1/i).first()).toBeVisible();
-  });
 
   test("Inscription par module — liens landing", async ({ page }) => {
     for (const mod of Object.keys(MODULE_PAGES)) {
