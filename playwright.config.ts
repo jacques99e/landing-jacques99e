@@ -44,6 +44,16 @@ export default defineConfig({
       use: { baseURL: LANDING_URL },
     },
     {
+      name: "language",
+      testMatch: /language\.spec\.ts/,
+      use: { baseURL: LANDING_URL },
+    },
+    {
+      name: "language",
+      testMatch: /language\.spec\.ts/,
+      use: { baseURL: LANDING_URL },
+    },
+    {
       name: "demo-video",
       testMatch: /demo-video\.spec\.ts/,
       use: {

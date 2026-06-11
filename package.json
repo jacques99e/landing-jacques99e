@@ -9,6 +9,8 @@
     "test:e2e": "playwright test",
     "test:e2e:smoke": "playwright test --project=smoke --project=landing",
     "test:e2e:roles": "playwright test --project=team-roles",
+    "test:e2e:language": "playwright test --project=language",
+    "test:e2e:language": "playwright test --project=language",
     "test:e2e:report": "playwright show-report e2e-report",
     "record:demo": "node scripts/generate-demo-audio.mjs && playwright test --project=demo-video && node scripts/process-demo-video.mjs && node scripts/verify-demo-sync.mjs",
     "process:demo": "node scripts/process-demo-video.mjs && node scripts/verify-demo-sync.mjs",
