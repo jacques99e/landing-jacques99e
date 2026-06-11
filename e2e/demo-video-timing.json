@@ -1,5 +1,5 @@
 {
-  "recordedAt": "2026-06-11T16:58:26.281Z",
+  "recordedAt": "2026-06-11T18:24:17.344Z",
   "visualBufferMs": 1800,
   "viewport": {
     "width": 1920,
@@ -9,191 +9,191 @@
     {
       "id": "landing",
       "index": 0,
-      "navigationMs": 9982,
+      "navigationMs": 7585,
       "dismissMs": 0,
       "speechMs": 19270,
       "holdMs": 21070,
-      "totalMs": 31058,
+      "totalMs": 28723,
       "scrollMs": 0
     },
     {
       "id": "dashboard",
       "index": 1,
-      "navigationMs": 9304,
-      "dismissMs": 2442,
+      "navigationMs": 9034,
+      "dismissMs": 15790,
       "speechMs": 16900,
       "holdMs": 18700,
-      "totalMs": 30464,
-      "scrollMs": 2424
+      "totalMs": 43541,
+      "scrollMs": 15736
     },
     {
       "id": "commerce-products",
       "index": 2,
-      "navigationMs": 2946,
-      "dismissMs": 33,
+      "navigationMs": 1800,
+      "dismissMs": 35,
       "speechMs": 16630,
       "holdMs": 18430,
-      "totalMs": 21422,
-      "scrollMs": 22
+      "totalMs": 20273,
+      "scrollMs": 9
     },
     {
       "id": "commerce-sales",
       "index": 3,
-      "navigationMs": 4344,
-      "dismissMs": 18,
+      "navigationMs": 1860,
+      "dismissMs": 79,
       "speechMs": 19730,
       "holdMs": 21530,
-      "totalMs": 25900,
-      "scrollMs": 9
+      "totalMs": 23478,
+      "scrollMs": 31
     },
     {
       "id": "commerce-credit",
       "index": 4,
-      "navigationMs": 23304,
-      "dismissMs": 20,
+      "navigationMs": 2791,
+      "dismissMs": 18,
       "speechMs": 15120,
       "holdMs": 16920,
-      "totalMs": 40256,
-      "scrollMs": 8
+      "totalMs": 19740,
+      "scrollMs": 10
     },
     {
       "id": "health",
       "index": 5,
-      "navigationMs": 32102,
-      "dismissMs": 22,
+      "navigationMs": 1956,
+      "dismissMs": 192,
       "speechMs": 12550,
       "holdMs": 14350,
-      "totalMs": 46487,
-      "scrollMs": 11
+      "totalMs": 16503,
+      "scrollMs": 55
     },
     {
       "id": "health-appointments",
       "index": 6,
-      "navigationMs": 11188,
-      "dismissMs": 20,
+      "navigationMs": 1836,
+      "dismissMs": 49,
       "speechMs": 11300,
       "holdMs": 13100,
-      "totalMs": 24318,
-      "scrollMs": 8
+      "totalMs": 14992,
+      "scrollMs": 19
     },
     {
       "id": "health-pharmacie",
       "index": 7,
-      "navigationMs": 6551,
-      "dismissMs": 13,
+      "navigationMs": 3626,
+      "dismissMs": 76,
       "speechMs": 12740,
       "holdMs": 14540,
-      "totalMs": 21106,
-      "scrollMs": 7
+      "totalMs": 18247,
+      "scrollMs": 66
     },
     {
       "id": "agriculture",
       "index": 8,
-      "navigationMs": 4395,
-      "dismissMs": 19,
+      "navigationMs": 2255,
+      "dismissMs": 2112,
       "speechMs": 10730,
       "holdMs": 12530,
-      "totalMs": 16957,
-      "scrollMs": 9
+      "totalMs": 16903,
+      "scrollMs": 2035
     },
     {
       "id": "agriculture-calendrier",
       "index": 9,
-      "navigationMs": 2427,
-      "dismissMs": 16,
+      "navigationMs": 1928,
+      "dismissMs": 25,
       "speechMs": 11300,
       "holdMs": 13100,
-      "totalMs": 15560,
-      "scrollMs": 7
+      "totalMs": 15060,
+      "scrollMs": 9
     },
     {
       "id": "logistics",
       "index": 10,
-      "navigationMs": 3900,
-      "dismissMs": 22,
+      "navigationMs": 2690,
+      "dismissMs": 136,
       "speechMs": 10420,
       "holdMs": 12220,
-      "totalMs": 16158,
-      "scrollMs": 10
+      "totalMs": 15060,
+      "scrollMs": 86
     },
     {
       "id": "logistics-tournee",
       "index": 11,
-      "navigationMs": 22518,
-      "dismissMs": 14,
+      "navigationMs": 14803,
+      "dismissMs": 43,
       "speechMs": 11090,
       "holdMs": 12890,
-      "totalMs": 35433,
-      "scrollMs": 7
+      "totalMs": 27739,
+      "scrollMs": 34
     },
     {
       "id": "education",
       "index": 12,
-      "navigationMs": 4211,
-      "dismissMs": 23,
+      "navigationMs": 1967,
+      "dismissMs": 18,
       "speechMs": 12070,
       "holdMs": 13870,
-      "totalMs": 18119,
-      "scrollMs": 11
+      "totalMs": 15875,
+      "scrollMs": 9
     },
     {
       "id": "education-presence",
       "index": 13,
-      "navigationMs": 2405,
-      "dismissMs": 14,
+      "navigationMs": 2768,
+      "dismissMs": 25,
       "speechMs": 9840,
       "holdMs": 11640,
-      "totalMs": 14071,
-      "scrollMs": 7
+      "totalMs": 14442,
+      "scrollMs": 17
     },
     {
       "id": "blockchain",
       "index": 14,
-      "navigationMs": 4587,
-      "dismissMs": 24,
+      "navigationMs": 2089,
+      "dismissMs": 31,
       "speechMs": 11260,
       "holdMs": 13060,
-      "totalMs": 17686,
-      "scrollMs": 13
+      "totalMs": 15198,
+      "scrollMs": 21
     },
     {
       "id": "blockchain-qr",
       "index": 15,
-      "navigationMs": 3870,
-      "dismissMs": 18,
+      "navigationMs": 2382,
+      "dismissMs": 21,
       "speechMs": 12910,
       "holdMs": 14710,
-      "totalMs": 18605,
+      "totalMs": 17128,
       "scrollMs": 10
     },
     {
       "id": "notifications",
       "index": 16,
-      "navigationMs": 2447,
-      "dismissMs": 23,
+      "navigationMs": 1925,
+      "dismissMs": 24,
       "speechMs": 12100,
       "holdMs": 13900,
-      "totalMs": 16379,
+      "totalMs": 15854,
       "scrollMs": 13
     },
     {
       "id": "team",
       "index": 17,
-      "navigationMs": 2682,
-      "dismissMs": 29,
+      "navigationMs": 2230,
+      "dismissMs": 23,
       "speechMs": 10730,
       "holdMs": 12530,
-      "totalMs": 15253,
-      "scrollMs": 12
+      "totalMs": 14801,
+      "scrollMs": 9
     },
     {
       "id": "outro",
       "index": 18,
-      "navigationMs": 1677,
-      "dismissMs": 17,
+      "navigationMs": 1879,
+      "dismissMs": 146,
       "speechMs": 14540,
       "holdMs": 16340,
-      "totalMs": 18043,
+      "totalMs": 18370,
       "scrollMs": 0
     }
   ]

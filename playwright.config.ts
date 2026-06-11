@@ -58,7 +58,8 @@ export default defineConfig({
       use: {
         baseURL: LANDING_URL,
         storageState: "e2e/.auth/user.json",
-        video: "on",
+        // Taille explicite : sinon Playwright réduit le viewport à 800×450 max
+        video: { mode: "on", size: DEMO_VIEWPORT },
         viewport: DEMO_VIEWPORT,
         launchOptions: { slowMo: DEMO_SLOW_MO_MS },
       },

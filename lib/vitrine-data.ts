@@ -39,7 +39,7 @@ export const DEMO_VIDEO = {
   webmSrc: "/videos/wazo-demo.webm",
   mp4Src: "/videos/wazo-demo.mp4",
   poster: "/videos/wazo-demo-poster.jpg",
-  durationLabel: "~7 min",
+  durationLabel: "~6 min 20",
 } as const;
 
 /** Chapitres affichés sous la vidéo (alignés sur le parcours enregistré). */
@@ -55,6 +55,7 @@ export const DEMO_CHAPTERS = [
   { emoji: "🚚", label: "Livraisons" },
   { emoji: "🎓", label: "Formation" },
   { emoji: "🔗", label: "QR traçabilité" },
+  { emoji: "🔔", label: "Notifications" },
   { emoji: "👥", label: "Équipe" },
 ] as const;
 
