@@ -13,8 +13,12 @@ export function SiteHeader() {
 
   return (
     <>
-      <div className="fixed inset-x-0 top-0 z-50 bg-[#075E54] px-4 py-2 text-center text-sm font-medium text-white">
-        🚀 Site vitrine — Inscrivez-vous ici, gérez votre activité dans l&apos;application Wazo Digital
+      <div className="fixed inset-x-0 top-0 z-50 bg-gradient-to-r from-[#075E54] to-[#0a7a6e] px-4 py-2 text-center text-sm font-medium text-white">
+        <span className="hidden sm:inline">🔥 Offre de lancement — </span>
+        Gratuit pour démarrer ·{" "}
+        <Link href="/register?plan=pro" className="font-bold underline underline-offset-2 hover:text-[#FF6F00]">
+          PRO à 9,99 €/mois sans engagement
+        </Link>
       </div>
 
       <header className="fixed inset-x-0 top-10 z-40 border-b border-[#075E54]/10 bg-white/95 shadow-sm backdrop-blur">
@@ -51,10 +55,10 @@ export function SiteHeader() {
               Ouvrir l&apos;app
             </a>
             <Link
-              href="/register"
+              href="/register?plan=pro"
               className="rounded-full bg-[#FF6F00] px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-105"
             >
-              Essayer gratuitement
+              S&apos;abonner au PRO
             </Link>
           </div>
 
@@ -96,11 +100,11 @@ export function SiteHeader() {
                 Ouvrir l&apos;application
               </a>
               <Link
-                href="/register"
+                href="/register?plan=pro"
                 onClick={() => setOpen(false)}
                 className="rounded-full bg-[#FF6F00] px-5 py-2.5 text-center text-sm font-semibold text-white"
               >
-                Essayer gratuitement
+                S&apos;abonner au PRO
               </Link>
             </div>
           </div>

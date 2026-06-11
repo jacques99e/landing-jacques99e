@@ -38,13 +38,17 @@ export default function TarifsPage() {
               }`}
             >
               {plan.popular ? (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#075E54] px-3 py-1 text-xs font-semibold text-white">
-                  Populaire
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#FF6F00] px-3 py-1 text-xs font-bold text-white">
+                  ⭐ Recommandé
                 </span>
               ) : null}
               <p className="text-sm font-semibold text-[#075E54]">{plan.title}</p>
               <p className="mt-1 font-medium">{plan.subtitle}</p>
-              <p className="mt-3 text-3xl font-bold">{plan.price}</p>
+              <div className="mt-3 flex items-baseline gap-1">
+                <span className="text-3xl font-bold">{plan.price}</span>
+                <span className="text-sm text-[#1A1A1A]/50">{plan.priceSuffix}</span>
+              </div>
+              <p className="mt-1 text-xs font-medium text-[#FF6F00]">{plan.hook}</p>
               <ul className="mt-5 space-y-2 text-sm text-[#1A1A1A]/80">
                 {plan.features.map((item) => (
                   <li key={item} className="flex items-start gap-2">
@@ -55,9 +59,13 @@ export default function TarifsPage() {
               </ul>
               <Link
                 href={`/register?plan=${plan.id}`}
-                className="mt-6 inline-flex w-full justify-center rounded-full bg-[#FF6F00] px-5 py-2.5 text-sm font-semibold text-white"
+                className={`mt-6 inline-flex w-full justify-center rounded-full px-5 py-2.5 text-sm font-semibold ${
+                  plan.ctaVariant === "primary"
+                    ? "bg-[#FF6F00] text-white"
+                    : "border-2 border-[#075E54]/30 text-[#075E54]"
+                }`}
               >
-                {plan.id === "free" ? "Commencer gratuitement" : "Choisir ce plan"}
+                {plan.cta}
               </Link>
             </article>
           ))}
@@ -100,10 +108,10 @@ export default function TarifsPage() {
             minutes.
           </p>
           <Link
-            href="/register"
+            href="/register?plan=pro"
             className="mt-5 inline-flex rounded-full bg-[#FF6F00] px-6 py-3 text-sm font-semibold text-white"
           >
-            Créer mon compte
+            Je m&apos;abonne au PRO
           </Link>
         </div>
       </main>

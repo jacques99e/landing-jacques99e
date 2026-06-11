@@ -16,11 +16,14 @@ export function DemoVideoSection() {
       <div className="mx-auto max-w-4xl text-center">
         <span className="inline-flex items-center gap-2 rounded-full bg-[#FF6F00]/10 px-4 py-1.5 text-sm font-medium text-[#FF6F00]">
           <Play className="h-4 w-4" />
-          Tutoriel vidéo
+          Tutoriel vidéo · {DEMO_VIDEO.durationLabel}
         </span>
         <h2 className="mt-4 text-2xl font-bold md:text-3xl">Comment utiliser Wazo Digital</h2>
         <p className="mx-auto mt-3 max-w-2xl text-sm text-[#1A1A1A]/70 md:text-base">
           {DEMO_VIDEO.subtitle}
+        </p>
+        <p className="mx-auto mt-2 max-w-lg text-xs font-medium text-[#075E54]">
+          👇 Regardez 2 minutes — vous comprendrez pourquoi les commerçants passent au PRO.
         </p>
       </div>
 
@@ -81,11 +84,15 @@ export function DemoVideoSection() {
       </div>
 
       <p className="mx-auto mt-6 max-w-xl text-center text-sm text-[#1A1A1A]/60">
-        Prêt à commencer ?{" "}
-        <Link href="/register" className="font-semibold text-[#075E54] underline">
-          Créez votre compte gratuit
+        Convaincu ?{" "}
+        <Link href="/register?plan=pro" className="font-bold text-[#FF6F00] underline">
+          Passer au PRO — 9,99 €/mois
         </Link>{" "}
-        — la même session que dans la vidéo.
+        ou{" "}
+        <Link href="/register" className="font-semibold text-[#075E54] underline">
+          commencer gratuitement
+        </Link>
+        .
       </p>
     </section>
   );

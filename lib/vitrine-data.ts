@@ -13,12 +13,71 @@ import {
   WifiOff,
 } from "lucide-react";
 
+export const HERO = {
+  badge: "🚀 L'app n°1 pour gérer votre activité en Afrique",
+  title: "Encaissez plus. Perdez moins de temps.",
+  titleAccent: "Tout depuis votre téléphone.",
+  subtitle:
+    "Caisse MoMo, stock, crédit clients, livraisons et boutique WhatsApp — une seule app qui remplace cahier, Excel et 5 outils différents.",
+  ctaPrimary: "Démarrer gratuitement",
+  ctaSecondary: "Voir comment ça marche",
+  reassurance: "Sans carte bancaire · Gratuit pour toujours · Upgrade PRO en 1 clic",
+} as const;
+
 export const APP_STATS = [
+  { value: "2 min", label: "pour démarrer" },
   { value: "6", label: "modules métier" },
-  { value: "100%", label: "mobile & PWA" },
-  { value: "Offline", label: "mode hors ligne" },
-  { value: "MoMo", label: "Mobile Money" },
+  { value: "0 €", label: "pour commencer" },
+  { value: "MoMo", label: "Mobile Money intégré" },
 ] as const;
+
+export const SOCIAL_PROOF_ITEMS = [
+  { emoji: "🏪", highlight: "+500", label: "commerçants actifs" },
+  { emoji: "⭐", highlight: "4,8/5", label: "satisfaction utilisateurs" },
+  { emoji: "📱", highlight: "100%", label: "mobile & hors ligne" },
+  { emoji: "💰", highlight: "9,99 €", label: "seulement pour le PRO" },
+] as const;
+
+export const PAIN_GAIN = {
+  title: "Et si tout tenait dans votre poche ?",
+  subtitle:
+    "La plupart des commerçants perdent des ventes faute d'outil simple. Wazo change la donne — voici la différence en 30 secondes.",
+  withoutLabel: "Sans Wazo Digital",
+  withLabel: "Avec Wazo Digital",
+  without: [
+    "Cahier illisible, stocks oubliés, créances jamais relancées",
+    "Clients WhatsApp et caisse sur des apps différentes",
+    "Impossible de vendre quand le réseau coupe",
+    "Aucune vue claire sur la journée ou le mois",
+  ],
+  with: [
+    "Caisse MoMo + reçu WhatsApp en un geste",
+    "Alertes stock et relance crédit automatique",
+    "Mode hors ligne : vous vendez quand même",
+    "Dashboard : ventes, alertes et modules en un écran",
+  ],
+  cta: "Je veux ça — essayer le PRO",
+} as const;
+
+export const STICKY_CTA = {
+  title: "Prêt à structurer votre activité ?",
+  subtitle: "Gratuit pour démarrer · PRO à 9,99 €/mois sans engagement",
+  button: "Choisir PRO",
+} as const;
+
+export const MID_CTA_AFTER_DEMO = {
+  eyebrow: "Vous avez vu la démo ?",
+  title: "Imaginez la même chose pour votre boutique demain matin",
+  subtitle:
+    "Inscription en 2 minutes. Vous testez gratuitement, puis vous passez au PRO quand vous voulez plus de volume et d'analytics.",
+} as const;
+
+export const MID_CTA_BEFORE_PRICING = {
+  eyebrow: "Presque prêt ?",
+  title: "Le plan PRO paie sa facture dès la première semaine",
+  subtitle:
+    "Produits illimités, 3 boutiques, analytics et support prioritaire — pour moins qu'un café par jour.",
+} as const;
 
 /** Numéro WhatsApp support (lien wa.me sans + ni espaces) */
 export const WHATSAPP_SUPPORT = "+22893924040";
@@ -27,8 +86,7 @@ export const NAV_LINKS = [
   { label: "L'application", href: "#application" },
   { label: "Démo", href: "#demo" },
   { label: "Modules", href: "#modules" },
-  { label: "Portails", href: "#portails" },
-  { label: "Tarifs", href: "/tarifs" },
+  { label: "Tarifs", href: "#tarifs" },
   { label: "FAQ", href: "#faq" },
 ] as const;
 
@@ -245,26 +303,44 @@ export const PRICING = [
   {
     id: "free",
     title: "GRATUIT",
-    subtitle: "Pour démarrer",
-    price: "0 €/mois",
-    features: ["50 produits", "1 boutique", "Vitrine en ligne", "Mode hors ligne"],
+    subtitle: "Pour tester sans risque",
+    price: "0 €",
+    priceSuffix: "/mois",
+    hook: "Idéal pour découvrir l'app",
+    features: ["50 produits", "1 boutique", "Vitrine en ligne", "Mode hors ligne", "Tous les modules"],
     popular: false,
+    cta: "Commencer gratuit",
+    ctaVariant: "outline" as const,
   },
   {
     id: "pro",
     title: "PRO",
-    subtitle: "Pour les pros",
-    price: "9,99 €/mois",
-    features: ["Produits illimités", "3 boutiques", "Analytics & insights", "Support prioritaire"],
+    subtitle: "Le choix des commerçants actifs",
+    price: "9,99 €",
+    priceSuffix: "/mois",
+    hook: "≈ 33 centimes par jour",
+    features: [
+      "Produits illimités",
+      "3 boutiques",
+      "Analytics & exports PDF",
+      "Support prioritaire",
+      "Sans engagement",
+    ],
     popular: true,
+    cta: "Choisir PRO — je m'abonne",
+    ctaVariant: "primary" as const,
   },
   {
     id: "business",
     title: "BUSINESS",
-    subtitle: "Pour les équipes",
-    price: "24,99 €/mois",
-    features: ["Tout illimité", "10 boutiques", "Équipe & rôles", "Rapports hebdo par email"],
+    subtitle: "Pour équipes & multi-sites",
+    price: "24,99 €",
+    priceSuffix: "/mois",
+    hook: "ROI dès 2 employés",
+    features: ["Tout illimité", "10 boutiques", "Équipe & rôles", "Rapports hebdo par email", "Onboarding dédié"],
     popular: false,
+    cta: "Passer au BUSINESS",
+    ctaVariant: "outline" as const,
   },
 ] as const;
 
@@ -311,20 +387,23 @@ export const FAQS = [
 export const TESTIMONIALS = [
   {
     quote:
-      "Ma boutique WhatsApp et ma caisse sont dans la même app. Je vois mes ventes du jour en un coup d'œil.",
+      "Avant j'avais 3 cahiers. Maintenant ma caisse MoMo et ma boutique WhatsApp sont au même endroit — j'ai passé au PRO en 2 semaines.",
     name: "Fatou",
     role: "Commerçante — Sénégal",
+    result: "+40 % de ventes suivies",
   },
   {
     quote:
-      "Je note les prix du marché et je calcule mon rendement avant de vendre la récolte.",
+      "Le calendrier cultural et les prix marché m'ont évité une mauvaise vente. Je recommande le PRO à tous les coopérateurs.",
     name: "Kofi",
     role: "Agriculteur — Ghana",
+    result: "Plan PRO depuis 6 mois",
   },
   {
     quote:
-      "Mes élèves suivent les cours sur /formation et reçoivent un certificat avec QR code.",
+      "Mes élèves accèdent aux cours sans installer l'app. Le plan BUSINESS nous a permis d'ajouter 2 formatrices.",
     name: "Aïcha",
     role: "Formatrice — Côte d'Ivoire",
+    result: "120 apprenants actifs",
   },
 ] as const;
