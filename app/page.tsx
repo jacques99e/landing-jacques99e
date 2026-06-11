@@ -2,6 +2,7 @@ import { SiteHeader } from "@/components/vitrine/SiteHeader";
 import { SiteFooter } from "@/components/vitrine/SiteFooter";
 import { HeroSection } from "@/components/vitrine/HeroSection";
 import { ModulesSection } from "@/components/vitrine/ModulesSection";
+import { PremiumSection } from "@/components/vitrine/PremiumSection";
 import { PublicPortalsSection } from "@/components/vitrine/PublicPortalsSection";
 import { DemoVideoSection } from "@/components/vitrine/DemoVideoSection";
 import {
@@ -24,6 +25,7 @@ export default function HomePage() {
         <FeaturesSection />
         <TrustSection />
         <ModulesSection />
+        <PremiumSection />
         <PublicPortalsSection />
         <HowItWorksSection />
         <DemoVideoSection />

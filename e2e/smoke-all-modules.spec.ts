@@ -12,6 +12,24 @@ const MODULE_PAGES: Record<string, string[]> = {
   blockchain: ["/blockchain", "/blockchain/assets/new", "/blockchain/contracts"],
 };
 
+const PREMIUM_ROUTES = [
+  "/nexus",
+  "/sales/voice",
+  "/sales/tontine",
+  "/sales/credit",
+  "/sales/liens",
+  "/agriculture/radar",
+  "/agriculture/calendrier",
+  "/health/sentinel",
+  "/health/pharmacie",
+  "/logistics/fleet",
+  "/logistics/tournee",
+  "/education/badges",
+  "/education/presence",
+  "/blockchain/passport",
+  "/blockchain/qr",
+];
+
 const APP_CORE = ["/dashboard", "/settings", "/settings/notifications", "/settings/team", "/help", "/analytics"];
 const PUBLIC_APP = ["/suivi", "/formation", "/trace", "/login"];
 const LANDING_PAGES = ["/", "/tarifs", "/register", "/login"];
@@ -36,6 +54,13 @@ test.describe("Smoke E2E — sans authentification", () => {
     test(`App ${path} (protégé) répond ou redirige`, async ({ request }) => {
       const res = await request.get(`${APP_URL}${path}`, { maxRedirects: 0 });
       expect([200, 307, 308, 302, 301]).toContain(res.status());
+    });
+  }
+
+  for (const route of PREMIUM_ROUTES) {
+    test(`Premium — ${route} accessible (HTTP)`, async ({ request }) => {
+      const res = await request.get(`${APP_URL}${route}`, { maxRedirects: 0 });
+      expect(res.status(), route).toBeLessThan(500);
     });
   }
 
