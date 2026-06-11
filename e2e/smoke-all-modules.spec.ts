@@ -83,6 +83,11 @@ test.describe("Smoke E2E — sans authentification", () => {
     expect([200, 401, 403]).toContain(res.status());
   });
 
+  test("API MoMo analytics répond (protégée)", async ({ request }) => {
+    const res = await request.get(`${APP_URL}/api/payments/momo-link/analytics`, { maxRedirects: 0 });
+    expect([200, 401, 403]).toContain(res.status());
+  });
+
   test("Landing section Premium MoMo visible", async ({ page }) => {
     await page.goto(`${LANDING_URL}/#premium`);
     await expect(page.getByText(/MoMo PayDunya LIVE/i)).toBeVisible();
