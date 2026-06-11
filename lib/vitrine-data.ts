@@ -32,6 +32,12 @@ export const WAZO_PREMIUM_HIGHLIGHTS = [
   "Liens MoMo PayDunya LIVE — paiement 1 clic + notif",
 ] as const;
 
+export const MOMO_FLOW_STEPS = [
+  { step: "1", title: "Créer le lien", detail: "Depuis la caisse, la voix ou /sales/liens" },
+  { step: "2", title: "Client paie", detail: "Orange, MTN, Moov — page publique sécurisée" },
+  { step: "3", title: "Auto-sync", detail: "Vente en caisse + notif push & e-mail marchand" },
+] as const;
+
 /** Numéro WhatsApp support (lien wa.me sans + ni espaces) */
 export const WHATSAPP_SUPPORT = "+22893924040";
 

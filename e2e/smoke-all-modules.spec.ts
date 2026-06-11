@@ -73,6 +73,22 @@ test.describe("Smoke E2E — sans authentification", () => {
     }
   }
 
+  test("API MoMo history répond (protégée)", async ({ request }) => {
+    const res = await request.get(`${APP_URL}/api/payments/momo-link/history`, { maxRedirects: 0 });
+    expect([200, 401, 403]).toContain(res.status());
+  });
+
+  test("API MoMo summary répond (protégée)", async ({ request }) => {
+    const res = await request.get(`${APP_URL}/api/payments/momo-link/summary`, { maxRedirects: 0 });
+    expect([200, 401, 403]).toContain(res.status());
+  });
+
+  test("Landing section Premium MoMo visible", async ({ page }) => {
+    await page.goto(`${LANDING_URL}/#premium`);
+    await expect(page.getByText(/MoMo PayDunya LIVE/i)).toBeVisible();
+    await expect(page.getByText(/Étape 1/i)).toBeVisible();
+  });
+
   test("Inscription par module — liens landing", async ({ page }) => {
     for (const mod of Object.keys(MODULE_PAGES)) {
       await page.goto(`${LANDING_URL}/register?module=${mod}`);
