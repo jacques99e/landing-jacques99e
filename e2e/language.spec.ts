@@ -29,6 +29,8 @@ test.describe("Changement de langue — app Wazo Digital", () => {
     await expect(page.getByText("Language", { exact: true })).toBeVisible();
     await expect(page.getByRole("link", { name: /My modules/i })).toBeVisible();
     await expect(page.getByRole("button", { name: "Log out" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Home" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Products" })).toBeVisible();
     await expect
       .poll(async () => page.evaluate(() => localStorage.getItem("wazo_language")))
       .toBe("en");
@@ -40,9 +42,13 @@ test.describe("Changement de langue — app Wazo Digital", () => {
       page.getByText("Enable sectors suited to your business")
     ).toBeVisible();
 
+    await page.goto(`${APP_URL}/dashboard`);
+    await expect(page.getByText("Dashboard", { exact: true }).first()).toBeVisible();
+
     await page.goto(`${APP_URL}/profile`);
     await selectLanguage(page, "sw");
     await expect(page.getByText("Lugha", { exact: true })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Nyumbani" })).toBeVisible();
     await expect(page.getByRole("link", { name: /Moduli zangu/i })).toBeVisible();
     await expect(page.getByRole("button", { name: "Toka" })).toBeVisible();
 
