@@ -31,7 +31,7 @@ const PREMIUM_ROUTES = [
 ];
 
 const APP_CORE = ["/dashboard", "/settings", "/settings/notifications", "/settings/team", "/help", "/analytics"];
-const PUBLIC_APP = ["/suivi", "/formation", "/trace", "/login"];
+const PUBLIC_APP = ["/suivi", "/formation", "/trace", "/login", "/paiement/WZTEST"];
 const LANDING_PAGES = ["/", "/tarifs", "/register", "/login"];
 
 test.describe("Smoke E2E — sans authentification", () => {
