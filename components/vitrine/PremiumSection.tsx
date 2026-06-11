@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Crown, Sparkles } from "lucide-react";
+import { MomoFlowDemo } from "@/components/vitrine/MomoFlowDemo";
 import { MOMO_FLOW_STEPS, WAZO_PREMIUM_HIGHLIGHTS } from "@/lib/vitrine-data";
 
 export function PremiumSection() {
@@ -60,15 +61,18 @@ export function PremiumSection() {
         <p className="mt-1 text-sm text-orange-900/80">
           Encaissez à distance comme les grandes plateformes — adapté aux commerçants africains.
         </p>
-        <ol className="mt-4 grid gap-3 sm:grid-cols-3">
-          {MOMO_FLOW_STEPS.map((s) => (
-            <li key={s.step} className="rounded-2xl bg-white p-4 text-sm shadow-sm">
-              <span className="text-xs font-bold text-orange-600">Étape {s.step}</span>
-              <p className="mt-1 font-semibold text-[#1A1A1A]">{s.title}</p>
-              <p className="mt-1 text-xs text-gray-600">{s.detail}</p>
-            </li>
-          ))}
-        </ol>
+        <div className="mt-4 grid gap-6 lg:grid-cols-2 lg:items-center">
+          <ol className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+            {MOMO_FLOW_STEPS.map((s) => (
+              <li key={s.step} className="rounded-2xl bg-white p-4 text-sm shadow-sm">
+                <span className="text-xs font-bold text-orange-600">Étape {s.step}</span>
+                <p className="mt-1 font-semibold text-[#1A1A1A]">{s.title}</p>
+                <p className="mt-1 text-xs text-gray-600">{s.detail}</p>
+              </li>
+            ))}
+          </ol>
+          <MomoFlowDemo />
+        </div>
         <Link
           href="/register"
           className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#075E54] underline"
