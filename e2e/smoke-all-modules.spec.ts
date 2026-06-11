@@ -90,8 +90,8 @@ test.describe("Smoke E2E — sans authentification", () => {
 
   test("Landing section Premium MoMo visible", async ({ page }) => {
     await page.goto(`${LANDING_URL}/#premium`);
-    await expect(page.getByText(/MoMo PayDunya LIVE/i)).toBeVisible();
-    await expect(page.getByText(/Étape 1/i)).toBeVisible();
+    await expect(page.getByRole("heading", { name: /MoMo PayDunya LIVE/i })).toBeVisible();
+    await expect(page.getByText(/Étape 1/i).first()).toBeVisible();
   });
 
   test("Inscription par module — liens landing", async ({ page }) => {

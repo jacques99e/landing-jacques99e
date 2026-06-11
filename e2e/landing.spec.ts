@@ -31,9 +31,9 @@ test.describe("Landing — pages publiques", () => {
     await page.goto("/");
     await page.getByText("Démo interactive").scrollIntoViewIfNeeded();
     await expect(page.getByText("Boutique Wazo Demo")).toBeVisible();
-    await expect(page.getByText("Lien créé")).toBeVisible();
-    await expect(page.getByText("Client paie")).toBeVisible();
-    await expect(page.getByText("Vente en caisse")).toBeVisible();
+    await expect(page.getByText("Lien créé").first()).toBeVisible();
+    await expect(page.getByText("Client paie").first()).toBeVisible();
+    await expect(page.getByText("Vente en caisse").first()).toBeVisible();
     await expect(page.getByText(/Payé ✓ — 100 000 FCFA/)).toBeVisible();
   });
 
