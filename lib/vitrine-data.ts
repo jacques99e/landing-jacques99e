@@ -35,25 +35,27 @@ export const NAV_LINKS = [
 export const DEMO_VIDEO = {
   title: "Wazo Digital — comment utiliser l'app",
   subtitle:
-    "Démo guidée en français : inscription, caisse Mobile Money, crédit clients, santé, agriculture, livraisons, formation, traçabilité et équipe.",
+    "Tutoriel détaillé en français, voix claire : chaque écran est expliqué pas à pas — caisse MoMo, crédit, pharmacie, calendrier cultural, tournées, présence et QR traçabilité.",
   webmSrc: "/videos/wazo-demo.webm",
   mp4Src: "/videos/wazo-demo.mp4",
   poster: "/videos/wazo-demo-poster.jpg",
-  durationLabel: "~2 min 30",
+  durationLabel: "~7 min",
 } as const;
 
 /** Chapitres affichés sous la vidéo (alignés sur le parcours enregistré). */
 export const DEMO_CHAPTERS = [
-  { emoji: "🌐", label: "Vitrine & inscription" },
-  { emoji: "📊", label: "Tableau de bord" },
-  { emoji: "🏪", label: "Commerce & caisse" },
-  { emoji: "💳", label: "Crédit clients" },
+  { emoji: "🌐", label: "Inscription" },
+  { emoji: "📊", label: "Dashboard" },
+  { emoji: "🏪", label: "Produits & caisse" },
+  { emoji: "💳", label: "Crédit client" },
   { emoji: "🩺", label: "Santé & RDV" },
+  { emoji: "💊", label: "Pharmacie" },
   { emoji: "🌾", label: "Agriculture" },
-  { emoji: "🚚", label: "Logistique" },
+  { emoji: "📅", label: "Calendrier cultural" },
+  { emoji: "🚚", label: "Livraisons" },
   { emoji: "🎓", label: "Formation" },
-  { emoji: "🔗", label: "Traçabilité" },
-  { emoji: "👥", label: "Équipe & alertes" },
+  { emoji: "🔗", label: "QR traçabilité" },
+  { emoji: "👥", label: "Équipe" },
 ] as const;
 
 export interface AppModule {

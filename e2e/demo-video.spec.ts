@@ -23,30 +23,69 @@ async function dismissGuidedOnboarding(page: Page) {
   const skip = page.getByRole("button", { name: /Passer pour l'instant/i });
   if (await skip.isVisible({ timeout: 2000 }).catch(() => false)) {
     await skip.click();
+    await page.waitForTimeout(400);
   }
 }
 
+async function waitForPageContent(page: Page) {
+  await page.waitForLoadState("domcontentloaded");
+  await page
+    .locator("main, [role='main'], h1, h2")
+    .first()
+    .waitFor({ state: "visible", timeout: 20_000 })
+    .catch(() => {});
+  await page.waitForTimeout(DEMO_RECORDING.settleMs);
+}
+
+async function slowRevealPage(page: Page) {
+  await page.evaluate(
+    async ({ stepMs }) => {
+      const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
+      const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      if (max < 160) return;
+      const steps = Math.min(14, Math.ceil(max / 140));
+      for (let i = 1; i <= steps; i++) {
+        window.scrollTo({ top: (max * i) / steps, behavior: "instant" });
+        await delay(stepMs);
+      }
+      await delay(600);
+      window.scrollTo({ top: 0, behavior: "instant" });
+      await delay(400);
+    },
+    { stepMs: DEMO_RECORDING.scrollStepMs }
+  );
+}
+
 test("Enregistrement démo E2E — tous les modules", async ({ page }) => {
-  test.setTimeout(600_000);
+  test.setTimeout(900_000);
 
   const audioMeta = loadAudioMeta();
   const segments = [];
 
   for (let index = 0; index < DEMO_TOUR.length; index++) {
     const step = DEMO_TOUR[index];
-    const audio = audioMeta.segments.find((s) => s.id === step.id);
+    const audio = audioMeta.segments.find((s: { id: string }) => s.id === step.id);
     const speechMs = audio?.durationMs ?? step.pauseMs;
-    const holdMs = speechMs + DEMO_RECORDING.visualBufferMs;
+    const holdMs = Math.max(speechMs + DEMO_RECORDING.visualBufferMs, step.pauseMs);
 
     const segmentStart = Date.now();
-    await page.goto(step.url);
-    await page.waitForLoadState("domcontentloaded");
-    const afterLoad = Date.now();
+    await page.goto(step.url, { waitUntil: "domcontentloaded" });
+    await waitForPageContent(page);
+    const afterContent = Date.now();
 
+    let dismissMs = 0;
     if (step.url.includes("wazo-digital")) {
+      const beforeDismiss = Date.now();
       await dismissGuidedOnboarding(page);
+      dismissMs = Date.now() - beforeDismiss;
     }
-    const afterDismiss = Date.now();
+
+    let scrollMs = 0;
+    if (step.scroll) {
+      const beforeScroll = Date.now();
+      await slowRevealPage(page);
+      scrollMs = Date.now() - beforeScroll;
+    }
 
     await page.waitForTimeout(holdMs);
     const totalMs = Date.now() - segmentStart;
@@ -54,11 +93,12 @@ test("Enregistrement démo E2E — tous les modules", async ({ page }) => {
     segments.push({
       id: step.id,
       index,
-      navigationMs: afterLoad - segmentStart,
-      dismissMs: afterDismiss - afterLoad,
+      navigationMs: afterContent - segmentStart,
+      dismissMs: dismissMs + scrollMs,
       speechMs,
       holdMs,
       totalMs,
+      scrollMs,
     });
   }
 
@@ -68,6 +108,7 @@ test("Enregistrement démo E2E — tous les modules", async ({ page }) => {
       {
         recordedAt: new Date().toISOString(),
         visualBufferMs: DEMO_RECORDING.visualBufferMs,
+        viewport: DEMO_RECORDING.viewport,
         segments,
       },
       null,

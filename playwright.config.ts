@@ -1,6 +1,10 @@
 import { defineConfig, devices } from "@playwright/test";
 import path from "path";
 
+/** Aligné sur DEMO_RECORDING dans e2e/demo-tour.config.mjs */
+const DEMO_VIEWPORT = { width: 1920, height: 1080 };
+const DEMO_SLOW_MO_MS = 300;
+
 const LANDING_URL = process.env.E2E_LANDING_URL || "https://landing-jacques99e.vercel.app";
 const APP_URL = process.env.E2E_APP_URL || "https://wazo-digital.vercel.app";
 
@@ -55,8 +59,8 @@ export default defineConfig({
         baseURL: LANDING_URL,
         storageState: "e2e/.auth/user.json",
         video: "on",
-        viewport: { width: 1280, height: 720 },
-        launchOptions: { slowMo: 220 },
+        viewport: DEMO_VIEWPORT,
+        launchOptions: { slowMo: DEMO_SLOW_MO_MS },
       },
     },
   ],

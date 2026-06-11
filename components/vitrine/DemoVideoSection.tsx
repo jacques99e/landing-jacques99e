@@ -33,7 +33,7 @@ export function DemoVideoSection() {
         <div className="relative aspect-video w-full bg-gradient-to-br from-[#075E54]/10 to-[#FF6F00]/5">
           {!videoError ? (
             <video
-              className="h-full w-full object-cover"
+              className="h-full w-full bg-[#0f1412] object-contain"
               controls
               playsInline
               preload="metadata"
