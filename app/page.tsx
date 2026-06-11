@@ -21,12 +21,12 @@ export default function HomePage() {
 
       <main className="mx-auto max-w-6xl px-4 pb-20 pt-32 md:px-6">
         <HeroSection />
+        <DemoVideoSection />
         <FeaturesSection />
         <TrustSection />
         <ModulesSection />
         <PublicPortalsSection />
         <HowItWorksSection />
-        <DemoVideoSection />
         <TestimonialsSection />
         <PricingSection />
         <FAQSection />

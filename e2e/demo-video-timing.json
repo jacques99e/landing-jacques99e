@@ -1,132 +1,132 @@
 {
-  "recordedAt": "2026-06-07T19:58:12.160Z",
+  "recordedAt": "2026-06-11T16:15:52.038Z",
   "visualBufferMs": 450,
   "segments": [
     {
       "id": "landing",
       "index": 0,
-      "navigationMs": 1612,
+      "navigationMs": 6825,
       "dismissMs": 0,
       "speechMs": 7320,
       "holdMs": 7770,
-      "totalMs": 9391
+      "totalMs": 14610
     },
     {
       "id": "dashboard",
       "index": 1,
-      "navigationMs": 2364,
-      "dismissMs": 82,
+      "navigationMs": 2019,
+      "dismissMs": 2176,
       "speechMs": 6530,
       "holdMs": 6980,
-      "totalMs": 9437
+      "totalMs": 11183
     },
     {
       "id": "commerce-products",
       "index": 2,
-      "navigationMs": 660,
-      "dismissMs": 74,
+      "navigationMs": 11127,
+      "dismissMs": 160,
       "speechMs": 5500,
       "holdMs": 5950,
-      "totalMs": 6690
+      "totalMs": 17246
     },
     {
       "id": "commerce-sales",
       "index": 3,
-      "navigationMs": 552,
-      "dismissMs": 41,
+      "navigationMs": 4773,
+      "dismissMs": 39,
       "speechMs": 4940,
       "holdMs": 5390,
-      "totalMs": 5988
+      "totalMs": 10209
     },
     {
-      "id": "commerce-clients",
+      "id": "commerce-credit",
       "index": 4,
-      "navigationMs": 521,
-      "dismissMs": 70,
-      "speechMs": 3840,
-      "holdMs": 4290,
-      "totalMs": 4901
+      "navigationMs": 3736,
+      "dismissMs": 53,
+      "speechMs": 5280,
+      "holdMs": 5730,
+      "totalMs": 9523
     },
     {
       "id": "health",
       "index": 5,
-      "navigationMs": 644,
-      "dismissMs": 59,
+      "navigationMs": 7322,
+      "dismissMs": 39,
       "speechMs": 4420,
       "holdMs": 4870,
-      "totalMs": 5580
+      "totalMs": 12249
     },
     {
       "id": "health-appointments",
       "index": 6,
-      "navigationMs": 580,
-      "dismissMs": 85,
+      "navigationMs": 17930,
+      "dismissMs": 132,
       "speechMs": 3910,
       "holdMs": 4360,
-      "totalMs": 5042
+      "totalMs": 22432
     },
     {
       "id": "agriculture",
       "index": 7,
-      "navigationMs": 633,
-      "dismissMs": 82,
-      "speechMs": 5140,
-      "holdMs": 5590,
-      "totalMs": 6316
+      "navigationMs": 1924,
+      "dismissMs": 222,
+      "speechMs": 5740,
+      "holdMs": 6190,
+      "totalMs": 8343
     },
     {
       "id": "logistics",
       "index": 8,
-      "navigationMs": 609,
-      "dismissMs": 54,
+      "navigationMs": 1673,
+      "dismissMs": 43,
       "speechMs": 5110,
       "holdMs": 5560,
-      "totalMs": 6237
+      "totalMs": 7283
     },
     {
       "id": "education",
       "index": 9,
-      "navigationMs": 689,
-      "dismissMs": 46,
+      "navigationMs": 1777,
+      "dismissMs": 39,
       "speechMs": 4270,
       "holdMs": 4720,
-      "totalMs": 5471
+      "totalMs": 6541
     },
     {
       "id": "blockchain",
       "index": 10,
-      "navigationMs": 645,
-      "dismissMs": 38,
+      "navigationMs": 1177,
+      "dismissMs": 105,
       "speechMs": 5040,
       "holdMs": 5490,
-      "totalMs": 6183
+      "totalMs": 6786
     },
     {
       "id": "notifications",
       "index": 11,
-      "navigationMs": 654,
-      "dismissMs": 48,
+      "navigationMs": 1008,
+      "dismissMs": 54,
       "speechMs": 4510,
       "holdMs": 4960,
-      "totalMs": 5667
+      "totalMs": 6027
     },
     {
       "id": "team",
       "index": 12,
-      "navigationMs": 645,
-      "dismissMs": 49,
+      "navigationMs": 1134,
+      "dismissMs": 113,
       "speechMs": 5400,
       "holdMs": 5850,
-      "totalMs": 6551
+      "totalMs": 7117
     },
     {
       "id": "outro",
       "index": 13,
-      "navigationMs": 623,
-      "dismissMs": 63,
+      "navigationMs": 504,
+      "dismissMs": 54,
       "speechMs": 7850,
       "holdMs": 8300,
-      "totalMs": 9006
+      "totalMs": 8867
     }
   ]
 }

@@ -33,14 +33,28 @@ export const NAV_LINKS = [
 ] as const;
 
 export const DEMO_VIDEO = {
-  title: "Wazo Digital — tour complet (~1 min)",
+  title: "Wazo Digital — comment utiliser l'app",
   subtitle:
-    "Parcours réel avec voix Microsoft Edge (naturelle) : commerce, santé, agriculture, logistique, formation, traçabilité, notifications et équipe.",
+    "Démo guidée en français : inscription, caisse Mobile Money, crédit clients, santé, agriculture, livraisons, formation, traçabilité et équipe.",
   webmSrc: "/videos/wazo-demo.webm",
   mp4Src: "/videos/wazo-demo.mp4",
   poster: "/videos/wazo-demo-poster.jpg",
-  durationLabel: "~1 min",
+  durationLabel: "~2 min 30",
 } as const;
+
+/** Chapitres affichés sous la vidéo (alignés sur le parcours enregistré). */
+export const DEMO_CHAPTERS = [
+  { emoji: "🌐", label: "Vitrine & inscription" },
+  { emoji: "📊", label: "Tableau de bord" },
+  { emoji: "🏪", label: "Commerce & caisse" },
+  { emoji: "💳", label: "Crédit clients" },
+  { emoji: "🩺", label: "Santé & RDV" },
+  { emoji: "🌾", label: "Agriculture" },
+  { emoji: "🚚", label: "Logistique" },
+  { emoji: "🎓", label: "Formation" },
+  { emoji: "🔗", label: "Traçabilité" },
+  { emoji: "👥", label: "Équipe & alertes" },
+] as const;
 
 export interface AppModule {
   id: string;

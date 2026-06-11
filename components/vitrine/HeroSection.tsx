@@ -5,11 +5,8 @@ import { motion } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import { AppPhoneMockup } from "@/components/vitrine/AppPhoneMockup";
 import { APP_STATS } from "@/lib/vitrine-data";
-import { resolveAppUrl } from "@/lib/public-urls";
 
 export function HeroSection() {
-  const appUrl = resolveAppUrl();
-
   return (
     <section id="application" className="scroll-mt-32 grid items-center gap-12 py-12 md:grid-cols-2 md:py-20">
       <motion.div
@@ -37,11 +34,11 @@ export function HeroSection() {
             <ArrowRight className="h-4 w-4" />
           </Link>
           <a
-            href={`${appUrl}/login`}
+            href="#demo"
             className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#075E54] bg-white px-6 py-3 text-sm font-semibold text-[#075E54] transition hover:bg-[#075E54]/5"
           >
             <Play className="h-4 w-4" />
-            Ouvrir l&apos;application
+            Voir la démo vidéo
           </a>
         </div>
         <div className="grid grid-cols-2 gap-3 pt-2 sm:grid-cols-4">

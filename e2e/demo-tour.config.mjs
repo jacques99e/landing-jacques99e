@@ -32,10 +32,11 @@ export const DEMO_TOUR = [
     narration: "Enregistrez vos ventes en caisse, espèces ou Mobile Money, même hors ligne.",
   },
   {
-    id: "commerce-clients",
-    url: `${APP_URL}/clients`,
-    pauseMs: 2800,
-    narration: "Suivez vos clients et planifiez vos relances commerciales.",
+    id: "commerce-credit",
+    url: `${APP_URL}/sales/credit`,
+    pauseMs: 3000,
+    narration:
+      "Le carnet crédit client : enregistrez les dettes et relancez par WhatsApp en un clic.",
   },
   {
     id: "health",
@@ -53,7 +54,8 @@ export const DEMO_TOUR = [
     id: "agriculture",
     url: `${APP_URL}/agriculture`,
     pauseMs: 3000,
-    narration: "Module Agriculture : parcelles, prix du marché et calcul de rendement.",
+    narration:
+      "Module Agriculture : calendrier cultural, prix marchés et calcul de rendement.",
   },
   {
     id: "logistics",
