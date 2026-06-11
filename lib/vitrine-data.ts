@@ -29,7 +29,7 @@ export const WAZO_PREMIUM_HIGHLIGHTS = [
   "Fleet Pulse — flotte & carburant FCFA/km",
   "Micro-Badges vérifiables par QR",
   "Passeport Produit pour export international",
-  "Liens MoMo WhatsApp — encaisser à distance",
+  "Liens MoMo PayDunya LIVE — paiement 1 clic + notif",
 ] as const;
 
 /** Numéro WhatsApp support (lien wa.me sans + ni espaces) */
