@@ -1,9 +1,10 @@
 import fs from "fs";
 import path from "path";
 import { chromium } from "@playwright/test";
+import { resolveAppUrl, resolveLandingUrl } from "./urls.mjs";
 
-const LANDING_URL = process.env.E2E_LANDING_URL || "https://landing-jacques99e.vercel.app";
-const APP_URL = process.env.E2E_APP_URL || "https://wazo-digital.vercel.app";
+const LANDING_URL = resolveLandingUrl();
+const APP_URL = resolveAppUrl();
 const PASSWORD = process.env.E2E_TEST_PASSWORD || "WazoE2E2026!Modules";
 const AUTH_DIR = path.join(process.cwd(), "e2e", ".auth");
 const AUTH_FILE = path.join(AUTH_DIR, "user.json");

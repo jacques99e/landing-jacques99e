@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
+import { resolveAppUrl, resolveLandingUrl } from "./urls.mjs";
 
-const APP_URL = process.env.E2E_APP_URL || "https://wazo-digital.vercel.app";
-const LANDING_URL = process.env.E2E_LANDING_URL || "https://landing-jacques99e.vercel.app";
+const APP_URL = resolveAppUrl();
+const LANDING_URL = resolveLandingUrl();
 
 const MODULE_PAGES: Record<string, string[]> = {
   commerce: ["/products", "/sales", "/clients"],

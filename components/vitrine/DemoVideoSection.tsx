@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Play, ArrowRight, Sparkles, Check } from "lucide-react";
+import { ArrowRight, Sparkles, Check } from "lucide-react";
 import { DEMO_CHAPTERS, DEMO_VIDEO } from "@/lib/vitrine-data";
 
 const DEMO_HIGHLIGHTS = [

@@ -1,12 +1,13 @@
 import { defineConfig, devices } from "@playwright/test";
 import path from "path";
+import { resolveAppUrl, resolveLandingUrl } from "./e2e/urls.mjs";
 
 /** Aligné sur DEMO_RECORDING dans e2e/demo-tour.config.mjs */
 const DEMO_VIEWPORT = { width: 1920, height: 1080 };
 const DEMO_SLOW_MO_MS = 300;
 
-const LANDING_URL = process.env.E2E_LANDING_URL || "https://landing-jacques99e.vercel.app";
-const APP_URL = process.env.E2E_APP_URL || "https://wazo-digital.vercel.app";
+const LANDING_URL = resolveLandingUrl();
+const APP_URL = resolveAppUrl();
 
 export default defineConfig({
   testDir: "./e2e",
