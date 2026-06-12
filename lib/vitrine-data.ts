@@ -91,30 +91,27 @@ export const NAV_LINKS = [
 ] as const;
 
 export const DEMO_VIDEO = {
-  title: "Wazo Digital — comment utiliser l'app",
+  title: "Wazo Digital — tutoriel + pourquoi passer au PRO",
   subtitle:
-    "Tutoriel détaillé en français, voix claire : chaque écran est expliqué pas à pas — caisse MoMo, crédit, pharmacie, calendrier cultural, tournées, présence et QR traçabilité.",
+    "Regardez l'app en action : caisse MoMo, crédit client, modules métier — puis la page abonnement PRO à 9,99 €/mois.",
   webmSrc: "/videos/wazo-demo.webm",
   mp4Src: "/videos/wazo-demo.mp4",
   poster: "/videos/wazo-demo-poster.jpg",
-  durationLabel: "~6 min 20",
+  durationLabel: "~3 min 30",
 } as const;
 
 /** Chapitres affichés sous la vidéo (alignés sur le parcours enregistré). */
 export const DEMO_CHAPTERS = [
-  { emoji: "🌐", label: "Inscription" },
+  { emoji: "⚡", label: "Accroche" },
   { emoji: "📊", label: "Dashboard" },
-  { emoji: "🏪", label: "Produits & caisse" },
-  { emoji: "💳", label: "Crédit client" },
+  { emoji: "🏪", label: "Produits & caisse MoMo" },
+  { emoji: "💳", label: "Crédit WhatsApp" },
+  { emoji: "⭐", label: "Abonnement PRO" },
   { emoji: "🩺", label: "Santé & RDV" },
-  { emoji: "💊", label: "Pharmacie" },
   { emoji: "🌾", label: "Agriculture" },
-  { emoji: "📅", label: "Calendrier cultural" },
   { emoji: "🚚", label: "Livraisons" },
-  { emoji: "🎓", label: "Formation" },
   { emoji: "🔗", label: "QR traçabilité" },
-  { emoji: "🔔", label: "Notifications" },
-  { emoji: "👥", label: "Équipe" },
+  { emoji: "🚀", label: "Passer au PRO" },
 ] as const;
 
 export interface AppModule {

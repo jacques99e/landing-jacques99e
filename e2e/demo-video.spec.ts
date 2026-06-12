@@ -71,6 +71,12 @@ test("Enregistrement démo E2E — tous les modules", async ({ page }) => {
     const segmentStart = Date.now();
     await page.goto(step.url, { waitUntil: "domcontentloaded" });
     await waitForPageContent(page);
+    if (step.id === "landing-tarifs") {
+      await page.evaluate(() => {
+        document.getElementById("tarifs")?.scrollIntoView({ behavior: "instant", block: "start" });
+      });
+      await page.waitForTimeout(600);
+    }
     const afterContent = Date.now();
 
     let dismissMs = 0;
