@@ -181,8 +181,8 @@ export function PricingSection() {
           Tarifs simples, adaptés à toutes les bourses
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-sm text-[#1A1A1A]/65">
-          Commencez gratuit. Passez au PRO quand votre activité décolle — sans engagement, annulable
-          à tout moment.
+          Commencez gratuit. PRO pour décoller, BUSINESS pour équipes et multi-boutiques — sans
+          engagement.
         </p>
         <Link href="/tarifs" className="mt-3 inline-block text-sm font-medium text-[#075E54] hover:underline">
           Voir la comparaison détaillée →
@@ -199,7 +199,9 @@ export function PricingSection() {
             className={`relative flex flex-col rounded-2xl border bg-white p-6 shadow-sm ${
               plan.popular
                 ? "z-10 scale-[1.02] border-[#075E54] shadow-xl shadow-[#075E54]/15 ring-2 ring-[#075E54]/20 md:-mt-2 md:mb-2"
-                : "border-[#075E54]/10"
+                : plan.ctaVariant === "teams"
+                  ? "border-[#075E54]/40 shadow-md ring-2 ring-[#075E54]/10"
+                  : "border-[#075E54]/10"
             }`}
           >
             {plan.popular && (
@@ -207,6 +209,11 @@ export function PricingSection() {
                 ⭐ Recommandé — le plus choisi
               </span>
             )}
+            {"badge" in plan && plan.badge && !plan.popular ? (
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#075E54] px-4 py-1 text-xs font-bold text-white shadow-md">
+                {plan.badge}
+              </span>
+            ) : null}
             <p className="text-sm font-semibold text-[#075E54]">{plan.title}</p>
             <p className="mt-1 font-medium">{plan.subtitle}</p>
             <div className="mt-3 flex items-baseline gap-1">
@@ -227,7 +234,9 @@ export function PricingSection() {
               className={`mt-6 inline-flex w-full justify-center rounded-full px-5 py-3 text-sm font-bold transition ${
                 plan.ctaVariant === "primary"
                   ? "cta-pulse bg-[#FF6F00] text-white shadow-lg shadow-[#FF6F00]/25 hover:brightness-110"
-                  : "border-2 border-[#075E54]/30 text-[#075E54] hover:bg-[#075E54]/5"
+                  : plan.ctaVariant === "teams"
+                    ? "bg-[#075E54] text-white shadow-lg shadow-[#075E54]/20 hover:brightness-110"
+                    : "border-2 border-[#075E54]/30 text-[#075E54] hover:bg-[#075E54]/5"
               }`}
             >
               {plan.cta}

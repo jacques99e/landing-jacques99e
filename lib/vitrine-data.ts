@@ -336,8 +336,9 @@ export const PRICING = [
     hook: "ROI dès 2 employés",
     features: ["Tout illimité", "10 boutiques", "Équipe & rôles", "Rapports hebdo par email", "Onboarding dédié"],
     popular: false,
+    badge: "Équipes & multi-sites",
     cta: "Passer au BUSINESS",
-    ctaVariant: "outline" as const,
+    ctaVariant: "teams" as const,
   },
 ] as const;
 

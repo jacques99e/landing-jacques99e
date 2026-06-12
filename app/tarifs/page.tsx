@@ -34,12 +34,21 @@ export default function TarifsPage() {
             <article
               key={plan.id}
               className={`relative rounded-2xl border bg-white p-6 shadow-sm ${
-                plan.popular ? "border-[#075E54] shadow-lg shadow-[#075E54]/10" : "border-[#075E54]/10"
+                plan.popular
+                  ? "border-[#075E54] shadow-lg shadow-[#075E54]/10"
+                  : plan.ctaVariant === "teams"
+                    ? "border-[#075E54]/40 shadow-md ring-2 ring-[#075E54]/10"
+                    : "border-[#075E54]/10"
               }`}
             >
               {plan.popular ? (
                 <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#FF6F00] px-3 py-1 text-xs font-bold text-white">
                   ⭐ Recommandé
+                </span>
+              ) : null}
+              {"badge" in plan && plan.badge && !plan.popular ? (
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#075E54] px-3 py-1 text-xs font-bold text-white">
+                  {plan.badge}
                 </span>
               ) : null}
               <p className="text-sm font-semibold text-[#075E54]">{plan.title}</p>
@@ -62,7 +71,9 @@ export default function TarifsPage() {
                 className={`mt-6 inline-flex w-full justify-center rounded-full px-5 py-2.5 text-sm font-semibold ${
                   plan.ctaVariant === "primary"
                     ? "bg-[#FF6F00] text-white"
-                    : "border-2 border-[#075E54]/30 text-[#075E54]"
+                    : plan.ctaVariant === "teams"
+                      ? "bg-[#075E54] text-white"
+                      : "border-2 border-[#075E54]/30 text-[#075E54]"
                 }`}
               >
                 {plan.cta}
@@ -107,12 +118,20 @@ export default function TarifsPage() {
             Créez votre compte, choisissez vos modules et ouvrez l&apos;application en moins de 2
             minutes.
           </p>
-          <Link
-            href="/register?plan=pro"
-            className="mt-5 inline-flex rounded-full bg-[#FF6F00] px-6 py-3 text-sm font-semibold text-white"
-          >
-            Je m&apos;abonne au PRO
-          </Link>
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/register?plan=pro"
+              className="inline-flex rounded-full bg-[#FF6F00] px-6 py-3 text-sm font-semibold text-white"
+            >
+              Je m&apos;abonne au PRO
+            </Link>
+            <Link
+              href="/register?plan=business"
+              className="inline-flex rounded-full border-2 border-white/40 bg-white/10 px-6 py-3 text-sm font-semibold text-white hover:bg-white/20"
+            >
+              Passer au BUSINESS
+            </Link>
+          </div>
         </div>
       </main>
 
