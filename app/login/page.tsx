@@ -1,18 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { FormEvent, Suspense, useEffect, useState } from "react";
 import { ArrowLeft, Loader2, Lock, Mail, Phone } from "lucide-react";
 import { createSupabaseBrowserClient } from "../../lib/supabase/client";
 import { GoogleButton } from "../../components/google-button";
+import { markPlanForCheckout } from "../../lib/plan-checkout";
+import { PRICING } from "../../lib/vitrine-data";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const selectedPlan = searchParams.get("plan");
+  const planInfo = PRICING.find((p) => p.id === selectedPlan);
+
+  useEffect(() => {
+    const planId = searchParams.get("plan");
+    if (planId && ["free", "pro", "business"].includes(planId)) {
+      sessionStorage.setItem("wazo_pending_plan", planId);
+      markPlanForCheckout(planId);
+    }
+  }, [searchParams]);
 
   async function handleLogin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -44,6 +57,8 @@ export default function LoginPage() {
     }
   }
 
+  const registerHref = selectedPlan ? `/register?plan=${selectedPlan}` : "/register";
+
   return (
     <main className="min-h-screen bg-[#FFF8F0] px-4 py-8">
       <div className="mx-auto w-full max-w-md">
@@ -60,6 +75,13 @@ export default function LoginPage() {
           <p className="mt-2 text-sm text-[#1A1A1A]/75">
             Accedez a votre espace Wazo Digital en quelques secondes.
           </p>
+
+          {planInfo ? (
+            <p className="mt-4 rounded-xl border border-[#FF6F00]/30 bg-[#FF6F00]/10 px-4 py-3 text-sm text-[#FF6F00]">
+              Paiement <strong>{planInfo.title}</strong> après connexion — {planInfo.price}
+              {planInfo.priceSuffix}
+            </p>
+          ) : null}
 
           <form className="mt-6 space-y-4" onSubmit={handleLogin}>
             <label className="block text-sm font-medium text-[#1A1A1A]">
@@ -145,12 +167,26 @@ export default function LoginPage() {
 
           <p className="mt-4 text-center text-sm text-[#1A1A1A]/75">
             Pas encore de compte ?{" "}
-            <Link href="/register" className="font-semibold text-[#075E54] hover:underline">
+            <Link href={registerHref} className="font-semibold text-[#075E54] hover:underline">
               Creer un compte
             </Link>
           </p>
         </section>
       </div>
     </main>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="flex min-h-screen items-center justify-center bg-[#FFF8F0]">
+          <Loader2 className="h-6 w-6 animate-spin text-[#075E54]" />
+        </main>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   );
 }
