@@ -45,6 +45,10 @@ export default function PostAuthPage() {
         if (pendingModule) {
           handoffUrl.searchParams.set("module", pendingModule);
         }
+        const pendingPlan = sessionStorage.getItem("wazo_pending_plan");
+        if (pendingPlan) {
+          handoffUrl.searchParams.set("plan", pendingPlan);
+        }
         handoffUrl.hash = new URLSearchParams({
           access_token: session.access_token,
           refresh_token: session.refresh_token,

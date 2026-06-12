@@ -7,7 +7,7 @@ import { ArrowLeft, Loader2, Lock, Mail, User } from "lucide-react";
 import { createSupabaseBrowserClient } from "../../lib/supabase/client";
 import { GoogleButton } from "../../components/google-button";
 import { getAuthCallbackUrl } from "../../lib/public-urls";
-import { APP_MODULES } from "../../lib/vitrine-data";
+import { APP_MODULES, PRICING } from "../../lib/vitrine-data";
 
 const VALID_MODULES = [
   "commerce",
@@ -29,11 +29,17 @@ function RegisterForm() {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const selectedModule = searchParams.get("module");
   const moduleInfo = APP_MODULES.find((mod) => mod.id === selectedModule);
+  const selectedPlan = searchParams.get("plan");
+  const planInfo = PRICING.find((p) => p.id === selectedPlan);
 
   useEffect(() => {
     const moduleId = searchParams.get("module");
     if (moduleId && VALID_MODULES.includes(moduleId as (typeof VALID_MODULES)[number])) {
       sessionStorage.setItem("wazo_pending_module", moduleId);
+    }
+    const planId = searchParams.get("plan");
+    if (planId && ["free", "pro", "business"].includes(planId)) {
+      sessionStorage.setItem("wazo_pending_plan", planId);
     }
   }, [searchParams]);
 
@@ -95,6 +101,14 @@ function RegisterForm() {
           <p className="mt-2 text-sm text-[#1A1A1A]/75">
             Lancez votre activite digitale avec Wazo Digital en 2 minutes.
           </p>
+
+          {planInfo ? (
+            <p className="mt-4 rounded-xl border border-[#FF6F00]/30 bg-[#FF6F00]/10 px-4 py-3 text-sm text-[#FF6F00]">
+              Plan choisi : <strong>{planInfo.title}</strong> — {planInfo.price}
+              {planInfo.priceSuffix}
+              <span className="mt-1 block text-xs text-[#1A1A1A]/65">{planInfo.subtitle}</span>
+            </p>
+          ) : null}
 
           {moduleInfo ? (
             <p className="mt-4 rounded-xl border border-[#075E54]/20 bg-[#075E54]/5 px-4 py-3 text-sm text-[#075E54]">
