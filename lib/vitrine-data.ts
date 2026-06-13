@@ -358,7 +358,7 @@ export const PRICING_COMPARISON = [
 export const FAQS = [
   {
     q: "Quelle est la différence entre ce site et l'application ?",
-    a: "Ce site présente Wazo Digital et gère votre inscription. L'application (wazo-digital.vercel.app) est l'outil de gestion au quotidien : caisse, stock, modules métier.",
+    a: "Ce site présente Wazo Digital et gère votre inscription. L'application (wazo-digital.com) est l'outil de gestion au quotidien : caisse, stock, modules métier.",
   },
   {
     q: "L'application fonctionne-t-elle sans Internet ?",

@@ -6,8 +6,8 @@ const DEMO_VIEWPORT = { width: 1920, height: 1080 };
 const DEMO_SLOW_MO_MS = 300;
 
 const LANDING_URL =
-  process.env.E2E_LANDING_URL?.trim() || "https://landing-jacques99e.vercel.app";
-const APP_URL = process.env.E2E_APP_URL?.trim() || "https://wazo-digital.vercel.app";
+  process.env.E2E_LANDING_URL?.trim() || "https://wazo-digital.com";
+const APP_URL = process.env.E2E_APP_URL?.trim() || "https://app.wazo-digital.com";
 
 export default defineConfig({
   testDir: "./e2e",

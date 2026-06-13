@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import fs from "fs";
 import path from "path";
 
-const APP_URL = process.env.E2E_APP_URL || "https://wazo-digital.vercel.app";
+const APP_URL = process.env.E2E_APP_URL || "https://app.wazo-digital.com";
 const AUTH_FILE = path.join(process.cwd(), "e2e", ".auth", "user.json");
 
 test.beforeAll(() => {

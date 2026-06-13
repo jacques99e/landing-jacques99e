@@ -1,5 +1,5 @@
-const PROD_LANDING = "https://landing-jacques99e.vercel.app";
-const PROD_APP = "https://wazo-digital.vercel.app";
+const PROD_LANDING = "https://wazo-digital.com";
+const PROD_APP = "https://app.wazo-digital.com";
 
 const LOCAL_HOST = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?/i;
 

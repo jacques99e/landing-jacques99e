@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     description:
       "Commerce, agriculture, santé, logistique, formation et traçabilité — une application mobile pensée pour l'Afrique.",
     type: "website",
-    url: "https://landing-jacques99e.vercel.app",
+    url: "https://wazo-digital.com",
   },
 };
 

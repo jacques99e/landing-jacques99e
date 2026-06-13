@@ -1,11 +1,6 @@
-# Corriger `localhost:3000/?code=...` (connexion Google / email)
+# URLs Supabase — domaine custom `wazo-digital.com`
 
-## Cause
-
-Dans Supabase, **Site URL** = `http://localhost:3000`.  
-Après Google (ou lien e-mail), Supabase renvoie vers cette adresse avec `?code=...` → **ERR_CONNECTION_REFUSED** si vous n’avez pas de serveur local.
-
-## À faire dans Supabase (obligatoire)
+## À configurer dans Supabase (obligatoire)
 
 1. Ouvrir [Supabase Dashboard](https://supabase.com/dashboard) → projet **gfqmmdihubcpvouidpkc**
 2. **Authentication** → **URL Configuration**
@@ -13,41 +8,43 @@ Après Google (ou lien e-mail), Supabase renvoie vers cette adresse avec `?code=
 
 | Champ | Valeur |
 |--------|--------|
-| **Site URL** | `https://landing-jacques99e.vercel.app` |
+| **Site URL** | `https://wazo-digital.com` |
 | **Redirect URLs** | Ajouter chaque ligne ci-dessous |
 
 ```
-https://landing-jacques99e.vercel.app/auth/callback
-https://landing-jacques99e.vercel.app/**
-https://landing-jacques99e.vercel.app/reset-password
-https://landing-jacques99e.vercel.app/post-auth
+https://wazo-digital.com/auth/callback
+https://wazo-digital.com/**
+https://wazo-digital.com/reset-password
+https://wazo-digital.com/post-auth
 ```
 
-4. **Save**
-
-Optionnel pour le dev local (garder en plus) :
+Conserver en option (dev + anciens alias Vercel) :
 
 ```
 http://localhost:3000/auth/callback
 http://localhost:3000/**
+https://landing-jacques99e.vercel.app/auth/callback
+https://landing-jacques99e.vercel.app/**
 ```
+
+4. **Save**
 
 ## Google Cloud Console (si Google OAuth)
 
-**APIs & Services** → **Credentials** → votre client OAuth → **Authorized redirect URIs** :
+**Authorized redirect URIs** :
 
 ```
 https://gfqmmdihubcpvouidpkc.supabase.co/auth/v1/callback
 ```
 
-(Supabase gère le retour ; pas besoin de mettre localhost dans Google sauf pour tests locaux.)
+## PayDunya — callback paiement
 
-## Après la modification
+```
+https://app.wazo-digital.com/api/payments/momo/callback
+```
 
-1. Attendre 1–2 minutes
-2. Navigation privée → https://landing-jacques99e.vercel.app/login
-3. **Continuer avec Google** → l’URL doit devenir `https://landing-jacques99e.vercel.app/...` (plus `localhost`)
+## Vérification
 
-## Connexion SMS (sans Google)
-
-https://wazo-digital.vercel.app/login — ne dépend pas de la Site URL Supabase pour le flux SMS.
+1. Navigation privée → https://wazo-digital.com/login
+2. **Continuer avec Google** → l’URL doit rester sur `https://wazo-digital.com/...`
+3. Connexion SMS → https://app.wazo-digital.com/login

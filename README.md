@@ -161,7 +161,7 @@ La protection est appliquée **avant le rendu** par `proxy.ts`, et redoublée c�
 |---|---|
 | **Repo GitHub** | [github.com/jacques99e/landing-jacques99e](https://github.com/jacques99e/landing-jacques99e) |
 | **Projet Vercel** | `landing-jacques99e` |
-| **URL prod** | https://landing-jacques99e.vercel.app |
+| **URL prod** | https://wazo-digital.com |
 | **Branche prod** | `master` |
 
 Le dépôt est **déjà connecté** à Vercel : chaque `git push` sur `master` déclenche un déploiement production.
@@ -180,12 +180,12 @@ Suivi : [Vercel → landing-jacques99e → Deployments](https://vercel.com/jacqu
 
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `NEXT_PUBLIC_APP_URL` → `https://wazo-digital.vercel.app`
+- `NEXT_PUBLIC_APP_URL` → `https://app.wazo-digital.com`
 
 ### Supabase (auth)
 
-- **Site URL** = `https://landing-jacques99e.vercel.app`
-- **Redirect URL** = `https://landing-jacques99e.vercel.app/auth/callback`
+- **Site URL** = `https://wazo-digital.com`
+- **Redirect URL** = `https://wazo-digital.com/auth/callback`
 - Ajoute aussi les previews : `https://*-landing-jacques99e*.vercel.app/auth/callback`
 
 ### Déploiement manuel (secours)

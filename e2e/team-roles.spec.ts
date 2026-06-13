@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { loginToApp, dismissOnboarding } from "./helpers/auth.mjs";
 
-const APP_URL = process.env.E2E_APP_URL || "https://wazo-digital.vercel.app";
+const APP_URL = process.env.E2E_APP_URL || "https://app.wazo-digital.com";
 
 const OWNER = {
   email: process.env.E2E_OWNER_EMAIL || "test.owner@wazo.africa",
