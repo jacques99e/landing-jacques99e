@@ -44,6 +44,14 @@ export default defineConfig({
       },
     },
     {
+      name: "billing",
+      testMatch: /billing-plans\.spec\.ts/,
+      use: {
+        baseURL: LANDING_URL,
+        storageState: "e2e/.auth/user.json",
+      },
+    },
+    {
       name: "team-roles",
       testMatch: /team-roles\.spec\.ts/,
       use: { baseURL: LANDING_URL },
