@@ -49,7 +49,7 @@ export function SiteFooter() {
               <Link href="/login">Se connecter</Link>
             </li>
             <li>
-              <a href={`${appUrl}/login`}>Ouvrir l&apos;application</a>
+              <a href={appUrl}>Ouvrir l&apos;application</a>
             </li>
             <li>
               <a href={`${appUrl}/help`}>Centre d&apos;aide app</a>

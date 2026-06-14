@@ -49,7 +49,7 @@ export function SiteHeader() {
               )
             )}
             <a
-              href={`${appUrl}/login`}
+              href={appUrl}
               className="text-sm font-medium text-[#075E54] hover:underline"
             >
               Ouvrir l&apos;app
@@ -96,7 +96,7 @@ export function SiteHeader() {
                   </a>
                 )
               )}
-              <a href={`${appUrl}/login`} className="text-sm font-medium text-[#075E54]">
+              <a href={appUrl} className="text-sm font-medium text-[#075E54]">
                 Ouvrir l&apos;application
               </a>
               <Link

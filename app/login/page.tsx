@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, Suspense, useEffect, useState } from "react";
-import { ArrowLeft, Loader2, Lock, Mail, Phone } from "lucide-react";
+import { ArrowLeft, Loader2, Lock, Mail } from "lucide-react";
 import { createSupabaseBrowserClient } from "../../lib/supabase/client";
 import { GoogleButton } from "../../components/google-button";
 import { markPlanForCheckout } from "../../lib/plan-checkout";
@@ -154,16 +154,7 @@ function LoginForm() {
             <span className="h-px flex-1 bg-[#075E54]/10" />
           </div>
 
-          <div className="space-y-3">
-            <GoogleButton />
-            <Link
-              href="/phone-login"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#075E54]/20 bg-white px-5 py-2.5 text-sm font-semibold text-[#1A1A1A] transition hover:bg-[#075E54]/5"
-            >
-              <Phone className="h-4 w-4 text-[#075E54]" />
-              Continuer avec un numero de telephone
-            </Link>
-          </div>
+          <GoogleButton />
 
           <p className="mt-4 text-center text-sm text-[#1A1A1A]/75">
             Pas encore de compte ?{" "}
