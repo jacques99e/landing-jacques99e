@@ -35,4 +35,16 @@ test.describe("Landing — pages publiques", () => {
       await expect(page.getByRole("heading", { name: /Creer un compte/i })).toBeVisible();
     }
   });
+
+  test("connexion email et Google sans option SMS", async ({ page }) => {
+    await page.goto("/login");
+    await expect(page.getByRole("heading", { name: /Connexion/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: /Continuer avec Google/i })).toBeVisible();
+    await expect(page.getByText(/numero de telephone/i)).toHaveCount(0);
+  });
+
+  test("phone-login redirige vers login", async ({ page }) => {
+    await page.goto("/phone-login");
+    await expect(page).toHaveURL(/\/login$/);
+  });
 });

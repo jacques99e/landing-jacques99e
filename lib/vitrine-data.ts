@@ -269,7 +269,7 @@ export const TRUST_SIGNALS = [
   {
     icon: Lock,
     title: "Connexion sécurisée",
-    desc: "Authentification Supabase (e-mail, Google, téléphone). Sessions chiffrées HTTPS.",
+    desc: "Authentification Supabase (e-mail et Google). Sessions chiffrées HTTPS.",
   },
   {
     icon: Smartphone,
@@ -282,7 +282,7 @@ export const STEPS = [
   {
     n: "1",
     title: "Créez votre compte",
-    desc: "Inscription sur ce site (email, Google ou téléphone).",
+    desc: "Inscription sur ce site (email ou Google), puis configuration de votre activité dans l'app.",
   },
   {
     n: "2",
