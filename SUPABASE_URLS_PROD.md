@@ -47,4 +47,5 @@ https://app.wazo-digital.com/api/payments/momo/callback
 
 1. Navigation privée → https://wazo-digital.com/login
 2. **Continuer avec Google** → l’URL doit rester sur `https://wazo-digital.com/...`
-3. Connexion SMS → https://app.wazo-digital.com/login
+3. Connexion email/mot de passe ou Google → redirection vers l’app après `/post-auth`
+4. https://app.wazo-digital.com/login → redirige vers https://wazo-digital.com/login

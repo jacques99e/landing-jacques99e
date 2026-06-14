@@ -84,7 +84,7 @@ Ces valeurs se trouvent dans le dashboard Supabase : **Project Settings → API*
 
 Le lien de confirmation d'email et le lien de réinitialisation pointent vers `/auth/callback`, qui échange le `code` contre une session (cookies) côté serveur.
 
-> 📖 **Guide détaillé** : voir [`SUPABASE_SETUP.md`](./SUPABASE_SETUP.md) pour la configuration complète (URL Configuration, Google OAuth, SMS/Phone, modèles d'emails, RLS, et l'intégration à 2 applications `Landing` + `wazo-digital`).
+> 📖 **Guide détaillé** : voir [`SUPABASE_SETUP.md`](./SUPABASE_SETUP.md) pour la configuration complète (URL Configuration, Google OAuth, modèles d'emails, RLS, et l'intégration à 2 applications `Landing` + `wazo-digital`).
 
 ---
 

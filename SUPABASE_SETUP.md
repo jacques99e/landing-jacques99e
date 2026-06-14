@@ -2,7 +2,7 @@
 
 Guide de configuration de l'authentification Supabase pour l'architecture à **2 applications** :
 
-- **`Landing`** — vitrine + point d'entrée d'authentification (email/mot de passe, Google, SMS, réinitialisation). C'est **la seule app que Supabase doit connaître** pour les redirections OAuth/email.
+- **`Landing`** — vitrine + point d'entrée d'authentification (email/mot de passe, Google, réinitialisation). C'est **la seule app que Supabase doit connaître** pour les redirections OAuth/email.
 - **`wazo-digital`** — l'application SaaS. Elle reçoit la session via tokens (`/auth/receive`) et **n'a pas besoin** d'être déclarée dans les Redirect URLs Supabase.
 
 > Conséquence clé : **toutes les URLs de redirection à configurer pointent vers `Landing`**.
@@ -72,20 +72,15 @@ Le code gère les deux cas (session immédiate ou message « vérifiez votre ema
 
 ---
 
-## 5. Provider Phone / SMS (Authentication → Providers → Phone)
+## 5. Provider Phone — désactivé
 
-Nécessite un fournisseur SMS payant :
+L'authentification par SMS a été **abandonnée**. Ne pas activer **Providers → Phone** ni le hook **Send SMS** dans Supabase Auth.
 
-- Activer **Phone provider**.
-- Choisir un provider : **Twilio**, **Twilio Verify**, **MessageBird**, **Vonage** ou **Textlocal**, puis renseigner ses identifiants.
+- Connexion : **email/mot de passe** ou **Google** sur `Landing/login`.
+- `app.wazo-digital.com/login` redirige vers la vitrine.
+- `/phone-login` redirige vers `/login` (anciens liens).
 
-**Tester sans payer (dev)** : section **Test OTP** — mapper un numéro à un code fixe, ex :
-
-```
-+22890000000 = 123456
-```
-
-Supabase n'envoie alors aucun vrai SMS et accepte ce code.
+Les SMS **métier** de l'app (rappels logistique, éducation, etc.) passent par `wazo-digital/src/lib/sms.ts` et des routes API dédiées — ce n'est **pas** de l'auth Supabase.
 
 ---
 
@@ -137,7 +132,7 @@ L'`upsert` (INSERT + UPDATE) est entièrement couvert par ces policies. **Ne pas
 | Email provider | Providers → Email | Activé (+ choix Confirm email) |
 | Google | Providers → Google | Client ID/Secret depuis Google Cloud |
 | Google redirect URI | Google Cloud | `https://gfqmmdihubcpvouidpkc.supabase.co/auth/v1/callback` |
-| Phone | Providers → Phone | Provider SMS + Test OTP en dev |
+| Phone | Providers → Phone | **Désactivé** (auth SMS abandonnée) |
 | RLS `profiles` | SQL Editor | Policy `auth.uid() = id` |
 
 ---
