@@ -1,0 +1,27 @@
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .plaquette-root {
+    background: white;
+  }
+  .plaquette-page {
+    page-break-after: always;
+    break-after: page;
+    min-height: 100vh;
+    box-shadow: none !important;
+  }
+  .plaquette-page:last-child {
+    page-break-after: auto;
+  }
+}
+
+.plaquette-page {
+  max-width: 210mm;
+  margin: 0 auto 2rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+.cover-page {
+  min-height: 297mm;
+}
