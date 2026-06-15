@@ -10,6 +10,7 @@ import {
   Smartphone,
   Store,
   Truck,
+  Trophy,
   WifiOff,
 } from "lucide-react";
 
@@ -133,9 +134,9 @@ export const APP_MODULES: AppModule[] = [
     tagline: "Caisse, stock et boutique WhatsApp",
     features: [
       "Caisse MoMo + reçu WhatsApp automatique",
-      "Carnet crédit client avec relance",
+      "Promotions flash % à la caisse",
       "Catalogue & boutique publique sans appli",
-      "Caisse hors ligne avec sync auto",
+      "Carnet crédit client avec relance",
     ],
     color: "bg-[#075E54]",
   },
@@ -146,9 +147,9 @@ export const APP_MODULES: AppModule[] = [
     title: "Agriculture",
     tagline: "Champs, intrants et prix marchés",
     features: [
+      "Journal de champ par parcelle",
       "Calendrier cultural (semis → récolte)",
-      "Météo GPS + conseils agricoles",
-      "Prix marchés locaux comparables",
+      "Météo GPS + prix marchés locaux",
       "Rendement kg/ha & vente récolte",
     ],
     color: "bg-emerald-700",
@@ -161,9 +162,9 @@ export const APP_MODULES: AppModule[] = [
     tagline: "Patients, RDV et rappels",
     features: [
       "Dossiers patients + ordonnances PDF",
+      "Rappels de suivi + WhatsApp patient",
       "Mini pharmacie avec alertes stock",
-      "RDV du jour + rappels WhatsApp/SMS",
-      "Téléconsultation via WhatsApp",
+      "RDV du jour + rappels SMS",
     ],
     color: "bg-rose-600",
   },
@@ -174,10 +175,10 @@ export const APP_MODULES: AppModule[] = [
     title: "Logistique",
     tagline: "Livraisons et suivi client",
     features: [
+      "Zones & tarifs livraison par quartier",
       "Tournée du jour + partage WhatsApp",
       "Portail public /suivi sans compte",
       "Paiement MoMo à la livraison",
-      "Preuve de livraison photo/signature",
     ],
     color: "bg-sky-600",
   },
@@ -188,9 +189,9 @@ export const APP_MODULES: AppModule[] = [
     title: "Formation",
     tagline: "Cours, élèves et certificats",
     features: [
-      "Feuille de présence + export PDF",
+      "Leçons vidéo YouTube ou MP4",
+      "Quiz par leçon + parcours séquentiel",
       "Portail /formation sans installation",
-      "Cours hors ligne (faible data)",
       "Certificats PDF avec QR vérifiable",
     ],
     color: "bg-amber-600",
@@ -202,10 +203,10 @@ export const APP_MODULES: AppModule[] = [
     title: "Traçabilité",
     tagline: "Preuve d'origine infalsifiable",
     features: [
+      "Certificats d'origine PDF exportables",
       "QR sur étiquettes → portail /trace",
-      "Hash GPS infalsifiable à l'origine",
+      "Ancrage blockchain Celo mainnet",
       "Contrats numériques coopératives",
-      "Grand livre vérifiable pour export",
     ],
     color: "bg-indigo-600",
   },
@@ -246,7 +247,12 @@ export const APP_FEATURES = [
   {
     icon: Store,
     title: "Tableau de bord unifié",
-    desc: "Ventes du jour, alertes stock et modules actifs sur un seul écran.",
+    desc: "Série quotidienne, badges, pouls du jour et actions rapides — tous modules confondus.",
+  },
+  {
+    icon: Trophy,
+    title: "Progression & motivation",
+    desc: "Débloquez des badges (ventes, formation, livraisons…) et partagez Wazo à un collègue en 1 clic.",
   },
   {
     icon: Smartphone,
