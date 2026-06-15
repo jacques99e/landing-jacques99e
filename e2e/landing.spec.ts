@@ -48,6 +48,13 @@ test.describe("Landing — pages publiques", () => {
     await expect(page).toHaveURL(/\/login$/);
   });
 
+  test("pages légales accessibles", async ({ request }) => {
+    for (const path of ["/legal", "/legal/cgu", "/legal/confidentialite", "/legal/mentions-legales", "/legal/cookies"]) {
+      const res = await request.get(path);
+      expect(res.ok(), path).toBeTruthy();
+    }
+  });
+
   test("robots.txt et sitemap.xml accessibles", async ({ request }) => {
     const robots = await request.get("/robots.txt");
     expect(robots.ok()).toBeTruthy();
