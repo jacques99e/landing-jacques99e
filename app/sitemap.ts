@@ -1,13 +1,23 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/seo";
 
-const BASE = "https://wazo-digital.com";
+const PUBLIC_PAGES: Array<{
+  path: string;
+  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+  priority: number;
+}> = [
+  { path: "/", changeFrequency: "weekly", priority: 1 },
+  { path: "/tarifs", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/register", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/app", changeFrequency: "monthly", priority: 0.8 },
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pages = ["/", "/tarifs", "/register", "/login", "/app"];
-  return pages.map((path) => ({
-    url: `${BASE}${path}`,
-    lastModified: new Date(),
-    changeFrequency: path === "/" ? "weekly" : "monthly",
-    priority: path === "/" ? 1 : 0.7,
+  const lastModified = new Date();
+  return PUBLIC_PAGES.map(({ path, changeFrequency, priority }) => ({
+    url: `${SITE_URL}${path}`,
+    lastModified,
+    changeFrequency,
+    priority,
   }));
 }

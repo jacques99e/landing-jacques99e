@@ -1,8 +1,16 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Check, Minus } from "lucide-react";
+import { pageMetadata } from "@/lib/seo";
 import { SiteHeader } from "@/components/vitrine/SiteHeader";
 import { SiteFooter } from "@/components/vitrine/SiteFooter";
 import { PRICING, PRICING_COMPARISON } from "@/lib/vitrine-data";
+
+export const metadata: Metadata = pageMetadata(
+  "Tarifs",
+  "Tarifs Wazo Digital : gratuit pour démarrer, PRO à 9,99 €/mois, BUSINESS pour les équipes. Sans engagement, paiement Mobile Money.",
+  "/tarifs"
+);
 
 function CellValue({ value }: { value: boolean | string }) {
   if (typeof value === "boolean") {

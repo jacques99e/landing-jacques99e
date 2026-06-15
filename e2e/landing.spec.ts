@@ -47,4 +47,18 @@ test.describe("Landing — pages publiques", () => {
     await page.goto("/phone-login");
     await expect(page).toHaveURL(/\/login$/);
   });
+
+  test("robots.txt et sitemap.xml accessibles", async ({ request }) => {
+    const robots = await request.get("/robots.txt");
+    expect(robots.ok()).toBeTruthy();
+    const robotsBody = await robots.text();
+    expect(robotsBody).toContain("Sitemap:");
+    expect(robotsBody).toContain("wazo-digital.com/sitemap.xml");
+
+    const sitemap = await request.get("/sitemap.xml");
+    expect(sitemap.ok()).toBeTruthy();
+    const sitemapBody = await sitemap.text();
+    expect(sitemapBody).toContain("wazo-digital.com");
+    expect(sitemapBody).toContain("/tarifs");
+  });
 });

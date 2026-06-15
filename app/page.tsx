@@ -1,4 +1,5 @@
 import { SiteHeader } from "@/components/vitrine/SiteHeader";
+import { OrganizationJsonLd } from "@/components/seo/JsonLd";
 import { SiteFooter } from "@/components/vitrine/SiteFooter";
 import { HeroSection } from "@/components/vitrine/HeroSection";
 import { SocialProofBar } from "@/components/vitrine/SocialProofBar";
@@ -22,6 +23,7 @@ import { MID_CTA_AFTER_DEMO, MID_CTA_BEFORE_PRICING } from "@/lib/vitrine-data";
 export default function HomePage() {
   return (
     <div className="scroll-smooth bg-[#FFF8F0] font-[system-ui,sans-serif] text-[#1A1A1A]">
+      <OrganizationJsonLd />
       <SiteHeader />
       <StickyCtaBar />
 

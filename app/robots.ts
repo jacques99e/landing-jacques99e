@@ -1,12 +1,23 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/dashboard", "/profile", "/post-auth", "/auth/"],
+      disallow: [
+        "/dashboard",
+        "/profile",
+        "/post-auth",
+        "/auth/",
+        "/phone-login",
+        "/reset-password",
+        "/forgot-password",
+        "/api/",
+      ],
     },
-    sitemap: "https://wazo-digital.com/sitemap.xml",
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }
