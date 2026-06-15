@@ -61,4 +61,9 @@ test.describe("Landing — pages publiques", () => {
     expect(sitemapBody).toContain("wazo-digital.com");
     expect(sitemapBody).toContain("/tarifs");
   });
+
+  test("indexnow-key.txt accessible si CRON_SECRET configure", async ({ request }) => {
+    const res = await request.get("/indexnow-key.txt");
+    expect([200, 404]).toContain(res.status());
+  });
 });

@@ -17,6 +17,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [{ source: "/indexnow-key.txt", destination: "/api/indexing/key" }];
+  },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },
