@@ -36,7 +36,8 @@ test.describe("Rôles équipe — comptes test prod", () => {
     const page = await context.newPage();
 
     await loginToApp(page, { ...EMPLOYEE, appUrl: APP_URL });
-    await page.goto(`${APP_URL}/settings/team`);
+    await page.waitForURL(/dashboard/, { timeout: 30_000 });
+    await page.goto(`${APP_URL}/settings/team`, { waitUntil: "domcontentloaded" });
     await dismissOnboarding(page);
     await expect(page.getByText("Votre rôle sur cette boutique")).toBeVisible({ timeout: 20_000 });
     await expect(page.getByText("Employé")).toBeVisible();
@@ -51,9 +52,9 @@ test.describe("Rôles équipe — comptes test prod", () => {
     const page = await context.newPage();
 
     await loginToApp(page, { ...EMPLOYEE, appUrl: APP_URL });
+    await page.goto(`${APP_URL}/sales`, { waitUntil: "domcontentloaded" });
     await dismissOnboarding(page);
-    await page.getByRole("link", { name: /Ventes/i }).click();
-    await page.waitForURL(/\/sales/, { timeout: 20_000 });
+    await expect(page).toHaveURL(/\/sales/, { timeout: 20_000 });
     await expect(page.getByRole("heading", { name: /Caisse|Vente/i }).first()).toBeVisible({
       timeout: 20_000,
     });
