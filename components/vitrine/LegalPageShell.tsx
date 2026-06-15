@@ -79,20 +79,25 @@ export function MentionsLegalesContent() {
     <>
       <Section title="1. Éditeur du site">
         <P>
-          Le site <strong>wazo-digital.com</strong> et l&apos;application <strong>app.wazo-digital.com</strong>{" "}
-          sont édités par <strong>{e.editor}</strong>, activité de gestion digitale pour
-          micro-entreprises et PME en Afrique.
+          Le site <strong>{e.websites.landing}</strong> et l&apos;application{" "}
+          <strong>{e.websites.app}</strong> sont édités par <strong>{e.editor}</strong>, opérant sous
+          la marque <strong>{e.tradeName}</strong> ({e.legalForm}).
         </P>
         <Ul
           items={[
-            `Pays d'exploitation : ${e.country}`,
-            `Contact : ${e.contactEmail}`,
-            `Support WhatsApp : ${e.supportWhatsApp}`,
+            `Activité : ${e.activity}`,
+            `Siège / correspondance : ${e.address}`,
+            `Pays : ${e.country}`,
+            `E-mail : ${e.contactEmail}`,
+            `WhatsApp support : ${e.supportWhatsApp}`,
           ]}
         />
       </Section>
       <Section title="2. Directeur de la publication">
-        <P>Le responsable de la publication est le représentant légal de {e.brand}.</P>
+        <P>
+          Le directeur de la publication est <strong>{e.publisher}</strong>, responsable de{" "}
+          {e.tradeName}.
+        </P>
       </Section>
       <Section title="3. Hébergement">
         <Ul items={[e.hosting.site, `Base de données et authentification : ${e.hosting.database}`]} />
@@ -119,8 +124,15 @@ export function ConfidentialiteContent() {
     <>
       <Section title="1. Responsable du traitement">
         <P>
-          <strong>{e.dataController}</strong> est responsable du traitement des données personnelles
-          collectées via le site vitrine et l&apos;application Wazo Digital.
+          <strong>{e.dataController}</strong>, éditeur de <strong>{e.tradeName}</strong> ({e.address}
+          ), est responsable du traitement des données personnelles collectées via le site et
+          l&apos;application.
+        </P>
+        <P>
+          Contact données personnelles :{" "}
+          <a href={`mailto:${e.privacyEmail}`} className="text-[#075E54] underline">
+            {e.privacyEmail}
+          </a>
         </P>
       </Section>
       <Section title="2. Données collectées">
@@ -202,8 +214,8 @@ export function CguContent() {
     <>
       <Section title="1. Objet">
         <P>
-          Les présentes CGU régissent l&apos;accès au site wazo-digital.com et à l&apos;application
-          app.wazo-digital.com, édités par {e.brand}.
+          Les présentes CGU régissent l&apos;accès à {e.websites.landing} et {e.websites.app},
+          édités par {e.editor} sous la marque {e.tradeName}.
         </P>
       </Section>
       <Section title="2. Acceptation">
@@ -248,7 +260,7 @@ export function CguContent() {
       </Section>
       <Section title="7. Données saisies par l'utilisateur">
         <P>
-          Vous restez propriétaire de vos données métier. {e.brand} dispose d&apos;une licence limitée pour
+          Vous restez propriétaire de vos données métier. {e.tradeName} dispose d&apos;une licence limitée pour
           les héberger, sauvegarder et afficher dans le cadre du service.
         </P>
       </Section>
@@ -261,7 +273,7 @@ export function CguContent() {
       </Section>
       <Section title="9. Limitation de responsabilité">
         <P>
-          {e.brand} n&apos;est pas responsable des pertes indirectes, ni des erreurs de saisie par
+          {e.tradeName} n&apos;est pas responsable des pertes indirectes, ni des erreurs de saisie par
           l&apos;utilisateur. La responsabilité totale est limitée au montant payé sur les 12 derniers mois.
         </P>
       </Section>
