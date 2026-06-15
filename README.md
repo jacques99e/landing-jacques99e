@@ -86,6 +86,8 @@ Le lien de confirmation d'email et le lien de réinitialisation pointent vers `/
 
 > 📖 **Guide détaillé** : voir [`SUPABASE_SETUP.md`](./SUPABASE_SETUP.md) pour la configuration complète (URL Configuration, Google OAuth, modèles d'emails, RLS, et l'intégration à 2 applications `Landing` + `wazo-digital`).
 
+> 🚀 **Mise en production** : checklist complète dans [`wazo-digital/docs/PRODUCTION_READY.md`](../wazo-digital/docs/PRODUCTION_READY.md) (app + vitrine).
+
 ---
 
 ## Lancer le projet
