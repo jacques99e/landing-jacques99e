@@ -11,7 +11,7 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-[#075E54]/10 bg-white">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-2 lg:grid-cols-5 md:px-6">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:grid-cols-4 md:px-6">
         <div>
           <div className="flex items-center gap-2 text-[#075E54]">
             <Image src="/logo-wazo.svg" alt="" width={28} height={28} />
@@ -53,23 +53,6 @@ export function SiteFooter() {
             </li>
             <li>
               <a href={`${appUrl}/help`}>Centre d&apos;aide app</a>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <p className="font-semibold">Légal</p>
-          <ul className="mt-3 space-y-2 text-sm text-[#1A1A1A]/70">
-            <li>
-              <Link href="/legal/mentions-legales">Mentions légales</Link>
-            </li>
-            <li>
-              <Link href="/legal/confidentialite">Confidentialité</Link>
-            </li>
-            <li>
-              <Link href="/legal/cgu">CGU</Link>
-            </li>
-            <li>
-              <Link href="/legal/cookies">Cookies</Link>
             </li>
           </ul>
         </div>

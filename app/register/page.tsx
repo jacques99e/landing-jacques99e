@@ -6,7 +6,6 @@ import { FormEvent, Suspense, useEffect, useState } from "react";
 import { ArrowLeft, Loader2, Lock, Mail, User } from "lucide-react";
 import { createSupabaseBrowserClient } from "../../lib/supabase/client";
 import { GoogleButton } from "../../components/google-button";
-import { LegalFormLinks } from "../../components/vitrine/CookieConsent";
 import { getAuthCallbackUrl } from "../../lib/public-urls";
 import { markPlanForCheckout } from "../../lib/plan-checkout";
 import { APP_MODULES, PRICING } from "../../lib/vitrine-data";
@@ -27,7 +26,6 @@ function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [acceptLegal, setAcceptLegal] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const selectedModule = searchParams.get("module");
@@ -51,10 +49,6 @@ function RegisterForm() {
     event.preventDefault();
     setErrorMessage(null);
     setSuccessMessage(null);
-    if (!acceptLegal) {
-      setErrorMessage("Veuillez accepter les CGU et la politique de confidentialité.");
-      return;
-    }
     setIsLoading(true);
 
     try {
@@ -175,27 +169,6 @@ function RegisterForm() {
               </div>
             </label>
 
-            <label className="flex items-start gap-2 text-xs text-[#1A1A1A]/75">
-              <input
-                type="checkbox"
-                className="mt-0.5"
-                checked={acceptLegal}
-                onChange={(e) => setAcceptLegal(e.target.checked)}
-                required
-              />
-              <span>
-                J&apos;accepte les{" "}
-                <Link href="/legal/cgu" className="text-[#075E54] underline">
-                  CGU
-                </Link>{" "}
-                et la{" "}
-                <Link href="/legal/confidentialite" className="text-[#075E54] underline">
-                  politique de confidentialité
-                </Link>
-                .
-              </span>
-            </label>
-
             {errorMessage && (
               <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">
                 {errorMessage}
@@ -231,10 +204,6 @@ function RegisterForm() {
           </div>
 
           <GoogleButton label="S'inscrire avec Google" />
-
-          <div className="mt-4">
-            <LegalFormLinks />
-          </div>
 
           <p className="mt-4 text-center text-sm text-[#1A1A1A]/75">
             Deja un compte ?{" "}

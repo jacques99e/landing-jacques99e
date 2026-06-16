@@ -10,11 +10,6 @@ const PUBLIC_PAGES: Array<{
   { path: "/tarifs", changeFrequency: "monthly", priority: 0.9 },
   { path: "/register", changeFrequency: "monthly", priority: 0.8 },
   { path: "/app", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/legal", changeFrequency: "yearly", priority: 0.5 },
-  { path: "/legal/mentions-legales", changeFrequency: "yearly", priority: 0.4 },
-  { path: "/legal/confidentialite", changeFrequency: "yearly", priority: 0.4 },
-  { path: "/legal/cgu", changeFrequency: "yearly", priority: 0.4 },
-  { path: "/legal/cookies", changeFrequency: "yearly", priority: 0.4 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
