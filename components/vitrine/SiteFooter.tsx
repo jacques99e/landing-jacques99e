@@ -43,6 +43,9 @@ export function SiteFooter() {
           <p className="font-semibold">Accès</p>
           <ul className="mt-3 space-y-2 text-sm text-[#1A1A1A]/70">
             <li>
+              <Link href="/guide-pilote">Guide commerçant pilote</Link>
+            </li>
+            <li>
               <Link href="/register">Créer un compte</Link>
             </li>
             <li>
