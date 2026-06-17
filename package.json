@@ -17,7 +17,8 @@
     "monitor:health": "powershell -ExecutionPolicy Bypass -File .\\scripts\\health-monitor.ps1",
     "monitor:health:once": "powershell -ExecutionPolicy Bypass -File .\\scripts\\health-monitor.ps1 -RunOnce",
     "monitor:production": "node scripts/monitor-production.mjs",
-    "monitor:production:e2e": "node scripts/monitor-production.mjs --e2e"
+    "monitor:production:e2e": "node scripts/monitor-production.mjs --e2e",
+    "pilot:outreach": "node scripts/pilot-outreach.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",

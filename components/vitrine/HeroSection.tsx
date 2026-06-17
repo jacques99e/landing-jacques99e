@@ -49,6 +49,12 @@ export function HeroSection() {
               {HERO.ctaSecondary}
             </a>
           </div>
+          <p className="text-sm text-[#1A1A1A]/65">
+            Commerçant pilote ?{" "}
+            <Link href="/guide-pilote" className="font-semibold text-[#075E54] underline underline-offset-2">
+              Guide de démarrage (PDF & WhatsApp)
+            </Link>
+          </p>
 
           <p className="text-xs text-[#1A1A1A]/55 md:text-sm">{HERO.reassurance}</p>
 

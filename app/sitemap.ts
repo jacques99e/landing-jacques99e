@@ -7,8 +7,10 @@ const PUBLIC_PAGES: Array<{
   priority: number;
 }> = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
+  { path: "/guide-pilote", changeFrequency: "monthly", priority: 0.85 },
   { path: "/tarifs", changeFrequency: "monthly", priority: 0.9 },
   { path: "/register", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/login", changeFrequency: "monthly", priority: 0.6 },
   { path: "/app", changeFrequency: "monthly", priority: 0.8 },
 ];
 
