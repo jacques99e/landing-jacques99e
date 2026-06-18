@@ -57,6 +57,12 @@ export default defineConfig({
       use: { baseURL: LANDING_URL },
     },
     {
+      name: "production",
+      testMatch: /production-modules\.spec\.ts/,
+      timeout: 180_000,
+      use: { baseURL: APP_URL },
+    },
+    {
       name: "language",
       testMatch: /language\.spec\.ts/,
       use: { baseURL: LANDING_URL },

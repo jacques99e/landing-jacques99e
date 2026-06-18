@@ -35,6 +35,12 @@ async function fetchHealth(name, url) {
       return null;
     }
     console.log(`[ok] ${name} v${body.version ?? "?"} (${url})`);
+    if (name === "app" && body.crons?.configured === false) {
+      failures.push("app: CRON_SECRET manquant sur Vercel (crons désactivés)");
+    }
+    if (name === "app" && body.serviceRole === false) {
+      failures.push("app: SUPABASE_SERVICE_ROLE_KEY manquant sur Vercel");
+    }
     return body;
   } catch (err) {
     failures.push(`${name}: ${err instanceof Error ? err.message : String(err)}`);
