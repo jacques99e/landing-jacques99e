@@ -41,3 +41,5 @@ playwright-report
 # temp build artifacts
 _*.js
 _*.html
+
+.vercel

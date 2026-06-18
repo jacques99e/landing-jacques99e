@@ -24,11 +24,13 @@ run("Stats lancement", "npm", ["run", "launch:stats"], WAZO);
 run("Tableau pilotes", "node", ["scripts/pilot-tracker.mjs", "board"]);
 run("Actions pilotes (relances)", "node", ["scripts/pilot-actions.mjs", "relance"]);
 run("SEO / GSC", "node", ["scripts/launch-gsc.mjs"]);
+run("Audit cloud boutiques", "npm", ["run", "audit:cloud"], WAZO);
+run("Parcours billing & pages", "node", ["scripts/launch-verify.mjs"]);
 
 console.log(`
 --- À faire manuellement aujourd'hui ---
-1. Envoyer la relance WhatsApp ci-dessus (Balade Estivale)
-2. Ajouter 1–2 contacts : npm run pilot:tracker add "Nom" "+221..."
-3. Status WhatsApp : npm run launch:social pilote
-4. Google Search Console : npm run launch:gsc (puis balise Vercel)
+1. Relance WhatsApp : npm run launch:open relance  (ou copier le lien ci-dessus)
+2. Recruter : npm run pilot:prospects  puis  npm run pilot:tracker add "Nom" "+221..."
+3. Status WhatsApp : npm run launch:open social
+4. Google Search Console : code dans .env.local → npm run setup:vercel-landing
 `);

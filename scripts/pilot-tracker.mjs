@@ -187,6 +187,29 @@ async function syncSupabase(data) {
   console.log("[ok] pilot-contacts.json synchronisé");
 }
 
+function prospects(data) {
+  const slots = data.pilots.filter((p) => p.name?.startsWith("[À compléter]"));
+  console.log("=== Cibles recrutement pilotes ===\n");
+  for (const p of slots) {
+    const sector = p.name.replace("[À compléter] ", "");
+    const pitch = [
+      `Bonjour ! Nous testons *Wazo Digital* avec 5 commerçants pilotes (${sector}).`,
+      "",
+      "En 15 min : caisse Mobile Money, catalogue WhatsApp, vitrine en ligne.",
+      `Guide : ${GUIDE}`,
+      `Inscription : ${REGISTER}`,
+      "",
+      "Intéressé(e) ? Répondez à ce message.",
+    ].join("\n");
+    console.log(`## ${p.id} — ${sector} (${p.city || "—"})`);
+    console.log(`   Profil : ${p.business}`);
+    console.log(`   ${p.notes}`);
+    console.log(`\n${pitch}`);
+    console.log(`\nWhatsApp (choisir contact) : ${waLink("", pitch)}\n`);
+  }
+  console.log("Ajouter un contact : npm run pilot:tracker add \"Nom\" \"+221...\" \"Secteur\"");
+}
+
 function board(data) {
   console.log("=== Tableau de bord pilotes ===\n");
   list(data);
@@ -231,7 +254,10 @@ switch (cmd || "list") {
     await syncSupabase(data);
     list(load());
     break;
+  case "prospects":
+    prospects(data);
+    break;
   default:
-    console.log("Commandes: list | board | add | invite <id> | relance | sync");
+    console.log("Commandes: list | board | prospects | add | invite <id> | relance | sync");
     process.exit(1);
 }
