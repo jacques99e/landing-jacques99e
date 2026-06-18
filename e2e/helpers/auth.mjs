@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-const WAZO_ENV = path.join("C:", "Users", "user", "Desktop", "wazo-digital", ".env.local");
+const WAZO_ENV = path.join(process.cwd(), "..", "wazo-digital", ".env.local");
 const LOCAL_ENV = path.join(process.cwd(), ".env.local");
 
 export function loadEnv() {
