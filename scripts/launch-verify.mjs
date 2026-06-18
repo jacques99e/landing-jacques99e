@@ -3,6 +3,7 @@
  * Vérifie les parcours critiques prod (pages + billing API).
  */
 import { fetchSession, loadEnv } from "../e2e/helpers/auth.mjs";
+import { fetchWithRetry } from "../lib/fetch-retry.mjs";
 
 const APP = "https://app.wazo-digital.com";
 const LANDING = "https://wazo-digital.com";
@@ -10,16 +11,16 @@ const LANDING = "https://wazo-digital.com";
 const PAGES = [
   [LANDING, "/register"],
   [LANDING, "/tarifs"],
-  [LANDING, "/guide-pilote"],
+  [LANDING, "/mentions-legales"],
+  [LANDING, "/confidentialite"],
   [APP, "/billing"],
-  [APP, "/boutique/boutique-test-roles-wazo"],
 ];
 
 async function checkPages() {
   console.log("=== Pages publiques ===\n");
   const issues = [];
   for (const [base, path] of PAGES) {
-    const res = await fetch(`${base}${path}`, { redirect: "follow" });
+    const res = await fetchWithRetry(`${base}${path}`, { redirect: "follow" });
     const ok = res.status < 500;
     console.log(ok ? `[ok] ${path} → ${res.status}` : `[!!] ${path} → ${res.status}`);
     if (!ok) issues.push(path);

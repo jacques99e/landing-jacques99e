@@ -80,7 +80,17 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-[#075E54]/10 py-4 text-center text-sm text-[#1A1A1A]/60">
-        © {new Date().getFullYear()} Wazo Digital — Fait avec ❤️ pour l&apos;Afrique
+        <p>
+          © {new Date().getFullYear()} Wazo Digital — Fait avec ❤️ pour l&apos;Afrique
+        </p>
+        <p className="mt-2 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+          <Link href="/mentions-legales" className="hover:text-[#075E54]">
+            Mentions légales
+          </Link>
+          <Link href="/confidentialite" className="hover:text-[#075E54]">
+            Confidentialité
+          </Link>
+        </p>
       </div>
     </footer>
   );

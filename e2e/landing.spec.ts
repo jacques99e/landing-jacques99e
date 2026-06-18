@@ -60,6 +60,18 @@ test.describe("Landing — pages publiques", () => {
     const sitemapBody = await sitemap.text();
     expect(sitemapBody).toContain("wazo-digital.com");
     expect(sitemapBody).toContain("/tarifs");
+    expect(sitemapBody).toContain("/mentions-legales");
+    expect(sitemapBody).toContain("/confidentialite");
+  });
+
+  test("pages légales accessibles", async ({ page }) => {
+    await page.goto("/mentions-legales");
+    await expect(page.getByRole("heading", { name: /Mentions légales/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Confidentialité/i })).toBeVisible();
+
+    await page.goto("/confidentialite");
+    await expect(page.getByRole("heading", { name: /Politique de confidentialité/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Mentions légales/i })).toBeVisible();
   });
 
   test("indexnow-key.txt accessible si CRON_SECRET configure", async ({ request }) => {
