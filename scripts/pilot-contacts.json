@@ -9,11 +9,15 @@
       "phone": "+22893924040",
       "whatsapp": "+22893924040",
       "city": "",
-      "status": "active",
+      "status": "completed",
       "invitedAt": "2026-06-16",
       "storeSlug": "balade-estivale",
       "notes": "Déjà inscrit — relance 1ère vente caisse + partage catalogue WhatsApp",
-      "score": null
+      "score": {
+        "products": 2,
+        "sales": 7
+      },
+      "completedAt": "2026-06-18"
     },
     {
       "id": "pilot-2",
