@@ -1,0 +1,78 @@
+{
+  "updatedAt": "2026-06-18",
+  "targetCount": 5,
+  "pilots": [
+    {
+      "id": "pilot-1",
+      "name": "Balade Estivale",
+      "business": "Mode / événement",
+      "phone": "",
+      "whatsapp": "",
+      "city": "",
+      "status": "active",
+      "invitedAt": "2026-06-16",
+      "storeSlug": "balade-estivale",
+      "notes": "Déjà inscrit — vérifier produits + 1ère vente",
+      "score": null
+    },
+    {
+      "id": "pilot-2",
+      "name": "",
+      "business": "",
+      "phone": "",
+      "whatsapp": "",
+      "city": "",
+      "status": "prospect",
+      "invitedAt": null,
+      "storeSlug": null,
+      "notes": "",
+      "score": null
+    },
+    {
+      "id": "pilot-3",
+      "name": "",
+      "business": "",
+      "phone": "",
+      "whatsapp": "",
+      "city": "",
+      "status": "prospect",
+      "invitedAt": null,
+      "storeSlug": null,
+      "notes": "",
+      "score": null
+    },
+    {
+      "id": "pilot-4",
+      "name": "",
+      "business": "",
+      "phone": "",
+      "whatsapp": "",
+      "city": "",
+      "status": "prospect",
+      "invitedAt": null,
+      "storeSlug": null,
+      "notes": "",
+      "score": null
+    },
+    {
+      "id": "pilot-5",
+      "name": "",
+      "business": "",
+      "phone": "",
+      "whatsapp": "",
+      "city": "",
+      "status": "prospect",
+      "invitedAt": null,
+      "storeSlug": null,
+      "notes": "",
+      "score": null
+    }
+  ],
+  "statusLegend": {
+    "prospect": "À contacter",
+    "invited": "Message envoyé, pas encore inscrit",
+    "active": "Compte créé",
+    "completed": "Parcours pilote terminé (produit + vente)",
+    "churned": "Abandon / pas de réponse"
+  }
+}

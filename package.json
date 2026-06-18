@@ -18,7 +18,9 @@
     "monitor:health:once": "powershell -ExecutionPolicy Bypass -File .\\scripts\\health-monitor.ps1 -RunOnce",
     "monitor:production": "node scripts/monitor-production.mjs",
     "monitor:production:e2e": "node scripts/monitor-production.mjs --e2e",
-    "pilot:outreach": "node scripts/pilot-outreach.mjs"
+    "pilot:outreach": "node scripts/pilot-outreach.mjs",
+    "pilot:tracker": "node scripts/pilot-tracker.mjs",
+    "setup:github-secrets": "powershell -ExecutionPolicy Bypass -File scripts/setup-github-secrets.ps1"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
