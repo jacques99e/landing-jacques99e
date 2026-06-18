@@ -23,6 +23,8 @@
     "pilot:board": "node scripts/pilot-tracker.mjs board",
     "launch:social": "node scripts/launch-social.mjs",
     "launch:gsc": "node scripts/launch-gsc.mjs",
+    "launch:next": "node scripts/launch-next.mjs",
+    "pilot:actions": "node scripts/pilot-actions.mjs relance",
     "setup:github-secrets": "powershell -ExecutionPolicy Bypass -File scripts/setup-github-secrets.ps1"
   },
   "dependencies": {
