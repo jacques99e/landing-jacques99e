@@ -7,10 +7,11 @@ import { spawnSync } from "child_process";
 import path from "path";
 import { fileURLToPath } from "url";
 
-const ROOT = path.dirname(fileURLToPath(import.meta.url));
-const WAZO = path.join(ROOT, "..", "..", "wazo-digital");
+const SCRIPTS = path.dirname(fileURLToPath(import.meta.url));
+const LANDING = path.join(SCRIPTS, "..");
+const WAZO = path.join(LANDING, "..", "wazo-digital");
 
-function run(label, cmd, args, cwd = ROOT) {
+function run(label, cmd, args, cwd = LANDING) {
   console.log(`\n▶ ${label}`);
   const r = spawnSync(cmd, args, { cwd, stdio: "inherit", shell: true });
   return r.status === 0;

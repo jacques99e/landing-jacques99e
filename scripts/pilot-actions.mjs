@@ -31,9 +31,9 @@ function loadEnv() {
 function normalizePhoneForWa(raw) {
   let digits = String(raw || "").replace(/\D/g, "");
   if (!digits) return "";
-  if (digits.startsWith("221") || digits.startsWith("225")) return digits;
+  if (digits.startsWith("221") || digits.startsWith("225") || digits.startsWith("228")) return digits;
   if (digits.length === 9 && digits.startsWith("7")) return `221${digits}`;
-  if (digits.length === 8) return `2217${digits}`;
+  if (digits.length === 8) return `228${digits}`;
   return digits;
 }
 
