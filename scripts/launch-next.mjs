@@ -21,6 +21,7 @@ console.log(`=== Wazo — routine lancement ${new Date().toISOString().slice(0, 
 
 run("Monitor production", "node", ["scripts/monitor-production.mjs"]);
 run("Stats lancement", "npm", ["run", "launch:stats"], WAZO);
+run("Sync pilotes Supabase", "node", ["scripts/pilot-tracker.mjs", "sync"]);
 run("Tableau pilotes", "node", ["scripts/pilot-tracker.mjs", "board"]);
 run("Actions pilotes (relances)", "node", ["scripts/pilot-actions.mjs", "relance"]);
 run("SEO / GSC", "node", ["scripts/launch-gsc.mjs"]);
@@ -29,8 +30,8 @@ run("Parcours billing & pages", "node", ["scripts/launch-verify.mjs"]);
 
 console.log(`
 --- À faire manuellement aujourd'hui ---
-1. Relance WhatsApp : npm run launch:open relance  (ou copier le lien ci-dessus)
-2. Recruter : npm run pilot:prospects  puis  npm run pilot:tracker add "Nom" "+221..."
+1. Relance Balade (0 vente) : npm run launch:open relance
+2. Recruter pilote #2 : npm run pilot:prospects → add → invite pilot-2
 3. Status WhatsApp : npm run launch:open social
-4. Google Search Console : code dans .env.local → npm run setup:vercel-landing
+4. GSC : Vérifier la propriété + soumettre https://wazo-digital.com/sitemap.xml
 `);

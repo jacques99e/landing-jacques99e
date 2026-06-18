@@ -102,6 +102,10 @@ async function main() {
       lines.push(`→ Ouvrir la caisse : ${caisse}`);
       lines.push("→ Ajouter un article au panier → Finaliser → Partager le reçu WhatsApp");
       lines.push("");
+    } else {
+      lines.push(`🎉 Bravo — *${sales} vente(s)* enregistrée(s) !`);
+      lines.push("Prochaine étape : partagez votre vitrine sur WhatsApp Status.");
+      lines.push("");
     }
 
     if (noPhoto?.length) {

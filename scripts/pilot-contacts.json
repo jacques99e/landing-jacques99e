@@ -75,5 +75,10 @@
     "completed": "Parcours pilote terminé (produit + vente)",
     "churned": "Abandon / pas de réponse"
   },
-  "inviteOrder": ["pilot-2", "pilot-3", "pilot-4", "pilot-5"]
+  "inviteOrder": [
+    "pilot-2",
+    "pilot-3",
+    "pilot-4",
+    "pilot-5"
+  ]
 }

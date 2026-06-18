@@ -166,20 +166,38 @@ async function syncSupabase(data) {
   const admin = createClient(url, key, { auth: { persistSession: false } });
   const { data: stores } = await admin
     .from("stores")
-    .select("name, slug, created_at")
+    .select("id, name, slug, created_at, whatsapp, phone")
     .order("created_at", { ascending: false });
 
   const real = (stores || []).filter((s) => !String(s.slug).includes("test-roles"));
   console.log(`\nBoutiques cloud (hors test): ${real.length}`);
   for (const s of real) {
-    console.log(`  · ${s.name} (${s.slug})`);
+    const [{ count: products }, { count: sales }] = await Promise.all([
+      admin.from("products").select("id", { count: "exact", head: true }).eq("store_id", s.id),
+      admin.from("sales").select("id", { count: "exact", head: true }).eq("store_id", s.id),
+    ]);
+    const saleCount = sales ?? 0;
+    const productCount = products ?? 0;
+    console.log(`  · ${s.name} (${s.slug}) — ${productCount} produit(s), ${saleCount} vente(s)`);
+
     let pilot = data.pilots.find((p) => p.storeSlug === s.slug);
     if (!pilot) {
-      pilot = data.pilots.find((p) => !p.name);
+      pilot = data.pilots.find((p) => p.name?.startsWith("[À compléter]") || !p.name);
       if (pilot) {
         pilot.name = s.name;
         pilot.storeSlug = s.slug;
         pilot.status = "active";
+        if (s.whatsapp || s.phone) {
+          pilot.whatsapp = s.whatsapp || pilot.whatsapp;
+          pilot.phone = s.phone || pilot.phone;
+        }
+      }
+    }
+    if (pilot?.storeSlug === s.slug) {
+      pilot.status = saleCount > 0 && productCount > 0 ? "completed" : "active";
+      if (saleCount > 0 && productCount > 0) {
+        pilot.completedAt = pilot.completedAt || new Date().toISOString().slice(0, 10);
+        pilot.score = pilot.score ?? { products: productCount, sales: saleCount };
       }
     }
   }
@@ -216,7 +234,11 @@ function board(data) {
   console.log("\n--- Actions recommandées ---");
   const activeNoSale = data.pilots.filter((p) => p.status === "active");
   if (activeNoSale.length) {
-    console.log(`• Relance vente : ${activeNoSale.map((p) => p.name).join(", ")} → npm run pilot:tracker relance`);
+    console.log(`• Relance vente : ${activeNoSale.map((p) => p.name).join(", ")} → npm run launch:open relance`);
+  }
+  const completed = data.pilots.filter((p) => p.status === "completed");
+  if (completed.length) {
+    console.log(`• Pilote terminé : ${completed.map((p) => p.name).join(", ")} → npm run pilot:outreach merci`);
   }
   const placeholders = data.pilots.filter((p) => p.name?.startsWith("[À compléter]"));
   if (placeholders.length) {

@@ -44,6 +44,7 @@ test.describe("Production — APIs publiques & santé", () => {
       `/api/logistics/deliveries?store_id=${dummyStore}`,
       `/api/blockchain/assets?store_id=${dummyStore}`,
       `/api/products?storeId=${dummyStore}`,
+      `/api/sales`,
     ];
     for (const path of paths) {
       const res = await request.get(`${APP}${path}`);
@@ -106,6 +107,30 @@ test.describe("Production — APIs métier (owner authentifié)", () => {
     });
     expect(status).toBe(200);
     expect(body.product?.id).toBeTruthy();
+  });
+
+  test("commerce — enregistrer vente via API", async () => {
+    const extId = `e2e-sale-${Date.now()}`;
+    const { status, body } = await apiCall(token, "/api/sales", {
+      method: "POST",
+      body: JSON.stringify({
+        store_id: storeId,
+        external_local_id: extId,
+        total_amount: 2500,
+        payment_method: "cash",
+        items: [
+          {
+            product_name: "E2E vente",
+            quantity: 1,
+            unit_price: 2500,
+            subtotal: 2500,
+          },
+        ],
+      }),
+    });
+    expect(status).toBe(200);
+    expect(body.success).toBe(true);
+    expect(body.id).toBeTruthy();
   });
 
   test("logistique — créer livraison + suivi public", async () => {

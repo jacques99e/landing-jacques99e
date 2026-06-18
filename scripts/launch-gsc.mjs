@@ -63,6 +63,9 @@ async function main() {
     const live = html.match(/google-site-verification" content="([^"]+)"/);
     if (live) {
       console.log(`[ok] Balise Google détectée en production (content="${live[1].slice(0, 8)}…")`);
+      console.log("\n→ Reste à faire dans Search Console :");
+      console.log("  1. Cliquer « Vérifier » sur la propriété https://wazo-digital.com");
+      console.log(`  2. Soumettre le sitemap : ${SITE}/sitemap.xml`);
     } else if (gsc) {
       console.log("[!!] Code local présent mais balise absente en prod — redéployez landing + setup:vercel-landing");
     }

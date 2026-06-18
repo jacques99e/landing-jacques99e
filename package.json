@@ -26,9 +26,11 @@
     "launch:next": "node scripts/launch-next.mjs",
     "launch:verify": "node scripts/launch-verify.mjs",
     "launch:open": "node scripts/launch-open.mjs",
+    "production:ready": "node ../wazo-digital/scripts/production-readiness.mjs",
     "setup:vercel-landing": "powershell -ExecutionPolicy Bypass -File scripts/setup-vercel-landing.ps1",
     "pilot:prospects": "node scripts/pilot-tracker.mjs prospects",
     "pilot:actions": "node scripts/pilot-actions.mjs relance",
+    "pilot:sync": "node scripts/pilot-tracker.mjs sync",
     "setup:github-secrets": "powershell -ExecutionPolicy Bypass -File scripts/setup-github-secrets.ps1"
   },
   "dependencies": {
