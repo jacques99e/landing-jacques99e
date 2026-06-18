@@ -136,16 +136,21 @@ async function syncSupabase(data) {
   }
 
   function loadEnv() {
-    const envPath = path.join(ROOT, "..", ".env.local");
+    const paths = [
+      path.join(ROOT, "..", ".env.local"),
+      path.join(ROOT, "..", "..", "wazo-digital", ".env.local"),
+    ];
     const out = {};
-    if (!fs.existsSync(envPath)) return out;
-    for (const line of fs.readFileSync(envPath, "utf8").split("\n")) {
-      const t = line.trim();
-      if (!t || t.startsWith("#")) continue;
-      const i = t.indexOf("=");
-      if (i === -1) continue;
-      const v = t.slice(i + 1).trim();
-      if (v) out[t.slice(0, i).trim()] = v.replace(/^["']|["']$/g, "");
+    for (const envPath of paths) {
+      if (!fs.existsSync(envPath)) continue;
+      for (const line of fs.readFileSync(envPath, "utf8").split("\n")) {
+        const t = line.trim();
+        if (!t || t.startsWith("#")) continue;
+        const i = t.indexOf("=");
+        if (i === -1) continue;
+        const v = t.slice(i + 1).trim().replace(/^["']|["']$/g, "");
+        if (v) out[t.slice(0, i).trim()] = v;
+      }
     }
     return out;
   }
@@ -182,12 +187,36 @@ async function syncSupabase(data) {
   console.log("[ok] pilot-contacts.json synchronisé");
 }
 
+function board(data) {
+  console.log("=== Tableau de bord pilotes ===\n");
+  list(data);
+  console.log("\n--- Actions recommandées ---");
+  const activeNoSale = data.pilots.filter((p) => p.status === "active");
+  if (activeNoSale.length) {
+    console.log(`• Relance vente : ${activeNoSale.map((p) => p.name).join(", ")} → npm run pilot:tracker relance`);
+  }
+  const placeholders = data.pilots.filter((p) => p.name?.startsWith("[À compléter]"));
+  if (placeholders.length) {
+    console.log(`• ${placeholders.length} profil(s) type à remplacer par de vrais contacts (pilot:tracker add)`);
+  }
+  const readyInvite = data.pilots.filter(
+    (p) => p.status === "prospect" && p.name && !p.name.startsWith("[À compléter]") && (p.whatsapp || p.phone)
+  );
+  for (const p of readyInvite) {
+    console.log(`• Inviter ${p.id} ${p.name} → npm run pilot:tracker invite ${p.id}`);
+  }
+  console.log(`• Post réseaux → npm run launch:social register`);
+}
+
 const [cmd, ...args] = process.argv.slice(2);
 const data = load();
 
 switch (cmd || "list") {
   case "list":
     list(data);
+    break;
+  case "board":
+    board(data);
     break;
   case "add":
     addPilot(data, args[0], args[1], args[2] || "");
@@ -203,6 +232,6 @@ switch (cmd || "list") {
     list(load());
     break;
   default:
-    console.log("Commandes: list | add | invite <id> | relance | sync");
+    console.log("Commandes: list | board | add | invite <id> | relance | sync");
     process.exit(1);
 }
