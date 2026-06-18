@@ -68,17 +68,20 @@ function list(data) {
     const label = p.name || "(vide)";
     const contact = p.whatsapp || p.phone || "—";
     console.log(`${p.id}  [${p.status}]  ${label}  ${contact}`);
+    if (p.business) console.log(`       activité: ${p.business}${p.city ? ` · ${p.city}` : ""}`);
     if (p.storeSlug) console.log(`       boutique: /boutique/${p.storeSlug}`);
     if (p.notes) console.log(`       note: ${p.notes}`);
   }
-  const prospects = data.pilots.filter((p) => p.status === "prospect" && p.name);
+  const prospects = data.pilots.filter((p) => p.status === "prospect" && p.name && !p.name.startsWith("[À compléter]"));
   const needRelance = data.pilots.filter((p) => p.status === "invited");
   console.log(`\nÀ inviter (nom renseigné) : ${prospects.length}`);
   console.log(`En attente inscription : ${needRelance.length}`);
 }
 
 function addPilot(data, name, phone, business = "") {
-  const slot = data.pilots.find((p) => !p.name);
+  const slot =
+    data.pilots.find((p) => p.name?.startsWith("[À compléter]")) ||
+    data.pilots.find((p) => !p.name);
   if (!slot) {
     console.error("Plus de slot pilote — augmentez targetCount dans pilot-contacts.json");
     process.exit(1);
@@ -86,7 +89,7 @@ function addPilot(data, name, phone, business = "") {
   slot.name = name;
   slot.phone = phone;
   slot.whatsapp = phone;
-  slot.business = business;
+  if (business) slot.business = business;
   slot.status = "prospect";
   save(data);
   console.log(`[ok] ${slot.id} : ${name} (${phone})`);
@@ -94,8 +97,9 @@ function addPilot(data, name, phone, business = "") {
 
 function invite(data, id, type = "invitation") {
   const pilot = data.pilots.find((p) => p.id === id);
-  if (!pilot?.name) {
-    console.error(`Pilote ${id} introuvable ou sans nom`);
+  if (!pilot?.name || pilot.name.startsWith("[À compléter]")) {
+    console.error(`Pilote ${id} : remplacez le nom placeholder et ajoutez un numéro WhatsApp avant d'inviter.`);
+    console.error(`  npm run pilot:tracker add "Vrai nom" "+221..." "${pilot?.business || ""}"`);
     process.exit(1);
   }
   const text = MESSAGES[type](pilot.name);
