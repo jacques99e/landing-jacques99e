@@ -12,7 +12,7 @@ const PAGES = [
   [LANDING, "/tarifs"],
   [LANDING, "/guide-pilote"],
   [APP, "/billing"],
-  [APP, "/boutique/balade-estivale"],
+  [APP, "/boutique/boutique-test-roles-wazo"],
 ];
 
 async function checkPages() {

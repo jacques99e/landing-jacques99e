@@ -4,20 +4,16 @@
   "pilots": [
     {
       "id": "pilot-1",
-      "name": "Balade Estivale",
-      "business": "Mode / événement",
-      "phone": "+22893924040",
-      "whatsapp": "+22893924040",
+      "name": "[À compléter] Commerce pilote #1",
+      "business": "À définir",
+      "phone": "",
+      "whatsapp": "",
       "city": "",
-      "status": "completed",
-      "invitedAt": "2026-06-16",
-      "storeSlug": "balade-estivale",
-      "notes": "Déjà inscrit — relance 1ère vente caisse + partage catalogue WhatsApp",
-      "score": {
-        "products": 2,
-        "sales": 7
-      },
-      "completedAt": "2026-06-18"
+      "status": "prospect",
+      "invitedAt": null,
+      "storeSlug": null,
+      "notes": "Slot libre après purge — ajouter un vrai commerçant pilote.",
+      "score": null
     },
     {
       "id": "pilot-2",
