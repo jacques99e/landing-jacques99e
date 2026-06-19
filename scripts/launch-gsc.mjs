@@ -62,10 +62,7 @@ async function main() {
     const html = await fetch(SITE, { cache: "no-store" }).then((r) => r.text());
     const live = html.match(/google-site-verification" content="([^"]+)"/);
     if (live) {
-      console.log(`[ok] Balise Google détectée en production (content="${live[1].slice(0, 8)}…")`);
-      console.log("\n→ Reste à faire dans Search Console :");
-      console.log("  1. Cliquer « Vérifier » sur la propriété https://wazo-digital.com");
-      console.log(`  2. Soumettre le sitemap : ${SITE}/sitemap.xml`);
+      console.log(`[ok] Balise HTML en production (content="${live[1].slice(0, 8)}…")`);
     } else if (gsc) {
       console.log("[!!] Code local présent mais balise absente en prod — redéployez landing + setup:vercel-landing");
     }
@@ -73,15 +70,31 @@ async function main() {
     console.log(`[!!] Impossible de lire la page d'accueil : ${e.message}`);
   }
 
+  try {
+    const { Resolver } = await import("node:dns").then((m) => m.promises);
+    const resolver = new Resolver();
+    resolver.setServers(["8.8.8.8", "1.1.1.1"]);
+    const txts = await resolver.resolveTxt("wazo-digital.com");
+    const flat = txts.map((parts) => parts.join(""));
+    const googleTxt = flat.find((t) => t.startsWith("google-site-verification="));
+    if (googleTxt) {
+      console.log(`[ok] Enregistrement TXT DNS détecté (${googleTxt.slice(0, 40)}…)`);
+    } else {
+      console.log("[ ] TXT google-site-verification pas encore propagé (attendre 5–30 min après ajout DNS)");
+    }
+  } catch (e) {
+    console.log(`[ ] Vérification TXT DNS : ${e.message}`);
+  }
+
   console.log(`
-Étapes (15 min) :
+Étapes Search Console :
 1. https://search.google.com/search-console
-2. Ajouter la propriété : ${SITE}
-3. Méthode « Balise HTML » → copier le code content="..."
-4. Vercel (projet landing) :
-   NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION=<votre-code>
-5. Redéployer landing, puis « Vérifier » dans Search Console
-6. Soumettre le sitemap : ${SITE}/sitemap.xml
+2. Propriété : ${SITE}
+3. Méthode TXT (recommandée) — enregistrement déjà ajouté sur Vercel DNS :
+   Type TXT · Nom @ · Valeur google-site-verification=<votre-code>
+   OU méthode « Balise HTML » (déjà active en production)
+4. Cliquer « Vérifier »
+5. Soumettre le sitemap : ${SITE}/sitemap.xml
 
 IndexNow (Bing) : automatique via cron app /api/cron/submit-indexing
 `);
