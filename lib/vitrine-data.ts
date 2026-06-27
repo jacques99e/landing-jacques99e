@@ -21,7 +21,7 @@ export const HERO = {
   subtitle:
     "Caisse MoMo, stock, crédit clients, livraisons et boutique WhatsApp — une seule app qui remplace cahier, Excel et 5 outils différents.",
   ctaPrimary: "Démarrer gratuitement",
-  ctaSecondary: "Voir comment ça marche",
+  ctaSecondary: "Découvrir les modules",
   reassurance: "Sans carte bancaire · Gratuit pour toujours · Upgrade PRO en 1 clic",
 } as const;
 
@@ -66,13 +66,6 @@ export const STICKY_CTA = {
   button: "Choisir PRO",
 } as const;
 
-export const MID_CTA_AFTER_DEMO = {
-  eyebrow: "Vous avez vu la démo ?",
-  title: "Imaginez la même chose pour votre boutique demain matin",
-  subtitle:
-    "Inscription en 2 minutes. Vous testez gratuitement, puis vous passez au PRO quand vous voulez plus de volume et d'analytics.",
-} as const;
-
 export const MID_CTA_BEFORE_PRICING = {
   eyebrow: "Presque prêt ?",
   title: "Le plan PRO paie sa facture dès la première semaine",
@@ -85,34 +78,9 @@ export const WHATSAPP_SUPPORT = "+22893924040";
 
 export const NAV_LINKS = [
   { label: "L'application", href: "#application" },
-  { label: "Démo", href: "#demo" },
   { label: "Modules", href: "#modules" },
   { label: "Tarifs", href: "#tarifs" },
   { label: "FAQ", href: "#faq" },
-] as const;
-
-export const DEMO_VIDEO = {
-  title: "Wazo Digital — tutoriel + pourquoi passer au PRO",
-  subtitle:
-    "Regardez l'app en action : caisse MoMo, crédit client, modules métier — puis la page abonnement PRO à 9,99 €/mois.",
-  webmSrc: "/videos/wazo-demo.webm",
-  mp4Src: "/videos/wazo-demo.mp4",
-  poster: "/videos/wazo-demo-poster.jpg",
-  durationLabel: "~3 min 30",
-} as const;
-
-/** Chapitres affichés sous la vidéo (alignés sur le parcours enregistré). */
-export const DEMO_CHAPTERS = [
-  { emoji: "⚡", label: "Accroche" },
-  { emoji: "📊", label: "Dashboard" },
-  { emoji: "🏪", label: "Produits & caisse MoMo" },
-  { emoji: "💳", label: "Crédit WhatsApp" },
-  { emoji: "⭐", label: "Abonnement PRO" },
-  { emoji: "🩺", label: "Santé & RDV" },
-  { emoji: "🌾", label: "Agriculture" },
-  { emoji: "🚚", label: "Livraisons" },
-  { emoji: "🔗", label: "QR traçabilité" },
-  { emoji: "🚀", label: "Passer au PRO" },
 ] as const;
 
 export interface AppModule {

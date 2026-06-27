@@ -13,8 +13,7 @@ test.describe("Landing — pages publiques", () => {
   test("accueil et sections clés", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    await expect(page.getByRole("heading", { name: /Voyez l.app — puis passez au/i })).toBeVisible();
-    await expect(page.locator("video")).toBeVisible();
+    await expect(page.getByText("Tout votre métier, une seule app")).toBeVisible();
     await expect(page.getByText("Pourquoi Wazo Digital")).toBeVisible();
     await expect(page.getByText("Ils utilisent l'app")).toBeVisible();
     await expect(page.getByText("Tarifs simples")).toBeVisible();

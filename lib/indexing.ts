@@ -18,7 +18,7 @@ export function indexNowKeyLocation(siteUrl: string): string {
   return `${siteUrl.replace(/\/$/, "")}/indexnow-key.txt`;
 }
 
-export function parseSitemapLocs(xml: string): string[] {
+function parseSitemapLocs(xml: string): string[] {
   return [...xml.matchAll(/<loc>([^<]+)<\/loc>/gi)].map((match) => match[1].trim());
 }
 

@@ -11,9 +11,6 @@
     "test:e2e:roles": "playwright test --project=team-roles",
     "test:e2e:production": "playwright test --project=production",
     "test:e2e:report": "playwright show-report e2e-report",
-    "record:demo": "node scripts/generate-demo-audio.mjs && playwright test --project=demo-video && node scripts/process-demo-video.mjs && node scripts/verify-demo-sync.mjs",
-    "process:demo": "node scripts/process-demo-video.mjs && node scripts/verify-demo-sync.mjs",
-    "verify:demo-sync": "node scripts/verify-demo-sync.mjs",
     "monitor:health": "powershell -ExecutionPolicy Bypass -File .\\scripts\\health-monitor.ps1",
     "monitor:health:once": "powershell -ExecutionPolicy Bypass -File .\\scripts\\health-monitor.ps1 -RunOnce",
     "monitor:production": "node scripts/monitor-production.mjs",
@@ -42,18 +39,15 @@
     "lucide-react": "^1.17.0",
     "next": "^16.2.6",
     "react": "^19.2.6",
-    "react-dom": "^19.2.6",
-    "resend": "^6.12.4"
+    "react-dom": "^19.2.6"
   },
   "devDependencies": {
-    "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@playwright/test": "^1.51.1",
     "@tailwindcss/postcss": "^4.3.0",
     "@types/node": "^25.9.1",
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.5.0",
-    "msedge-tts": "^2.0.5",
     "postcss": "^8.5.15",
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3"

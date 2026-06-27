@@ -6,7 +6,6 @@ import { SocialProofBar } from "@/components/vitrine/SocialProofBar";
 import { PainGainSection } from "@/components/vitrine/PainGainSection";
 import { ModulesSection } from "@/components/vitrine/ModulesSection";
 import { PublicPortalsSection } from "@/components/vitrine/PublicPortalsSection";
-import { DemoVideoSection } from "@/components/vitrine/DemoVideoSection";
 import { MidPageCta } from "@/components/vitrine/MidPageCta";
 import { StickyCtaBar } from "@/components/vitrine/StickyCtaBar";
 import {
@@ -18,7 +17,7 @@ import {
   TestimonialsSection,
   TrustSection,
 } from "@/components/vitrine/Sections";
-import { MID_CTA_AFTER_DEMO, MID_CTA_BEFORE_PRICING } from "@/lib/vitrine-data";
+import { MID_CTA_BEFORE_PRICING } from "@/lib/vitrine-data";
 
 export default function HomePage() {
   return (
@@ -35,17 +34,7 @@ export default function HomePage() {
         {/* 2. Curiosité — le problème / la solution */}
         <PainGainSection />
 
-        {/* 3. Preuve visuelle — voir l'app en action */}
-        <DemoVideoSection />
-        <div className="py-8">
-          <MidPageCta
-            eyebrow={MID_CTA_AFTER_DEMO.eyebrow}
-            title={MID_CTA_AFTER_DEMO.title}
-            subtitle={MID_CTA_AFTER_DEMO.subtitle}
-          />
-        </div>
-
-        {/* 4. Découverte progressive */}
+        {/* 3. Découverte progressive */}
         <FeaturesSection />
         <ModulesSection />
         <PublicPortalsSection />

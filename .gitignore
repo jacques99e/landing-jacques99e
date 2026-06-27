@@ -31,7 +31,7 @@ next-env.d.ts
 # vercel
 .vercel
 
-# demo video build temp
+# test artifacts
 .demo-build
 test-results
 e2e-report
@@ -41,5 +41,3 @@ playwright-report
 # temp build artifacts
 _*.js
 _*.html
-
-.vercel

@@ -61,7 +61,7 @@ export const PILOT_GUIDE_SECTIONS: PilotGuideSection[] = [
   },
 ];
 
-export function buildPilotGuidePlainText(): string {
+function buildPilotGuidePlainText(): string {
   const lines = [
     PILOT_GUIDE_TITLE,
     "https://wazo-digital.com · https://app.wazo-digital.com",

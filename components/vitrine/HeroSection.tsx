@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, Play, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { AppPhoneMockup } from "@/components/vitrine/AppPhoneMockup";
 import { APP_STATS, HERO } from "@/lib/vitrine-data";
 
@@ -42,10 +42,9 @@ export function HeroSection() {
               <ArrowRight className="h-4 w-4" />
             </Link>
             <a
-              href="#demo"
+              href="#modules"
               className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#075E54]/30 bg-white px-6 py-3 text-sm font-semibold text-[#075E54] transition hover:border-[#075E54] hover:bg-[#075E54]/5"
             >
-              <Play className="h-4 w-4 fill-[#075E54]" />
               {HERO.ctaSecondary}
             </a>
           </div>

@@ -1,10 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
 import path from "path";
 
-/** Aligné sur DEMO_RECORDING dans e2e/demo-tour.config.mjs */
-const DEMO_VIEWPORT = { width: 1920, height: 1080 };
-const DEMO_SLOW_MO_MS = 300;
-
 const LANDING_URL =
   process.env.E2E_LANDING_URL?.trim() || "https://wazo-digital.com";
 const APP_URL = process.env.E2E_APP_URL?.trim() || "https://app.wazo-digital.com";
@@ -66,18 +62,6 @@ export default defineConfig({
       name: "language",
       testMatch: /language\.spec\.ts/,
       use: { baseURL: LANDING_URL },
-    },
-    {
-      name: "demo-video",
-      testMatch: /demo-video\.spec\.ts/,
-      use: {
-        baseURL: LANDING_URL,
-        storageState: "e2e/.auth/user.json",
-        // Taille explicite : sinon Playwright réduit le viewport à 800×450 max
-        video: { mode: "on", size: DEMO_VIEWPORT },
-        viewport: DEMO_VIEWPORT,
-        launchOptions: { slowMo: DEMO_SLOW_MO_MS },
-      },
     },
   ],
   metadata: { appUrl: APP_URL },
