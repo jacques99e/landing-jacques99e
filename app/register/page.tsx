@@ -8,6 +8,7 @@ import { createSupabaseBrowserClient } from "../../lib/supabase/client";
 import { GoogleButton } from "../../components/google-button";
 import { getAuthCallbackUrl } from "../../lib/public-urls";
 import { markPlanForCheckout } from "../../lib/plan-checkout";
+import { trackMetaCompleteRegistration, trackMetaLead } from "../../lib/meta-pixel";
 import { APP_MODULES, PRICING } from "../../lib/vitrine-data";
 
 const VALID_MODULES = [
@@ -43,6 +44,7 @@ function RegisterForm() {
       sessionStorage.setItem("wazo_pending_plan", planId);
       markPlanForCheckout(planId);
     }
+    trackMetaLead(searchParams.get("plan") ? `plan_${searchParams.get("plan")}` : "register");
   }, [searchParams]);
 
   async function handleRegister(event: FormEvent<HTMLFormElement>) {
@@ -68,6 +70,7 @@ function RegisterForm() {
       }
 
       if (data.session) {
+        trackMetaCompleteRegistration("email");
         router.push("/post-auth");
         router.refresh();
         return;
