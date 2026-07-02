@@ -39,17 +39,22 @@ test.describe("Production — APIs publiques & santé", () => {
 
   test("APIs protégées refusent l'accès anonyme", async ({ request }) => {
     const dummyStore = "00000000-0000-0000-0000-000000000099";
-    const paths = [
+    const getPaths = [
       `/api/education/courses?store_id=${dummyStore}`,
       `/api/logistics/deliveries?store_id=${dummyStore}`,
       `/api/blockchain/assets?store_id=${dummyStore}`,
       `/api/products?storeId=${dummyStore}`,
-      `/api/sales`,
     ];
-    for (const path of paths) {
+    for (const path of getPaths) {
       const res = await request.get(`${APP}${path}`);
       expect(res.status(), path).toBe(401);
     }
+
+    // /api/sales n'accepte que POST — on vérifie que l'écriture anonyme est refusée.
+    const salesRes = await request.post(`${APP}/api/sales`, {
+      data: { store_id: dummyStore, external_local_id: "anon-test" },
+    });
+    expect(salesRes.status(), "/api/sales").toBe(401);
   });
 
   test("pages publiques app répondent", async ({ request }) => {
