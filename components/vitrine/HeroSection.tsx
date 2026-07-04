@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { AppPhoneMockup } from "@/components/vitrine/AppPhoneMockup";
 import { APP_STATS, HERO } from "@/lib/vitrine-data";
 
 export function HeroSection() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section
       id="application"
@@ -14,9 +16,9 @@ export function HeroSection() {
     >
       <div className="grid items-center gap-12 md:grid-cols-2">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55 }}
+          transition={reduceMotion ? { duration: 0 } : { duration: 0.55 }}
           className="relative z-10 space-y-6"
         >
           <span className="inline-flex items-center gap-2 rounded-full border border-[#FF6F00]/20 bg-[#FF6F00]/10 px-4 py-1.5 text-sm font-semibold text-[#FF6F00]">
@@ -61,9 +63,9 @@ export function HeroSection() {
             {APP_STATS.map((stat, i) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 10 }}
+                initial={reduceMotion ? false : { opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 + i * 0.08 }}
+                transition={reduceMotion ? { duration: 0 } : { delay: 0.3 + i * 0.08 }}
                 className="rounded-xl border border-[#075E54]/10 bg-white px-3 py-2.5 text-center shadow-sm"
               >
                 <p className="text-lg font-bold text-[#075E54]">{stat.value}</p>

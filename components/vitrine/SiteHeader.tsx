@@ -64,7 +64,7 @@ export function SiteHeader() {
 
           <button
             type="button"
-            className="rounded-lg p-2 text-[#075E54] md:hidden"
+            className="inline-flex min-h-12 min-w-12 items-center justify-center rounded-lg text-[#075E54] transition hover:bg-[#075E54]/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#075E54] md:hidden"
             onClick={() => setOpen((v) => !v)}
             aria-label="Menu"
           >
