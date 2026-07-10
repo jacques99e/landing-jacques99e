@@ -1,18 +1,19 @@
 {
-  "updatedAt": "2026-06-19",
+  "updatedAt": "2026-07-07",
   "targetCount": 5,
   "pilots": [
     {
       "id": "pilot-1",
-      "name": "Espoir ",
+      "name": "Espoir",
       "business": "À définir",
       "phone": "",
       "whatsapp": "",
+      "email": "victordjata48@gmail.com",
       "city": "",
       "status": "active",
       "invitedAt": null,
       "storeSlug": "espoir",
-      "notes": "Slot libre après purge — ajouter un vrai commerçant pilote.",
+      "notes": "Relance email envoyée 7 juil. — 0 produit, 0 vente. Objectif : 1er produit + 1ère vente.",
       "score": null
     },
     {
@@ -21,51 +22,55 @@
       "business": "Commerce alimentaire",
       "phone": "93924040",
       "whatsapp": "93924040",
+      "email": "jacquesnoussougan93@gmail.com",
       "city": "Dakar",
       "status": "active",
       "invitedAt": null,
       "storeSlug": "balade-estivale",
-      "notes": "Profil type : 10–30 produits, stock, caisse Mobile Money. Modules : Commerce. Remplacer le nom + ajouter WhatsApp avant invite.",
+      "notes": "Relance email + WhatsApp 7 juil. — 2 produits, 1 vente. Photo + partage WhatsApp Status.",
       "score": null
     },
     {
       "id": "pilot-3",
-      "name": "[À compléter] Restaurant / maquis",
-      "business": "Restauration",
+      "name": "Manthus",
+      "business": "Nouveau — 7 juil. 2026",
       "phone": "",
       "whatsapp": "",
-      "city": "Dakar",
-      "status": "prospect",
-      "invitedAt": null,
-      "storeSlug": null,
-      "notes": "Profil type : menu du jour, ventes rapides, reçu WhatsApp. Modules : Commerce + Caisse. Idéal test hors ligne midi.",
+      "email": "koneafdal333@gmail.com",
+      "city": "",
+      "status": "active",
+      "invitedAt": "2026-07-07",
+      "storeSlug": "manthus",
+      "notes": "Accueil email envoyé 7 juil. — demander WhatsApp. Objectif : 3 produits + 1 vente.",
       "score": null
     },
     {
       "id": "pilot-4",
-      "name": "[À compléter] Salon coiffure / beauté",
-      "business": "Services & beauté",
+      "name": "Mewe farms",
+      "business": "Agriculture — 7 juil. 2026",
       "phone": "",
       "whatsapp": "",
-      "city": "Thiès",
-      "status": "prospect",
-      "invitedAt": null,
-      "storeSlug": null,
-      "notes": "Profil type : prestations (coupe, tresses), clients récurrents. Modules : Commerce + Clients. Bon test partage catalogue.",
+      "email": "mewekouwepilabina@gmail.com",
+      "city": "",
+      "status": "active",
+      "invitedAt": "2026-07-07",
+      "storeSlug": "mewe-farms",
+      "notes": "Accueil email envoyé 7 juil. — demander WhatsApp. Module Agriculture + vente récolte.",
       "score": null
     },
     {
       "id": "pilot-5",
-      "name": "[À compléter] Maraîcher / marché",
-      "business": "Agriculture & vente directe",
+      "name": "AWODJE",
+      "business": "Commerce",
       "phone": "",
       "whatsapp": "",
-      "city": "Saint-Louis",
-      "status": "prospect",
+      "email": "",
+      "city": "",
+      "status": "completed",
       "invitedAt": null,
-      "storeSlug": null,
-      "notes": "Profil type : parcelles, journal de champ, vente récolte. Modules : Commerce + Agriculture. Test traçabilité optionnel.",
-      "score": null
+      "storeSlug": "awodje",
+      "notes": "1 produit, 1 vente — féliciter + photo produit.",
+      "score": { "products": 1, "sales": 1 }
     }
   ],
   "statusLegend": {
@@ -75,10 +80,5 @@
     "completed": "Parcours pilote terminé (produit + vente)",
     "churned": "Abandon / pas de réponse"
   },
-  "inviteOrder": [
-    "pilot-2",
-    "pilot-3",
-    "pilot-4",
-    "pilot-5"
-  ]
+  "inviteOrder": ["pilot-3", "pilot-4", "pilot-1", "pilot-2"]
 }

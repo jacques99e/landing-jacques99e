@@ -27,6 +27,8 @@
     "setup:vercel-landing": "powershell -ExecutionPolicy Bypass -File scripts/setup-vercel-landing.ps1",
     "pilot:prospects": "node scripts/pilot-tracker.mjs prospects",
     "pilot:actions": "node scripts/pilot-actions.mjs relance",
+    "pilot:outreach": "node scripts/pilot-actions.mjs outreach",
+    "pilot:send": "node scripts/pilot-send.mjs",
     "pilot:sync": "node scripts/pilot-tracker.mjs sync",
     "setup:github-secrets": "powershell -ExecutionPolicy Bypass -File scripts/setup-github-secrets.ps1"
   },

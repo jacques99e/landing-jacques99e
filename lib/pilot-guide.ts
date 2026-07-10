@@ -20,7 +20,7 @@ export const PILOT_GUIDE_SECTIONS: PilotGuideSection[] = [
     bullets: [
       "Produits → Ajouter un produit (nom, prix, stock, photo si connexion OK)",
       "Depuis Produits, partagez le catalogue WhatsApp à vos clients",
-      "Votre vitrine publique : wazo-digital.com/boutique/votre-slug",
+      "Votre vitrine publique : app.wazo-digital.com/boutique/votre-slug",
     ],
   },
   {
