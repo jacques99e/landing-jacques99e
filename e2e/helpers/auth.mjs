@@ -27,6 +27,43 @@ export function loadEnv() {
   return out;
 }
 
+async function fetchSessionViaAdminMagicLink(email, env) {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const service =
+    process.env.SUPABASE_SERVICE_ROLE_KEY || env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!supabaseUrl || !anonKey || !service) {
+    throw new Error("SUPABASE_SERVICE_ROLE_KEY requis (CAPTCHA Auth actif)");
+  }
+
+  const { createClient } = await import("@supabase/supabase-js");
+  const admin = createClient(supabaseUrl, service, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  const { data: linkData, error: linkError } = await admin.auth.admin.generateLink({
+    type: "magiclink",
+    email,
+  });
+  if (linkError || !linkData?.properties?.hashed_token) {
+    throw new Error(linkError?.message || "generateLink magiclink échoué");
+  }
+
+  const anon = createClient(supabaseUrl, anonKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  const { data, error } = await anon.auth.verifyOtp({
+    token_hash: linkData.properties.hashed_token,
+    type: "email",
+  });
+  if (error || !data?.session) {
+    throw new Error(error?.message || "verifyOtp session échoué");
+  }
+  return {
+    access_token: data.session.access_token,
+    refresh_token: data.session.refresh_token,
+  };
+}
+
 export async function fetchSession(email, password) {
   const env = loadEnv();
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || env.NEXT_PUBLIC_SUPABASE_URL;
@@ -41,10 +78,14 @@ export async function fetchSession(email, password) {
     body: JSON.stringify({ email, password }),
   });
   const json = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    throw new Error(json.msg || json.error_description || `Auth ${res.status}`);
+  if (res.ok) return json;
+
+  const msg = String(json.msg || json.error_description || json.error || `Auth ${res.status}`);
+  // CAPTCHA Auth actif → session via service role (scripts/CI uniquement)
+  if (/captcha/i.test(msg)) {
+    return fetchSessionViaAdminMagicLink(email, env);
   }
-  return json;
+  throw new Error(msg);
 }
 
 export function buildAppHandoffUrl(appUrl, accessToken, refreshToken) {
