@@ -100,12 +100,22 @@ function openUrl(url) {
   }
 }
 
-function captureOutreach() {
-  return execSync("node scripts/pilot-actions.mjs outreach", {
+function captureOutreach(mode = "outreach", slugs = []) {
+  const args = ["scripts/pilot-actions.mjs", mode, ...slugs];
+  return execSync(`node ${args.map((a) => `"${a}"`).join(" ")}`, {
     cwd: ROOT,
     encoding: "utf8",
     maxBuffer: 10 * 1024 * 1024,
   });
+}
+
+function incompleteSlugs() {
+  const contactsPath = path.join(SCRIPTS, "pilot-contacts.json");
+  if (!fs.existsSync(contactsPath)) return [];
+  const data = JSON.parse(fs.readFileSync(contactsPath, "utf8"));
+  return (data.pilots || [])
+    .filter((p) => p.status !== "completed" && p.storeSlug)
+    .map((p) => String(p.storeSlug).toLowerCase());
 }
 
 function parseBlocks(output) {
@@ -137,16 +147,35 @@ function parseBlocks(output) {
 }
 
 async function main() {
-  const output = captureOutreach();
+  const modeArg = (process.argv[2] || "outreach").trim();
+  const mode = modeArg === "relance" || modeArg === "incomplete" ? "relance" : "outreach";
+  const slugs =
+    mode === "relance"
+      ? incompleteSlugs()
+      : process.argv.slice(3).map((s) => s.trim().toLowerCase()).filter(Boolean);
+
+  if (mode === "relance" && !slugs.length) {
+    console.log("Aucun pilote non terminé à relancer.");
+    return;
+  }
+
+  console.log(
+    mode === "relance"
+      ? `Cibles (non terminés): ${slugs.join(", ")}\n`
+      : "Mode outreach (accueil + relance)\n"
+  );
+
+  const output = captureOutreach(mode, slugs);
   const blocks = parseBlocks(output);
   if (!blocks.length) {
-    console.error("Aucun message à envoyer. Lancez d'abord pilot-actions outreach.");
+    console.error("Aucun message à envoyer.");
     process.exit(1);
   }
 
   const env = loadEnv();
   console.log(`=== Envoi pilotes (${blocks.length}) ===\n`);
 
+  const sent = [];
   for (const block of blocks) {
     console.log(`## ${block.header}`);
     const subject =
@@ -159,13 +188,14 @@ async function main() {
       emailResult = await sendEmail(env, block.email, subject, block.text);
       if (emailResult.ok) {
         console.log(`   [ok] Email → ${block.email} (id: ${emailResult.id || "—"})`);
+        sent.push(block.slug);
       } else {
         console.log(`   [fail] Email → ${block.email}: ${emailResult.error}`);
         const mailto = `mailto:${block.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(plainText(block.text))}`;
         try {
           openUrl(mailto);
           console.log(`   [ok] Brouillon email ouvert → ${block.email} (cliquez Envoyer)`);
-        } catch (e) {
+        } catch {
           console.log(`   Lien mailto: ${mailto}`);
         }
       }
@@ -184,15 +214,28 @@ async function main() {
           console.log(`   Lien: ${url}`);
         }
       }
-    } else if (!emailResult?.ok && block.email) {
-      const url = waLink("", block.text);
-      console.log(`   [info] Pas de WhatsApp — partagez le mail ou demandez leur numéro`);
+    } else {
+      console.log("   [info] Pas de WhatsApp en base — email utilisé si possible");
     }
 
     console.log("");
   }
 
-  console.log("Terminé. Vérifiez WhatsApp (Balade) et les boîtes mail des pilotes.");
+  // Maj notes pilotes
+  const contactsPath = path.join(SCRIPTS, "pilot-contacts.json");
+  if (fs.existsSync(contactsPath) && sent.length) {
+    const data = JSON.parse(fs.readFileSync(contactsPath, "utf8"));
+    const today = new Date().toISOString().slice(0, 10);
+    for (const p of data.pilots || []) {
+      if (sent.includes(p.storeSlug) && p.status !== "completed") {
+        p.notes = `Relance email envoyée ${today}. ${p.notes || ""}`.trim();
+      }
+    }
+    data.updatedAt = today;
+    fs.writeFileSync(contactsPath, `${JSON.stringify(data, null, 2)}\n`);
+  }
+
+  console.log("Terminé.");
 }
 
 main().catch((e) => {

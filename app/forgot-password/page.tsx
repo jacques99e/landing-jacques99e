@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FormEvent, useState } from "react";
 import { ArrowLeft, Loader2, Mail } from "lucide-react";
 import { createSupabaseBrowserClient } from "../../lib/supabase/client";
+import { Turnstile, isTurnstileEnabled } from "../../components/turnstile";
 import { getAuthCallbackUrl } from "../../lib/public-urls";
 
 export default function ForgotPasswordPage() {
@@ -11,6 +12,7 @@ export default function ForgotPasswordPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
   async function handleReset(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -19,18 +21,54 @@ export default function ForgotPasswordPage() {
     setIsLoading(true);
 
     try {
-      const supabase = createSupabaseBrowserClient();
-      const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
-        redirectTo: getAuthCallbackUrl("/reset-password"),
-      });
-
-      if (error) {
-        setErrorMessage(error.message);
+      if (isTurnstileEnabled() && !captchaToken) {
+        setErrorMessage("Validez le captcha avant de continuer.");
+        setIsLoading(false);
         return;
       }
 
+      // Envoi via API Landing → Resend (contourne le SMTP Supabase défaillant)
+      const res = await fetch("/api/auth/recovery", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email.trim(),
+          ...(captchaToken ? { captchaToken } : {}),
+        }),
+      });
+      const data = (await res.json()) as {
+        success?: boolean;
+        error?: string;
+        message?: string;
+      };
+
+      if (!res.ok || !data.success) {
+        // Fallback native Supabase si l'API custom n'est pas configurée
+        if (res.status === 503) {
+          const supabase = createSupabaseBrowserClient();
+          const { error } = await supabase.auth.resetPasswordForEmail(
+            email.trim(),
+            { redirectTo: getAuthCallbackUrl("/reset-password") },
+          );
+          if (error) {
+            setErrorMessage(
+              error.message === "Error sending recovery email"
+                ? "Envoi email temporairement indisponible. Réessayez dans quelques minutes ou contactez le support."
+                : error.message,
+            );
+            return;
+          }
+        } else {
+          setErrorMessage(
+            data.error || "Impossible d'envoyer l'email pour le moment.",
+          );
+          return;
+        }
+      }
+
       setSuccessMessage(
-        "Si un compte existe pour cette adresse, un email avec un lien de reinitialisation vient d'etre envoye.",
+        data.message ||
+          "Si un compte existe pour cette adresse, un email avec un lien de réinitialisation vient d'être envoyé. Vérifiez aussi les spams.",
       );
     } catch (error) {
       setErrorMessage(
@@ -88,6 +126,8 @@ export default function ForgotPasswordPage() {
                 {successMessage}
               </p>
             )}
+
+            <Turnstile onToken={setCaptchaToken} />
 
             <button
               type="submit"

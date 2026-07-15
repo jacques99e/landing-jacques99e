@@ -51,7 +51,7 @@ export default function HomePage() {
             secondaryHref="#tarifs"
             secondaryLabel="Comparer les plans"
           />
-        </div>
+                </div>
         <PricingSection />
         <FAQSection />
         <CTASection />

@@ -29,9 +29,10 @@ run("Audit cloud boutiques", "npm", ["run", "audit:cloud"], WAZO);
 run("Parcours billing & pages", "node", ["scripts/launch-verify.mjs"]);
 
 console.log(`
---- À faire manuellement aujourd'hui ---
-1. Relance Balade (0 vente) : npm run launch:open relance
-2. Recruter pilote #2 : npm run pilot:prospects → add → invite pilot-2
-3. Status WhatsApp : npm run launch:open social
-4. GSC : Vérifier la propriété + soumettre https://wazo-digital.com/sitemap.xml
+--- À faire manuellement ---
+1. Suivi silence pilotes : npm run pilot:followup
+   (relances auto dues : npm run pilot:followup:due)
+2. Status WhatsApp / social : npm run launch:open social
+3. GSC : vérifier propriété + sitemap https://wazo-digital.com/sitemap.xml
+4. Quand prêt grand public : npm run launch:public
 `);

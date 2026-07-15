@@ -6,6 +6,7 @@ import { FormEvent, Suspense, useEffect, useState } from "react";
 import { ArrowLeft, Loader2, Lock, Mail, User } from "lucide-react";
 import { createSupabaseBrowserClient } from "../../lib/supabase/client";
 import { GoogleButton } from "../../components/google-button";
+import { Turnstile, isTurnstileEnabled } from "../../components/turnstile";
 import { getAuthCallbackUrl } from "../../lib/public-urls";
 import { markPlanForCheckout } from "../../lib/plan-checkout";
 import { trackMetaCompleteRegistration, trackMetaLead } from "../../lib/meta-pixel";
@@ -29,6 +30,7 @@ function RegisterForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const selectedModule = searchParams.get("module");
   const moduleInfo = APP_MODULES.find((mod) => mod.id === selectedModule);
   const selectedPlan = searchParams.get("plan");
@@ -54,6 +56,12 @@ function RegisterForm() {
     setIsLoading(true);
 
     try {
+      if (isTurnstileEnabled() && !captchaToken) {
+        setErrorMessage("Validez le captcha avant de continuer.");
+        setIsLoading(false);
+        return;
+      }
+
       const supabase = createSupabaseBrowserClient();
       const { data, error } = await supabase.auth.signUp({
         email: email.trim(),
@@ -61,6 +69,7 @@ function RegisterForm() {
         options: {
           data: { full_name: fullName.trim() },
           emailRedirectTo: getAuthCallbackUrl(),
+          ...(captchaToken ? { captchaToken } : {}),
         },
       });
 
@@ -183,6 +192,8 @@ function RegisterForm() {
                 {successMessage}
               </p>
             )}
+
+            <Turnstile onToken={setCaptchaToken} />
 
             <button
               type="submit"

@@ -6,6 +6,7 @@ import { FormEvent, Suspense, useEffect, useState } from "react";
 import { ArrowLeft, Loader2, Lock, Mail } from "lucide-react";
 import { createSupabaseBrowserClient } from "../../lib/supabase/client";
 import { GoogleButton } from "../../components/google-button";
+import { Turnstile, isTurnstileEnabled } from "../../components/turnstile";
 import { markPlanForCheckout } from "../../lib/plan-checkout";
 import { PRICING } from "../../lib/vitrine-data";
 
@@ -16,6 +17,7 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const selectedPlan = searchParams.get("plan");
   const planInfo = PRICING.find((p) => p.id === selectedPlan);
 
@@ -33,10 +35,17 @@ function LoginForm() {
     setIsLoading(true);
 
     try {
+      if (isTurnstileEnabled() && !captchaToken) {
+        setErrorMessage("Validez le captcha avant de continuer.");
+        setIsLoading(false);
+        return;
+      }
+
       const supabase = createSupabaseBrowserClient();
       const { error } = await supabase.auth.signInWithPassword({
         email: email.trim(),
         password,
+        ...(captchaToken ? { options: { captchaToken } } : {}),
       });
 
       if (error) {
@@ -131,6 +140,8 @@ function LoginForm() {
                 {errorMessage}
               </p>
             )}
+
+            <Turnstile onToken={setCaptchaToken} />
 
             <button
               type="submit"

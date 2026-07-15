@@ -1,6 +1,8 @@
 {
-  "updatedAt": "2026-07-07",
-  "targetCount": 5,
+  "updatedAt": "2026-07-15",
+  "lastSyncedAt": "2026-07-14",
+  "lastFollowUpAt": "2026-07-15",
+  "targetCount": 6,
   "pilots": [
     {
       "id": "pilot-1",
@@ -13,8 +15,13 @@
       "status": "active",
       "invitedAt": null,
       "storeSlug": "espoir",
-      "notes": "Relance email envoyée 7 juil. — 0 produit, 0 vente. Objectif : 1er produit + 1ère vente.",
-      "score": null
+      "lastRelanceAt": "2026-07-14",
+      "nextRelanceAt": "2026-07-17",
+      "notes": "Relance email envoyée 2026-07-14. Objectif : 1er produit + 1ère vente. Pas de WhatsApp en base.",
+      "score": {
+        "products": 0,
+        "sales": 0
+      }
     },
     {
       "id": "pilot-2",
@@ -24,11 +31,16 @@
       "whatsapp": "93924040",
       "email": "jacquesnoussougan93@gmail.com",
       "city": "Dakar",
-      "status": "active",
+      "status": "completed",
       "invitedAt": null,
       "storeSlug": "balade-estivale",
-      "notes": "Relance email + WhatsApp 7 juil. — 2 produits, 1 vente. Photo + partage WhatsApp Status.",
-      "score": null
+      "notes": "Parcours OK (2 produits, 1 vente). Demander photo + partage Status WhatsApp.",
+      "score": {
+        "products": 2,
+        "sales": 1
+      },
+      "completedAt": "2026-07-11",
+      "nextRelanceAt": null
     },
     {
       "id": "pilot-3",
@@ -41,8 +53,13 @@
       "status": "active",
       "invitedAt": "2026-07-07",
       "storeSlug": "manthus",
-      "notes": "Accueil email envoyé 7 juil. — demander WhatsApp. Objectif : 3 produits + 1 vente.",
-      "score": null
+      "lastRelanceAt": "2026-07-14",
+      "nextRelanceAt": "2026-07-17",
+      "notes": "Relance email envoyée 2026-07-14. Objectif : 3 produits + 1 vente. Pas de WhatsApp en base.",
+      "score": {
+        "products": 0,
+        "sales": 0
+      }
     },
     {
       "id": "pilot-4",
@@ -55,8 +72,13 @@
       "status": "active",
       "invitedAt": "2026-07-07",
       "storeSlug": "mewe-farms",
-      "notes": "Accueil email envoyé 7 juil. — demander WhatsApp. Module Agriculture + vente récolte.",
-      "score": null
+      "lastRelanceAt": "2026-07-14",
+      "nextRelanceAt": "2026-07-17",
+      "notes": "Relance email envoyée 2026-07-14. Module Agriculture + vente récolte. Pas de WhatsApp en base.",
+      "score": {
+        "products": 0,
+        "sales": 0
+      }
     },
     {
       "id": "pilot-5",
@@ -64,13 +86,37 @@
       "business": "Commerce",
       "phone": "",
       "whatsapp": "",
-      "email": "",
+      "email": "hiban28446@fivejm.com",
       "city": "",
       "status": "completed",
       "invitedAt": null,
       "storeSlug": "awodje",
-      "notes": "1 produit, 1 vente — féliciter + photo produit.",
-      "score": { "products": 1, "sales": 1 }
+      "notes": "Parcours OK (1 produit, 1 vente). Email jetable fivejm — demander un vrai email quand possible.",
+      "score": {
+        "products": 1,
+        "sales": 1
+      },
+      "completedAt": "2026-07-11",
+      "nextRelanceAt": null
+    },
+    {
+      "id": "pilot-6",
+      "name": "Hamza Konombo",
+      "business": "Boutique machallah",
+      "phone": "",
+      "whatsapp": "",
+      "email": "konombohamza100@gmail.com",
+      "city": "",
+      "status": "completed",
+      "invitedAt": null,
+      "storeSlug": "boutique-machallah",
+      "notes": "Ajouté 2026-07-14 — organique (2 produits, 2 ventes). Félicitations + guide envoyés.",
+      "score": {
+        "products": 2,
+        "sales": 2
+      },
+      "completedAt": "2026-07-14",
+      "nextRelanceAt": null
     }
   ],
   "statusLegend": {
@@ -80,5 +126,11 @@
     "completed": "Parcours pilote terminé (produit + vente)",
     "churned": "Abandon / pas de réponse"
   },
-  "inviteOrder": ["pilot-3", "pilot-4", "pilot-1", "pilot-2"]
+  "inviteOrder": [
+    "pilot-3",
+    "pilot-4",
+    "pilot-1",
+    "pilot-6",
+    "pilot-2"
+  ]
 }

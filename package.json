@@ -30,6 +30,8 @@
     "pilot:outreach": "node scripts/pilot-actions.mjs outreach",
     "pilot:send": "node scripts/pilot-send.mjs",
     "pilot:sync": "node scripts/pilot-tracker.mjs sync",
+    "pilot:followup": "node scripts/pilot-followup.mjs",
+    "pilot:followup:due": "node scripts/pilot-followup.mjs --relance-due",
     "setup:github-secrets": "powershell -ExecutionPolicy Bypass -File scripts/setup-github-secrets.ps1"
   },
   "dependencies": {
