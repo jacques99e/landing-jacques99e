@@ -17,6 +17,7 @@
     "pilot:tracker": "node scripts/pilot-tracker.mjs",
     "pilot:board": "node scripts/pilot-tracker.mjs board",
     "launch:social": "node scripts/launch-social.mjs",
+    "social:post": "node scripts/social-post.mjs",
     "launch:gsc": "node scripts/launch-gsc.mjs",
     "launch:next": "node scripts/launch-next.mjs",
     "launch:verify": "node scripts/launch-verify.mjs",
@@ -32,6 +33,7 @@
     "pilot:sync": "node scripts/pilot-tracker.mjs sync",
     "pilot:followup": "node scripts/pilot-followup.mjs",
     "pilot:followup:due": "node scripts/pilot-followup.mjs --relance-due",
+    "pilot:next": "node scripts/pilot-next.mjs",
     "setup:github-secrets": "powershell -ExecutionPolicy Bypass -File scripts/setup-github-secrets.ps1"
   },
   "dependencies": {

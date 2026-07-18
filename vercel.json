@@ -1,0 +1,9 @@
+{
+  "framework": "nextjs",
+  "crons": [
+    {
+      "path": "/api/cron/social-post",
+      "schedule": "0 10 * * 1,3,5"
+    }
+  ]
+}

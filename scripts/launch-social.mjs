@@ -3,47 +3,25 @@
  * Textes prêts pour communication lancement (WhatsApp status, réseaux).
  * Usage: node scripts/launch-social.mjs [register|pilote|pro]
  */
-const REGISTER = "https://wazo-digital.com/register";
-const GUIDE = "https://wazo-digital.com/guide-pilote";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
+const POSTS = JSON.parse(
+  fs.readFileSync(path.join(ROOT, "lib", "social-posts.json"), "utf8")
+);
 const DEMO = "https://wazo-digital.com";
 
-const POSTS = {
-  register: [
-    "🚀 *Wazo Digital* — l'app pour digitaliser votre commerce en Afrique",
-    "",
-    "✅ Catalogue + WhatsApp",
-    "✅ Caisse (espèces & Mobile Money)",
-    "✅ Mode hors ligne sur téléphone",
-    "",
-    `Inscription gratuite : ${REGISTER}`,
-    "Sans engagement · PRO à 9,99 €/mois si vous voulez aller plus loin",
-  ].join("\n"),
-
-  pilote: [
-    "📣 On cherche 5 commerçants pilotes pour tester *Wazo Digital*",
-    "",
-    "Boutique, restaurant, coiffure, agriculture…",
-    "On vous accompagne pas à pas (15 min).",
-    "",
-    `Guide : ${GUIDE}`,
-    `S'inscrire : ${REGISTER}`,
-  ].join("\n"),
-
-  pro: [
-    "💳 *Wazo Digital PRO* — 9,99 €/mois",
-    "",
-    "Rapport hebdo par email, équipe, modules avancés.",
-    "Paiement Mobile Money (MoMo) depuis l'app.",
-    "",
-    `Essai gratuit d'abord : ${REGISTER}`,
-  ].join("\n"),
-};
-
 const key = process.argv[2]?.trim() || "register";
-const text = POSTS[key] || POSTS.register;
+const post = POSTS[key] || POSTS.register;
+const text = post.message;
 
-console.log(`--- Post « ${key} » ---\n`);
+console.log(`--- Post « ${post.key} » ---\n`);
 console.log(text);
 console.log("\n--- WhatsApp status (lien) ---");
 console.log(`https://wa.me/?text=${encodeURIComponent(text)}`);
 console.log(`\nSite : ${DEMO}`);
+console.log("\n--- Auto-post Meta ---");
+console.log(`Dry-run : npm run social:post -- ${post.key}`);
+console.log(`Live    : npm run social:post -- ${post.key} --live`);
