@@ -228,6 +228,10 @@ async function main() {
     const today = new Date().toISOString().slice(0, 10);
     for (const p of data.pilots || []) {
       if (sent.includes(p.storeSlug) && p.status !== "completed") {
+        p.lastRelanceAt = today;
+        const next = new Date(`${today}T12:00:00Z`);
+        next.setUTCDate(next.getUTCDate() + 3);
+        p.nextRelanceAt = next.toISOString().slice(0, 10);
         p.notes = `Relance email envoyée ${today}. ${p.notes || ""}`.trim();
       }
     }
