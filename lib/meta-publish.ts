@@ -1,177 +1,163 @@
-export interface MetaPublishResult {
-  network: "facebook" | "instagram";
-  ok: boolean;
-  id?: string;
-  skipped?: boolean;
-  error?: string;
-}
+import { defaultSocialImageUrl, getSocialPost, type SocialPost } from "./social-posts";
 
-interface MetaConfig {
+const GRAPH = "https://graph.facebook.com/v21.0";
+
+export interface MetaPublishConfig {
   pageId: string;
   pageAccessToken: string;
-  instagramAccountId?: string;
-  igImageUrl?: string;
-  apiVersion?: string;
+  igUserId?: string;
+  imageUrl?: string;
+  facebook?: boolean;
+  instagram?: boolean;
 }
 
-export function getMetaConfig(): MetaConfig | null {
+export interface MetaPublishResult {
+  ok: boolean;
+  post: SocialPost;
+  facebook?: { id?: string; error?: string };
+  instagram?: { id?: string; error?: string };
+  skipped?: string;
+}
+
+function requireConfig(): MetaPublishConfig | { error: string } {
   const pageId = process.env.META_PAGE_ID?.trim();
   const pageAccessToken = process.env.META_PAGE_ACCESS_TOKEN?.trim();
-  if (!pageId || !pageAccessToken) return null;
+  if (!pageId || !pageAccessToken) {
+    return {
+      error:
+        "META_PAGE_ID ou META_PAGE_ACCESS_TOKEN manquant. Lancez: npm run meta:connect",
+    };
+  }
   return {
     pageId,
     pageAccessToken,
-    instagramAccountId: process.env.META_INSTAGRAM_ACCOUNT_ID?.trim() || undefined,
-    igImageUrl: process.env.META_IG_IMAGE_URL?.trim() || undefined,
-    apiVersion: process.env.META_GRAPH_VERSION?.trim() || "v21.0",
+    igUserId: process.env.META_IG_USER_ID?.trim() || undefined,
+    imageUrl: defaultSocialImageUrl(),
+    facebook: process.env.META_POST_FACEBOOK !== "0",
+    instagram: process.env.META_POST_INSTAGRAM !== "0",
   };
 }
 
 async function graphPost(
-  version: string,
   path: string,
   token: string,
   body: Record<string, string>
-): Promise<{ ok: boolean; id?: string; error?: string; raw?: unknown }> {
-  const url = new URL(`https://graph.facebook.com/${version}${path}`);
+): Promise<{ ok: true; data: Record<string, unknown> } | { ok: false; error: string }> {
+  const url = new URL(`${GRAPH}${path}`);
   url.searchParams.set("access_token", token);
-
-  const res = await fetch(url.toString(), {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams(body),
-  });
-
-  const raw = (await res.json().catch(() => ({}))) as {
-    id?: string;
-    error?: { message?: string };
-  };
-
-  if (!res.ok || raw.error) {
-    return {
-      ok: false,
-      error: raw.error?.message || `HTTP ${res.status}`,
-      raw,
-    };
+  for (const [k, v] of Object.entries(body)) {
+    url.searchParams.set(k, v);
   }
-
-  return { ok: true, id: raw.id, raw };
+  const res = await fetch(url.toString(), { method: "POST" });
+  const data = (await res.json().catch(() => ({}))) as Record<string, unknown> & {
+    error?: { message?: string };
+    id?: string;
+  };
+  if (!res.ok || data.error) {
+    return { ok: false, error: data.error?.message || `HTTP ${res.status}` };
+  }
+  return { ok: true, data };
 }
 
-/** Publication texte + lien sur la Page Facebook. */
-export async function publishToFacebook(
-  config: MetaConfig,
-  message: string,
-  link: string
-): Promise<MetaPublishResult> {
-  const version = config.apiVersion || "v21.0";
-  const result = await graphPost(version, `/${config.pageId}/feed`, config.pageAccessToken, {
-    message,
+async function waitIgContainerReady(
+  containerId: string,
+  token: string,
+  attempts = 12
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  for (let i = 0; i < attempts; i++) {
+    const url = new URL(`${GRAPH}/${containerId}`);
+    url.searchParams.set("fields", "status_code");
+    url.searchParams.set("access_token", token);
+    const res = await fetch(url.toString());
+    const data = (await res.json().catch(() => ({}))) as {
+      status_code?: string;
+      error?: { message?: string };
+    };
+    if (data.error) return { ok: false, error: data.error.message || "IG status error" };
+    if (data.status_code === "FINISHED") return { ok: true };
+    if (data.status_code === "ERROR") {
+      return { ok: false, error: "Instagram container ERROR" };
+    }
+    await new Promise((r) => setTimeout(r, 2500));
+  }
+  return { ok: false, error: "Instagram container timeout" };
+}
+
+async function publishFacebook(
+  cfg: MetaPublishConfig,
+  post: SocialPost
+): Promise<{ id?: string; error?: string }> {
+  const link = "https://wazo-digital.com/register";
+  const result = await graphPost(`/${cfg.pageId}/feed`, cfg.pageAccessToken, {
+    message: post.message,
     link,
   });
-
-  return {
-    network: "facebook",
-    ok: result.ok,
-    id: result.id,
-    error: result.error,
-  };
+  if (!result.ok) return { error: result.error };
+  return { id: String(result.data.id || "") };
 }
 
-/**
- * Publication Instagram (compte pro lié à la Page).
- * Exige une image HTTPS publique (JPG/PNG) — pas de SVG.
- */
-export async function publishToInstagram(
-  config: MetaConfig,
-  caption: string
-): Promise<MetaPublishResult> {
-  if (!config.instagramAccountId) {
-    return {
-      network: "instagram",
-      ok: true,
-      skipped: true,
-      error: "META_INSTAGRAM_ACCOUNT_ID non configuré",
-    };
+async function publishInstagram(
+  cfg: MetaPublishConfig,
+  post: SocialPost
+): Promise<{ id?: string; error?: string }> {
+  if (!cfg.igUserId) {
+    return { error: "META_IG_USER_ID manquant (compte Instagram Pro lié à la Page)" };
   }
-  if (!config.igImageUrl) {
-    return {
-      network: "instagram",
-      ok: true,
-      skipped: true,
-      error: "META_IG_IMAGE_URL non configuré (JPG/PNG HTTPS requis)",
-    };
-  }
+  const imageUrl = cfg.imageUrl || defaultSocialImageUrl();
+  const created = await graphPost(`/${cfg.igUserId}/media`, cfg.pageAccessToken, {
+    image_url: imageUrl,
+    caption: post.caption,
+  });
+  if (!created.ok) return { error: created.error };
+  const creationId = String(created.data.id || "");
+  if (!creationId) return { error: "Pas d'id container Instagram" };
 
-  const version = config.apiVersion || "v21.0";
-  const container = await graphPost(
-    version,
-    `/${config.instagramAccountId}/media`,
-    config.pageAccessToken,
-    {
-      image_url: config.igImageUrl,
-      caption,
-    }
-  );
-
-  if (!container.ok || !container.id) {
-    return {
-      network: "instagram",
-      ok: false,
-      error: container.error || "Création conteneur IG échouée",
-    };
-  }
+  const ready = await waitIgContainerReady(creationId, cfg.pageAccessToken);
+  if (!ready.ok) return { error: ready.error };
 
   const published = await graphPost(
-    version,
-    `/${config.instagramAccountId}/media_publish`,
-    config.pageAccessToken,
-    { creation_id: container.id }
+    `/${cfg.igUserId}/media_publish`,
+    cfg.pageAccessToken,
+    { creation_id: creationId }
   );
-
-  return {
-    network: "instagram",
-    ok: published.ok,
-    id: published.id,
-    error: published.error,
-  };
+  if (!published.ok) return { error: published.error };
+  return { id: String(published.data.id || "") };
 }
 
-export async function publishSocialPost(input: {
-  message: string;
-  link: string;
+/** Publie un post marketing sur Facebook Page et/ou Instagram. */
+export async function publishSocialPost(options?: {
+  key?: string | null;
   dryRun?: boolean;
-}): Promise<{
-  configured: boolean;
-  dryRun: boolean;
-  results: MetaPublishResult[];
-}> {
-  const config = getMetaConfig();
-  if (!config) {
-    return { configured: false, dryRun: Boolean(input.dryRun), results: [] };
-  }
+}): Promise<MetaPublishResult> {
+  const post = getSocialPost(options?.key);
+  const enabled = process.env.META_SOCIAL_ENABLED?.trim() === "1";
 
-  if (input.dryRun) {
+  if (options?.dryRun || !enabled) {
     return {
-      configured: true,
-      dryRun: true,
-      results: [
-        { network: "facebook", ok: true, skipped: true, error: "dry-run" },
-        {
-          network: "instagram",
-          ok: true,
-          skipped: true,
-          error: config.instagramAccountId ? "dry-run" : "IG non configuré",
-        },
-      ],
+      ok: true,
+      post,
+      skipped: options?.dryRun
+        ? "dry-run"
+        : "META_SOCIAL_ENABLED n'est pas à 1 — rien publié",
     };
   }
 
-  const caption = `${input.message}\n\n${input.link}`;
-  const results: MetaPublishResult[] = [];
+  const cfg = requireConfig();
+  if ("error" in cfg) {
+    return { ok: false, post, skipped: cfg.error };
+  }
 
-  results.push(await publishToFacebook(config, input.message, input.link));
-  results.push(await publishToInstagram(config, caption));
+  const result: MetaPublishResult = { ok: true, post };
 
-  return { configured: true, dryRun: false, results };
+  if (cfg.facebook !== false) {
+    result.facebook = await publishFacebook(cfg, post);
+    if (result.facebook.error) result.ok = false;
+  }
+
+  if (cfg.instagram !== false) {
+    result.instagram = await publishInstagram(cfg, post);
+    if (result.instagram.error) result.ok = false;
+  }
+
+  return result;
 }

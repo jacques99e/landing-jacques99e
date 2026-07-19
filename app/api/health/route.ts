@@ -12,5 +12,12 @@ export async function GET() {
       process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
     ),
     appUrl: process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, "") ?? null,
+    metaSocial: {
+      enabled: process.env.META_SOCIAL_ENABLED === "1",
+      pageConfigured: Boolean(
+        process.env.META_PAGE_ID && process.env.META_PAGE_ACCESS_TOKEN
+      ),
+      instagramConfigured: Boolean(process.env.META_IG_USER_ID),
+    },
   });
 }

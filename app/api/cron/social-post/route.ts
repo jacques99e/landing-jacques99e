@@ -1,61 +1,38 @@
 import { NextResponse } from "next/server";
-import { getSocialPost, pickPostForDate } from "@/lib/social-posts";
 import { publishSocialPost } from "@/lib/meta-publish";
+
+export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 function authorizeCron(request: Request): boolean {
   const secret = process.env.CRON_SECRET?.trim();
   if (!secret) return process.env.NODE_ENV !== "production";
   const auth = request.headers.get("authorization");
-  return auth === `Bearer ${secret}`;
+  const url = new URL(request.url);
+  const q = url.searchParams.get("secret");
+  return auth === `Bearer ${secret}` || q === secret;
 }
 
-/**
- * Auto-post Facebook Page (+ Instagram si configuré).
- * Cron Vercel : lun/mer/ven 10:00 UTC
- * Manuel : GET /api/cron/social-post?key=register&dryRun=1
- */
 export async function GET(request: Request) {
   if (!authorizeCron(request)) {
-    return NextResponse.json({ success: false, error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
   }
 
-  if (process.env.SOCIAL_POST_ENABLED?.trim() !== "1") {
+  const url = new URL(request.url);
+  const key = url.searchParams.get("key");
+  const dryRun = url.searchParams.get("dryRun") === "1";
+
+  try {
+    const result = await publishSocialPost({ key, dryRun });
     return NextResponse.json({
-      success: true,
-      skipped: true,
-      reason: "SOCIAL_POST_ENABLED n'est pas à 1",
+      ok: result.ok,
+      key: result.post.key,
+      skipped: result.skipped ?? null,
+      facebook: result.facebook ?? null,
+      instagram: result.instagram ?? null,
     });
+  } catch (e) {
+    const message = e instanceof Error ? e.message : "publish failed";
+    return NextResponse.json({ ok: false, error: message }, { status: 500 });
   }
-
-  const { searchParams } = new URL(request.url);
-  const key = searchParams.get("key");
-  const dryRun =
-    searchParams.get("dryRun") === "1" || searchParams.get("dry_run") === "1";
-
-  const post = key ? getSocialPost(key) : pickPostForDate();
-  const published = await publishSocialPost({
-    message: post.message,
-    link: post.link,
-    dryRun,
-  });
-
-  if (!published.configured) {
-    return NextResponse.json(
-      {
-        success: false,
-        error: "META_PAGE_ID / META_PAGE_ACCESS_TOKEN manquants",
-        post: post.key,
-      },
-      { status: 503 }
-    );
-  }
-
-  const hardFail = published.results.some((r) => !r.ok && !r.skipped);
-
-  return NextResponse.json({
-    success: !hardFail,
-    dryRun: published.dryRun,
-    post: post.key,
-    results: published.results,
-  });
 }
