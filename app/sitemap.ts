@@ -13,6 +13,7 @@ const PUBLIC_PAGES: Array<{
   { path: "/login", changeFrequency: "monthly", priority: 0.6 },
   { path: "/mentions-legales", changeFrequency: "yearly", priority: 0.3 },
   { path: "/confidentialite", changeFrequency: "yearly", priority: 0.3 },
+  { path: "/suppression-donnees", changeFrequency: "yearly", priority: 0.3 },
   { path: "/app", changeFrequency: "monthly", priority: 0.8 },
 ];
 

@@ -37,6 +37,9 @@
     "pilot:followup": "node scripts/pilot-followup.mjs",
     "pilot:followup:due": "node scripts/pilot-followup.mjs --relance-due",
     "pilot:next": "node scripts/pilot-next.mjs",
+    "pilot:feedback": "node scripts/pilot-ask-feedback.mjs",
+    "pilot:welcome-new": "node scripts/pilot-welcome-new.mjs",
+    "pilot:nudge-new": "node scripts/pilot-nudge-new-sales.mjs",
     "setup:github-secrets": "powershell -ExecutionPolicy Bypass -File scripts/setup-github-secrets.ps1"
   },
   "dependencies": {

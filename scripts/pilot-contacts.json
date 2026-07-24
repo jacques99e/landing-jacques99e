@@ -1,8 +1,8 @@
 {
-  "updatedAt": "2026-07-19",
-  "lastSyncedAt": "2026-07-14",
-  "lastFollowUpAt": "2026-07-18",
-  "targetCount": 7,
+  "updatedAt": "2026-07-24",
+  "lastSyncedAt": "2026-07-24",
+  "lastFollowUpAt": "2026-07-24",
+  "targetCount": 24,
   "pilots": [
     {
       "id": "pilot-1",
@@ -15,13 +15,14 @@
       "status": "active",
       "invitedAt": null,
       "storeSlug": "espoir",
-      "lastRelanceAt": "2026-07-18",
-      "nextRelanceAt": "2026-07-21",
-      "notes": "Relance email envoyée 2026-07-18. Relance email envoyée 2026-07-18. Relance email envoyée 2026-07-14. Objectif : 1er produit + 1ère vente. Pas de WhatsApp en base.",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-27",
+      "notes": "Relance email envoyée 2026-07-24. Feedback demandé 2026-07-22. Relance email envoyée 2026-07-21. Relance email envoyée 2026-07-18. Relance email envoyée 2026-07-18. Relance email envoyée 2026-07-14. Objectif : 1er produit + 1ère vente. Pas de WhatsApp en base.",
       "score": {
         "products": 0,
         "sales": 0
-      }
+      },
+      "lastFeedbackAskedAt": "2026-07-22"
     },
     {
       "id": "pilot-2",
@@ -34,13 +35,14 @@
       "status": "completed",
       "invitedAt": null,
       "storeSlug": "balade-estivale",
-      "notes": "Demande Status WhatsApp ouverte 2026-07-18. Parcours OK (2 produits, 1 vente). Demander photo + partage Status WhatsApp.",
+      "notes": "WA Status + feedback ouvert 2026-07-22. Feedback demandé 2026-07-22. Demande Status WhatsApp ouverte 2026-07-18. Parcours OK (2 produits, 1 vente). Demander photo + partage Status WhatsApp.",
       "score": {
         "products": 2,
-        "sales": 1
+        "sales": 2
       },
       "completedAt": "2026-07-11",
-      "nextRelanceAt": null
+      "nextRelanceAt": null,
+      "lastFeedbackAskedAt": "2026-07-22"
     },
     {
       "id": "pilot-3",
@@ -53,13 +55,14 @@
       "status": "active",
       "invitedAt": "2026-07-07",
       "storeSlug": "manthus",
-      "lastRelanceAt": "2026-07-18",
-      "nextRelanceAt": "2026-07-21",
-      "notes": "Relance email envoyée 2026-07-18. Relance email envoyée 2026-07-18. Relance email envoyée 2026-07-14. Objectif : 3 produits + 1 vente. Pas de WhatsApp en base.",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-27",
+      "notes": "Relance email envoyée 2026-07-24. Feedback demandé 2026-07-22. Relance email envoyée 2026-07-21. Relance email envoyée 2026-07-18. Relance email envoyée 2026-07-18. Relance email envoyée 2026-07-14. Objectif : 3 produits + 1 vente. Pas de WhatsApp en base.",
       "score": {
         "products": 0,
         "sales": 0
-      }
+      },
+      "lastFeedbackAskedAt": "2026-07-22"
     },
     {
       "id": "pilot-4",
@@ -72,13 +75,14 @@
       "status": "active",
       "invitedAt": "2026-07-07",
       "storeSlug": "mewe-farms",
-      "lastRelanceAt": "2026-07-18",
-      "nextRelanceAt": "2026-07-21",
-      "notes": "Relance email envoyée 2026-07-18. Relance email envoyée 2026-07-18. Relance email envoyée 2026-07-14. Module Agriculture + vente récolte. Pas de WhatsApp en base.",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-27",
+      "notes": "Relance email envoyée 2026-07-24. Feedback demandé 2026-07-22. Relance email envoyée 2026-07-21. Relance email envoyée 2026-07-18. Relance email envoyée 2026-07-18. Relance email envoyée 2026-07-14. Module Agriculture + vente récolte. Pas de WhatsApp en base.",
       "score": {
         "products": 0,
         "sales": 0
-      }
+      },
+      "lastFeedbackAskedAt": "2026-07-22"
     },
     {
       "id": "pilot-5",
@@ -91,13 +95,14 @@
       "status": "completed",
       "invitedAt": null,
       "storeSlug": "awodje",
-      "notes": "Parcours OK (1 produit, 1 vente). Email jetable fivejm — demander un vrai email quand possible.",
+      "notes": "Feedback demandé 2026-07-22. Parcours OK (1 produit, 1 vente). Email jetable fivejm — demander un vrai email quand possible.",
       "score": {
         "products": 1,
         "sales": 1
       },
       "completedAt": "2026-07-11",
-      "nextRelanceAt": null
+      "nextRelanceAt": null,
+      "lastFeedbackAskedAt": "2026-07-22"
     },
     {
       "id": "pilot-6",
@@ -110,13 +115,14 @@
       "status": "completed",
       "invitedAt": null,
       "storeSlug": "boutique-machallah",
-      "notes": "Ajouté 2026-07-14 — organique (2 produits, 2 ventes). Félicitations + guide envoyés.",
+      "notes": "Feedback demandé 2026-07-22. Ajouté 2026-07-14 — organique (2 produits, 2 ventes). Félicitations + guide envoyés.",
       "score": {
         "products": 2,
         "sales": 2
       },
       "completedAt": "2026-07-14",
-      "nextRelanceAt": null
+      "nextRelanceAt": null,
+      "lastFeedbackAskedAt": "2026-07-22"
     },
     {
       "id": "pilot-7",
@@ -129,13 +135,14 @@
       "status": "active",
       "invitedAt": "2026-07-18",
       "storeSlug": "armel-shop",
-      "notes": "Nudge 1ère vente envoyé 2026-07-18. Bienvenue email envoyé 2026-07-18. 1 produit — objectif 1ère vente.",
+      "notes": "Nudge 1ère vente 2026-07-24. Relance email envoyée 2026-07-24. Nudge 1ère vente 2026-07-22. Feedback demandé 2026-07-22. Relance email envoyée 2026-07-21. Nudge 1ère vente envoyé 2026-07-18. Bienvenue email envoyé 2026-07-18. 1 produit — objectif 1ère vente.",
       "score": {
         "products": 1,
         "sales": 0
       },
-      "lastRelanceAt": "2026-07-18",
-      "nextRelanceAt": "2026-07-21"
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-26",
+      "lastFeedbackAskedAt": "2026-07-22"
     },
     {
       "id": "organic-boutique-omar",
@@ -148,11 +155,14 @@
       "status": "active",
       "invitedAt": "2026-07-18",
       "storeSlug": "boutique-omar",
-      "notes": "Bienvenue organique envoyée 2026-07-18.",
+      "notes": "Relance email envoyée 2026-07-24. Feedback demandé 2026-07-22. Relance email envoyée 2026-07-21. Bienvenue organique envoyée 2026-07-18.",
       "score": {
         "products": 0,
         "sales": 0
-      }
+      },
+      "nextRelanceAt": "2026-07-27",
+      "lastRelanceAt": "2026-07-24",
+      "lastFeedbackAskedAt": "2026-07-22"
     },
     {
       "id": "organic-eyram-education",
@@ -165,9 +175,299 @@
       "status": "active",
       "invitedAt": "2026-07-18",
       "storeSlug": "eyram-education",
-      "notes": "Bienvenue organique envoyée 2026-07-18.",
+      "notes": "Relance email envoyée 2026-07-24. Feedback demandé 2026-07-22. Relance email envoyée 2026-07-21. Bienvenue organique envoyée 2026-07-18.",
       "score": {
         "products": 0,
+        "sales": 0
+      },
+      "nextRelanceAt": "2026-07-27",
+      "lastRelanceAt": "2026-07-24",
+      "lastFeedbackAskedAt": "2026-07-22"
+    },
+    {
+      "id": "organic-rach-market",
+      "name": "Rach",
+      "business": "Rach Market ",
+      "phone": "",
+      "whatsapp": "",
+      "email": "rachelkouassi62@gmail.com",
+      "city": "",
+      "status": "active",
+      "invitedAt": "2026-07-24",
+      "storeSlug": "rach-market",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-27",
+      "notes": "Bienvenue organique envoyée 2026-07-24. Créé 2026-07-23.",
+      "score": {
+        "products": 0,
+        "sales": 0
+      }
+    },
+    {
+      "id": "organic-niz",
+      "name": "Niz",
+      "business": "Niz",
+      "phone": "",
+      "whatsapp": "",
+      "email": "machoudou130@gmail.com",
+      "city": "",
+      "status": "active",
+      "invitedAt": "2026-07-24",
+      "storeSlug": "niz",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-27",
+      "notes": "Bienvenue organique envoyée 2026-07-24. Créé 2026-07-23.",
+      "score": {
+        "products": 0,
+        "sales": 0
+      }
+    },
+    {
+      "id": "organic-richy-agro",
+      "name": "RICHY",
+      "business": "RICHY AGRO ",
+      "phone": "",
+      "whatsapp": "",
+      "email": "ulrichtogninou3@gmail.com",
+      "city": "",
+      "status": "active",
+      "invitedAt": "2026-07-24",
+      "storeSlug": "richy-agro",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-26",
+      "notes": "Nudge 1ère vente 2026-07-24. Bienvenue organique envoyée 2026-07-24. Créé 2026-07-23.",
+      "score": {
+        "products": 1,
+        "sales": 0
+      }
+    },
+    {
+      "id": "organic-paulasco-store",
+      "name": "Paulasco",
+      "business": "Paulasco store ",
+      "phone": "",
+      "whatsapp": "",
+      "email": "housougapaul@gmail.com",
+      "city": "",
+      "status": "active",
+      "invitedAt": "2026-07-24",
+      "storeSlug": "paulasco-store",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-26",
+      "notes": "Nudge 1ère vente 2026-07-24. Bienvenue organique envoyée 2026-07-24. Créé 2026-07-23.",
+      "score": {
+        "products": 1,
+        "sales": 0
+      }
+    },
+    {
+      "id": "organic-smartdigital",
+      "name": "SMARTDIGITAL",
+      "business": "SMARTDIGITAL",
+      "phone": "",
+      "whatsapp": "",
+      "email": "komistanislasaglago90@gmail.com",
+      "city": "",
+      "status": "active",
+      "invitedAt": "2026-07-24",
+      "storeSlug": "smartdigital",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-27",
+      "notes": "Bienvenue organique envoyée 2026-07-24. Créé 2026-07-23.",
+      "score": {
+        "products": 0,
+        "sales": 0
+      }
+    },
+    {
+      "id": "organic-grace-divine-quincaillerie",
+      "name": "Grâce",
+      "business": "Grâce divine quincaillerie ",
+      "phone": "",
+      "whatsapp": "",
+      "email": "benkangoute913@gmail.com",
+      "city": "",
+      "status": "active",
+      "invitedAt": "2026-07-24",
+      "storeSlug": "grace-divine-quincaillerie",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-27",
+      "notes": "Bienvenue organique envoyée 2026-07-24. Créé 2026-07-23.",
+      "score": {
+        "products": 0,
+        "sales": 0
+      }
+    },
+    {
+      "id": "organic-boutique-gayet",
+      "name": "Boutique",
+      "business": "Boutique gayet ",
+      "phone": "",
+      "whatsapp": "",
+      "email": "ferryjulie766@gmail.com",
+      "city": "",
+      "status": "active",
+      "invitedAt": "2026-07-24",
+      "storeSlug": "boutique-gayet",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-27",
+      "notes": "Bienvenue organique envoyée 2026-07-24. Créé 2026-07-23.",
+      "score": {
+        "products": 0,
+        "sales": 0
+      }
+    },
+    {
+      "id": "organic-ebimax",
+      "name": "EBIMAX",
+      "business": "EBIMAX ",
+      "phone": "22655734821",
+      "whatsapp": "22655734821",
+      "email": "",
+      "city": "",
+      "status": "active",
+      "invitedAt": "2026-07-24",
+      "storeSlug": "ebimax",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-27",
+      "notes": "WhatsApp +22655734821 ajouté 2026-07-24. Bienvenue + nudge 1ère vente WA ouvert. Créé 2026-07-23.",
+      "score": {
+        "products": 1,
+        "sales": 0
+      }
+    },
+    {
+      "id": "organic-finesse-shop",
+      "name": "Finesse",
+      "business": "Finesse shop",
+      "phone": "+2290168544898",
+      "whatsapp": "+2290168544898",
+      "email": "curiben4@gmail.com",
+      "city": "",
+      "status": "completed",
+      "invitedAt": "2026-07-24",
+      "storeSlug": "finesse-shop",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-29",
+      "notes": "Félicitations 2026-07-24. Bienvenue organique envoyée 2026-07-24. Créé 2026-07-23.",
+      "score": {
+        "products": 4,
+        "sales": 2
+      },
+      "completedAt": "2026-07-24"
+    },
+    {
+      "id": "organic-boutique-asseyi",
+      "name": "Boutique",
+      "business": "Boutique asseyi ",
+      "phone": "",
+      "whatsapp": "",
+      "email": "asseyigbareasseyi@gmail.com",
+      "city": "",
+      "status": "active",
+      "invitedAt": "2026-07-24",
+      "storeSlug": "boutique-asseyi",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-26",
+      "notes": "Nudge 1ère vente 2026-07-24. Bienvenue organique envoyée 2026-07-24. Créé 2026-07-22.",
+      "score": {
+        "products": 2,
+        "sales": 0
+      }
+    },
+    {
+      "id": "organic-victor-akadja",
+      "name": "Victor",
+      "business": "Victor akadja",
+      "phone": "",
+      "whatsapp": "",
+      "email": "victorakadja21@gmail.com",
+      "city": "",
+      "status": "active",
+      "invitedAt": "2026-07-24",
+      "storeSlug": "victor-akadja",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-27",
+      "notes": "Bienvenue organique envoyée 2026-07-24. Créé 2026-07-22.",
+      "score": {
+        "products": 0,
+        "sales": 0
+      }
+    },
+    {
+      "id": "organic-kokoroko-digitale",
+      "name": "Kokoroko",
+      "business": "Kokoroko Digitale ",
+      "phone": "",
+      "whatsapp": "",
+      "email": "issifoubadiou18@gmail.com",
+      "city": "",
+      "status": "active",
+      "invitedAt": "2026-07-24",
+      "storeSlug": "kokoroko-digitale",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-27",
+      "notes": "Bienvenue organique envoyée 2026-07-24. Créé 2026-07-22.",
+      "score": {
+        "products": 0,
+        "sales": 0
+      }
+    },
+    {
+      "id": "organic-le-bazar",
+      "name": "Le",
+      "business": "Le bazar",
+      "phone": "",
+      "whatsapp": "",
+      "email": "adamouabdouraman333@gmail.com",
+      "city": "",
+      "status": "active",
+      "invitedAt": "2026-07-24",
+      "storeSlug": "le-bazar",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-27",
+      "notes": "Bienvenue organique envoyée 2026-07-24. Créé 2026-07-22.",
+      "score": {
+        "products": 0,
+        "sales": 0
+      }
+    },
+    {
+      "id": "organic-ramatou",
+      "name": "RAMATOU",
+      "business": "RAMATOU",
+      "phone": "",
+      "whatsapp": "",
+      "email": "alassanasidibe623@gmail.com",
+      "city": "",
+      "status": "completed",
+      "invitedAt": "2026-07-24",
+      "storeSlug": "ramatou",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-29",
+      "notes": "Félicitations 2026-07-24. Bienvenue organique envoyée 2026-07-24. Créé 2026-07-22.",
+      "score": {
+        "products": 1,
+        "sales": 4
+      },
+      "completedAt": "2026-07-24"
+    },
+    {
+      "id": "organic-accessoirement",
+      "name": "Accessoirement",
+      "business": "Accessoirement ",
+      "phone": "",
+      "whatsapp": "",
+      "email": "barrymamadoudiouma603@gmail.com",
+      "city": "",
+      "status": "active",
+      "invitedAt": "2026-07-24",
+      "storeSlug": "accessoirement",
+      "lastRelanceAt": "2026-07-24",
+      "nextRelanceAt": "2026-07-26",
+      "notes": "Nudge 1ère vente 2026-07-24. Bienvenue organique envoyée 2026-07-24. Créé 2026-07-22.",
+      "score": {
+        "products": 1,
         "sales": 0
       }
     }
@@ -185,5 +485,7 @@
     "pilot-1",
     "pilot-6",
     "pilot-2"
-  ]
+  ],
+  "lastFeedbackAskAt": "2026-07-22",
+  "lastWelcomeNewAt": "2026-07-24"
 }

@@ -90,6 +90,9 @@ export function SiteFooter() {
           <Link href="/confidentialite" className="hover:text-[#075E54]">
             Confidentialité
           </Link>
+          <Link href="/feedback" className="hover:text-[#075E54]">
+            Donner mon avis
+          </Link>
         </p>
       </div>
     </footer>

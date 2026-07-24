@@ -25,8 +25,17 @@ const KEYWORDS = [
 
 function siteVerification(): Metadata["verification"] | undefined {
   const google = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim();
-  if (!google) return undefined;
-  return { google };
+  const facebook =
+    process.env.NEXT_PUBLIC_FACEBOOK_DOMAIN_VERIFICATION?.trim() ||
+    "tc5avvkkhyutxy570fae95j12u09ma";
+
+  const verification: NonNullable<Metadata["verification"]> = {
+    other: {
+      "facebook-domain-verification": facebook,
+    },
+  };
+  if (google) verification.google = google;
+  return verification;
 }
 
 export function buildRootMetadata(): Metadata {
