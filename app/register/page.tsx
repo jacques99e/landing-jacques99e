@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, Suspense, useEffect, useState } from "react";
-import { ArrowLeft, Loader2, Lock, Mail, User } from "lucide-react";
+import { ArrowLeft, Loader2, Lock, Mail, Phone, User } from "lucide-react";
 import { createSupabaseBrowserClient } from "../../lib/supabase/client";
 import { GoogleButton } from "../../components/google-button";
 import { Turnstile, isTurnstileEnabled } from "../../components/turnstile";
@@ -11,6 +11,7 @@ import { getAuthCallbackUrl } from "../../lib/public-urls";
 import { markPlanForCheckout } from "../../lib/plan-checkout";
 import { trackMetaCompleteRegistration, trackMetaLead } from "../../lib/meta-pixel";
 import { APP_MODULES, PRICING } from "../../lib/vitrine-data";
+import { isValidWhatsAppPhone, normalizeWhatsAppPhone } from "../../lib/whatsapp-phone";
 
 const VALID_MODULES = [
   "commerce",
@@ -26,6 +27,7 @@ function RegisterForm() {
   const searchParams = useSearchParams();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -62,12 +64,25 @@ function RegisterForm() {
         return;
       }
 
+      if (!isValidWhatsAppPhone(whatsapp)) {
+        setErrorMessage(
+          "Indiquez un numéro WhatsApp valide avec indicatif (ex: +228 90 00 00 00)."
+        );
+        setIsLoading(false);
+        return;
+      }
+
+      const wa = normalizeWhatsAppPhone(whatsapp);
       const supabase = createSupabaseBrowserClient();
       const { data, error } = await supabase.auth.signUp({
         email: email.trim(),
         password,
         options: {
-          data: { full_name: fullName.trim() },
+          data: {
+            full_name: fullName.trim(),
+            whatsapp: wa,
+            phone: wa,
+          },
           emailRedirectTo: getAuthCallbackUrl(),
           ...(captchaToken ? { captchaToken } : {}),
         },
@@ -78,7 +93,16 @@ function RegisterForm() {
         return;
       }
 
-      if (data.session) {
+      if (data.session?.user) {
+        // Persiste le WhatsApp sur le profil dès que la session est active.
+        try {
+          await supabase
+            .from("profiles")
+            .update({ phone: wa, full_name: fullName.trim() || null })
+            .eq("id", data.session.user.id);
+        } catch {
+          /* le profil peut être créé ensuite côté app */
+        }
         trackMetaCompleteRegistration("email");
         router.push("/post-auth");
         router.refresh();
@@ -165,6 +189,26 @@ function RegisterForm() {
             </label>
 
             <label className="block text-sm font-medium text-[#1A1A1A]">
+              WhatsApp (obligatoire)
+              <div className="mt-1 flex items-center gap-2 rounded-xl border border-[#075E54]/20 px-3 py-2">
+                <Phone className="h-4 w-4 text-[#075E54]" />
+                <input
+                  type="tel"
+                  value={whatsapp}
+                  onChange={(event) => setWhatsapp(event.target.value)}
+                  placeholder="+228 90 00 00 00"
+                  required
+                  autoComplete="tel"
+                  inputMode="tel"
+                  className="w-full bg-transparent text-sm outline-none placeholder:text-[#1A1A1A]/45"
+                />
+              </div>
+              <span className="mt-1 block text-xs font-normal text-[#1A1A1A]/55">
+                Pour vous accompagner (aide, rappels) et activer les commandes boutique.
+              </span>
+            </label>
+
+            <label className="block text-sm font-medium text-[#1A1A1A]">
               Mot de passe
               <div className="mt-1 flex items-center gap-2 rounded-xl border border-[#075E54]/20 px-3 py-2">
                 <Lock className="h-4 w-4 text-[#075E54]" />
@@ -218,6 +262,9 @@ function RegisterForm() {
           </div>
 
           <GoogleButton label="S'inscrire avec Google" />
+          <p className="mt-2 text-center text-xs text-[#1A1A1A]/55">
+            Avec Google, le numéro WhatsApp vous sera demandé juste après dans l&apos;app.
+          </p>
 
           <p className="mt-4 text-center text-sm text-[#1A1A1A]/75">
             Deja un compte ?{" "}
