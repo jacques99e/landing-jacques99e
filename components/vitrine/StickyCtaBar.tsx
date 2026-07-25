@@ -30,7 +30,7 @@ export function StickyCtaBar() {
         </div>
         <div className="flex shrink-0 items-center gap-2">
           <Link
-            href="/register?plan=pro"
+            href="/register"
             className="inline-flex min-h-12 items-center gap-1.5 rounded-full bg-[#FF6F00] px-4 py-2.5 text-xs font-semibold text-white transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF6F00] sm:px-5 sm:text-sm"
           >
             {STICKY_CTA.button}

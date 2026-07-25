@@ -21,6 +21,11 @@ const PRODUCTS = `${APP}/products/add`;
 const FEEDBACK = "https://wazo-digital.com/feedback";
 
 const NEW_SLUGS = [
+  "kpabe",
+  "boutique-des-ventes-des-produits-spirituels",
+  "christ-est-roi",
+  "fast-foot",
+  "boutique-ouzeshop",
   "rach-market",
   "niz",
   "richy-agro",
@@ -116,6 +121,9 @@ console.log("=== 1) Nudge Armel → 1ère vente ===\n");
 
 const armel = (data.pilots || []).find((p) => p.storeSlug === "armel-shop");
 if (armel?.email) {
+  if (String(armel.notes || "").includes(`Nudge 1ère vente ${today}`)) {
+    console.log(`[skip] Armel déjà nudgé aujourd'hui`);
+  } else {
   const text = [
     "Bonjour Armel !",
     "",
@@ -142,11 +150,12 @@ if (armel?.email) {
   } else {
     console.log(`[fail] Armel: ${r.error}`);
   }
+  }
 } else {
   console.log("[skip] Armel introuvable");
 }
 
-console.log("\n=== 2) Accueil nouveaux (15) ===\n");
+console.log(`\n=== 2) Accueil nouveaux (${NEW_SLUGS.length}) ===\n`);
 
 const { data: stores } = await admin
   .from("stores")

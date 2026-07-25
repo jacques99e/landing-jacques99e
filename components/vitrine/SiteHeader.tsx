@@ -16,8 +16,8 @@ export function SiteHeader() {
       <div className="fixed inset-x-0 top-0 z-50 bg-gradient-to-r from-[#075E54] to-[#0a7a6e] px-4 py-2 text-center text-sm font-medium text-white">
         <span className="hidden sm:inline">🔥 Offre de lancement — </span>
         Gratuit pour démarrer ·{" "}
-        <Link href="/register?plan=pro" className="font-bold underline underline-offset-2 hover:text-[#FF6F00]">
-          PRO à 9,99 €/mois sans engagement
+        <Link href="/register" className="font-bold underline underline-offset-2 hover:text-[#FF6F00]">
+          créez votre boutique en 2 min
         </Link>
       </div>
 
@@ -55,10 +55,10 @@ export function SiteHeader() {
               Ouvrir l&apos;app
             </a>
             <Link
-              href="/register?plan=pro"
+              href="/register"
               className="rounded-full bg-[#FF6F00] px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-105"
             >
-              S&apos;abonner au PRO
+              Démarrer gratuitement
             </Link>
           </div>
 
@@ -100,11 +100,11 @@ export function SiteHeader() {
                 Ouvrir l&apos;application
               </a>
               <Link
-                href="/register?plan=pro"
+                href="/register"
                 onClick={() => setOpen(false)}
                 className="rounded-full bg-[#FF6F00] px-5 py-2.5 text-center text-sm font-semibold text-white"
               >
-                S&apos;abonner au PRO
+                Démarrer gratuitement
               </Link>
             </div>
           </div>

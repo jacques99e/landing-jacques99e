@@ -54,7 +54,7 @@ export function PainGainSection() {
             ))}
           </ul>
           <Link
-            href="/register?plan=pro"
+            href="/register"
             className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#FF6F00] px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-105"
           >
             {PAIN_GAIN.cta}

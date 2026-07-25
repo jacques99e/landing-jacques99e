@@ -18,10 +18,10 @@ export function MidPageCta({
   eyebrow,
   title,
   subtitle,
-  primaryHref = "/register?plan=pro",
-  primaryLabel = "Passer au PRO — 9,99 €/mois",
-  secondaryHref = "#modules",
-  secondaryLabel = "Découvrir les modules",
+  primaryHref = "/register",
+  primaryLabel = "Démarrer gratuitement",
+  secondaryHref = "/tarifs",
+  secondaryLabel = "Voir le plan PRO",
 }: MidPageCtaProps) {
   return (
     <motion.aside

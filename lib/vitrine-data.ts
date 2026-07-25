@@ -57,20 +57,20 @@ export const PAIN_GAIN = {
     "Mode hors ligne : vous vendez quand même",
     "Dashboard : ventes, alertes et modules en un écran",
   ],
-  cta: "Je veux ça — essayer le PRO",
+  cta: "Je veux ça — démarrer gratuitement",
 } as const;
 
 export const STICKY_CTA = {
   title: "Prêt à structurer votre activité ?",
-  subtitle: "Gratuit pour démarrer · PRO à 9,99 €/mois sans engagement",
-  button: "Choisir PRO",
+  subtitle: "Gratuit pour démarrer · 1er produit + 1 vente en 15 min",
+  button: "Créer mon compte",
 } as const;
 
 export const MID_CTA_BEFORE_PRICING = {
   eyebrow: "Presque prêt ?",
-  title: "Le plan PRO paie sa facture dès la première semaine",
+  title: "Commencez gratuit — activez PRO quand vous vendez",
   subtitle:
-    "Produits illimités, 3 boutiques, analytics et support prioritaire — pour moins qu'un café par jour.",
+    "Créez votre boutique, ajoutez un produit et encaissez. Le PRO (équipe, rapports) reste optionnel à 9,99 €/mois.",
 } as const;
 
 /** Numéro WhatsApp support (lien wa.me sans + ni espaces) */

@@ -124,7 +124,7 @@ export function HowItWorksSection() {
       </div>
       <div className="mt-8 text-center">
         <Link
-          href="/register?plan=pro"
+          href="/register"
           className="inline-flex items-center gap-2 rounded-full bg-[#075E54] px-6 py-3 text-sm font-semibold text-white transition hover:brightness-110"
         >
           Je commence maintenant
@@ -305,17 +305,17 @@ export function CTASection() {
       </p>
       <div className="relative mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <Link
-          href="/register?plan=pro"
+          href="/register"
           className="cta-pulse inline-flex items-center gap-2 rounded-full bg-[#FF6F00] px-8 py-4 text-base font-bold text-white shadow-xl shadow-[#FF6F00]/30 transition hover:brightness-110"
         >
-          Je m&apos;abonne au PRO
+          Démarrer gratuitement
           <ArrowRight className="h-5 w-5" />
         </Link>
         <Link
-          href="/register"
+          href="/tarifs"
           className="rounded-full border-2 border-white/40 px-8 py-4 text-base font-semibold text-white transition hover:bg-white/10"
         >
-          Rester sur le gratuit
+          Voir le plan PRO
         </Link>
       </div>
       <p className="relative mt-5 text-sm text-white/70">

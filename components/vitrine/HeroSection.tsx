@@ -37,7 +37,7 @@ export function HeroSection() {
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <Link
-              href="/register?plan=pro"
+              href="/register"
               className="cta-pulse inline-flex items-center justify-center gap-2 rounded-full bg-[#FF6F00] px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#FF6F00]/25 transition hover:brightness-110"
             >
               {HERO.ctaPrimary}
