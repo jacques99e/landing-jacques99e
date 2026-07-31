@@ -21,6 +21,8 @@ const PRODUCTS = `${APP}/products/add`;
 const FEEDBACK = "https://wazo-digital.com/feedback";
 
 const NEW_SLUGS = [
+  "royale-boutique",
+  "ong-weziza-africa",
   "kpabe",
   "boutique-des-ventes-des-produits-spirituels",
   "christ-est-roi",

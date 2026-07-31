@@ -12,19 +12,25 @@ const SCRIPTS = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(SCRIPTS, "..");
 const WAZO = path.join(ROOT, "..", "wazo-digital");
 
-function loadEnv() {
+function loadEnvFile(filePath) {
   const out = {};
-  for (const file of [path.join(WAZO, ".env.local"), path.join(ROOT, ".env.local")]) {
-    if (!fs.existsSync(file)) continue;
-    for (const line of fs.readFileSync(file, "utf8").split("\n")) {
-      const t = line.trim();
-      if (!t || t.startsWith("#")) continue;
-      const i = t.indexOf("=");
-      if (i === -1) continue;
-      out[t.slice(0, i).trim()] = t.slice(i + 1).trim().replace(/^["']|["']$/g, "");
-    }
+  if (!fs.existsSync(filePath)) return out;
+  for (const line of fs.readFileSync(filePath, "utf8").split("\n")) {
+    const t = line.trim();
+    if (!t || t.startsWith("#")) continue;
+    const i = t.indexOf("=");
+    if (i === -1) continue;
+    out[t.slice(0, i).trim()] = t.slice(i + 1).trim().replace(/^["']|["']$/g, "");
   }
   return out;
+}
+
+function loadEnv() {
+  // Landing peut écraser des clés partagées — on fusionne Landing puis App (App gagne).
+  return {
+    ...loadEnvFile(path.join(ROOT, ".env.local")),
+    ...loadEnvFile(path.join(WAZO, ".env.local")),
+  };
 }
 
 const env = loadEnv();
@@ -69,16 +75,23 @@ const { count: payments } = await admin
   .select("id", { count: "exact", head: true });
 console.log("billing_payments:", payments ?? 0);
 
-if (env.CRON_SECRET) {
+// IndexNow vit sur l'app — utiliser le CRON_SECRET app (pas celui Landing).
+const appCron = loadEnvFile(path.join(WAZO, ".env.local")).CRON_SECRET?.trim();
+if (appCron) {
   try {
     const res = await fetch("https://app.wazo-digital.com/api/cron/submit-indexing", {
-      headers: { Authorization: `Bearer ${env.CRON_SECRET}` },
+      headers: { Authorization: `Bearer ${appCron}` },
     });
     const body = await res.json().catch(() => ({}));
     console.log("IndexNow:", res.status, body.success ? "ok" : body.error || "");
+    if (res.ok && body.results) {
+      for (const r of body.results) {
+        console.log(`  · ${r.site} — ${r.urlCount ?? "?"} URL(s)`);
+      }
+    }
   } catch (e) {
     console.log("IndexNow:", e.message);
   }
 } else {
-  console.log("IndexNow: skip (no CRON_SECRET)");
+  console.log("IndexNow: skip (CRON_SECRET manquant dans wazo-digital/.env.local)");
 }

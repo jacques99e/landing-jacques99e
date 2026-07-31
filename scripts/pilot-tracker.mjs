@@ -166,11 +166,24 @@ async function syncSupabase(data) {
   const admin = createClient(url, key, { auth: { persistSession: false } });
   const { data: stores } = await admin
     .from("stores")
-    .select("id, name, slug, created_at, whatsapp, phone")
+    .select("id, name, slug, created_at, whatsapp, phone, owner_id")
     .order("created_at", { ascending: false });
 
   const real = (stores || []).filter((s) => !String(s.slug).includes("test-roles"));
+  const ownerIds = [...new Set(real.map((s) => s.owner_id).filter(Boolean))];
+  const profilePhone = new Map();
+  if (ownerIds.length) {
+    const { data: profiles } = await admin
+      .from("profiles")
+      .select("id, phone, full_name")
+      .in("id", ownerIds);
+    for (const p of profiles || []) {
+      if (p.phone) profilePhone.set(p.id, String(p.phone).replace(/\D/g, "") || p.phone);
+    }
+  }
+
   console.log(`\nBoutiques cloud (hors test): ${real.length}`);
+  let waFilled = 0;
   for (const s of real) {
     const [{ count: products }, { count: sales }] = await Promise.all([
       admin.from("products").select("id", { count: "exact", head: true }).eq("store_id", s.id),
@@ -178,31 +191,72 @@ async function syncSupabase(data) {
     ]);
     const saleCount = sales ?? 0;
     const productCount = products ?? 0;
-    console.log(`  · ${s.name} (${s.slug}) — ${productCount} produit(s), ${saleCount} vente(s)`);
+    const fromProfile = profilePhone.get(s.owner_id) || "";
+    // Numéros internationaux connus (évite les locaux tronqués en base).
+    const WA_OVERRIDES = {
+      "paulasco-store": "2290141914075",
+    };
+    let wa = String(s.whatsapp || s.phone || fromProfile || "").replace(/\D/g, "");
+    if (WA_OVERRIDES[s.slug]) wa = WA_OVERRIDES[s.slug];
+    console.log(
+      `  · ${s.name} (${s.slug}) — ${productCount}p/${saleCount}v · WA ${wa || "—"}`
+    );
 
     let pilot = data.pilots.find((p) => p.storeSlug === s.slug);
     if (!pilot) {
       pilot = data.pilots.find((p) => p.name?.startsWith("[À compléter]") || !p.name);
       if (pilot) {
-        pilot.name = s.name;
+        pilot.name = String(s.name || "").trim().split(/\s+/)[0] || s.name;
+        pilot.business = s.name;
         pilot.storeSlug = s.slug;
         pilot.status = "active";
-        if (s.whatsapp || s.phone) {
-          pilot.whatsapp = s.whatsapp || pilot.whatsapp;
-          pilot.phone = s.phone || pilot.phone;
-        }
+        pilot.invitedAt = pilot.invitedAt || new Date().toISOString().slice(0, 10);
+      } else {
+        // Roster plein : ajouter en organique
+        pilot = {
+          id: `organic-${s.slug}`,
+          name: String(s.name || "").trim().split(/\s+/)[0] || s.name,
+          business: s.name,
+          phone: "",
+          whatsapp: "",
+          email: "",
+          city: "",
+          status: "active",
+          invitedAt: new Date().toISOString().slice(0, 10),
+          storeSlug: s.slug,
+          notes: `Ajouté auto sync ${new Date().toISOString().slice(0, 10)}.`,
+          score: { products: productCount, sales: saleCount },
+        };
+        data.pilots.push(pilot);
       }
     }
+
     if (pilot?.storeSlug === s.slug) {
-      pilot.status = saleCount > 0 && productCount > 0 ? "completed" : "active";
+      pilot.score = { products: productCount, sales: saleCount };
+      pilot.business = pilot.business || s.name;
+      if (wa) {
+        const existing = String(pilot.whatsapp || "").replace(/\D/g, "");
+        // Ne pas écraser un numéro international déjà connu par un local trop court.
+        const shouldSet = !existing || (wa.length >= 10 && wa.length >= existing.length);
+        if (shouldSet) {
+          if (!existing) waFilled += 1;
+          pilot.whatsapp = wa;
+          pilot.phone = pilot.phone || wa;
+        }
+      }
       if (saleCount > 0 && productCount > 0) {
+        pilot.status = "completed";
         pilot.completedAt = pilot.completedAt || new Date().toISOString().slice(0, 10);
-        pilot.score = pilot.score ?? { products: productCount, sales: saleCount };
+      } else if (pilot.status !== "completed") {
+        pilot.status = "active";
       }
     }
   }
+  data.targetCount = data.pilots.length;
+  data.lastSyncedAt = new Date().toISOString().slice(0, 10);
+  data.updatedAt = data.lastSyncedAt;
   save(data);
-  console.log("[ok] pilot-contacts.json synchronisé");
+  console.log(`[ok] pilot-contacts.json synchronisé · WhatsApp complétés: ${waFilled}`);
 }
 
 function prospects(data) {
