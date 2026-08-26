@@ -15,9 +15,9 @@
       "status": "active",
       "invitedAt": null,
       "storeSlug": "espoir",
-      "lastRelanceAt": "2026-07-31",
+      "lastRelanceAt": "2026-08-26",
       "nextRelanceAt": "2026-08-01",
-      "notes": "Nudge PRO renew 2026-07-31. Nudge PRO renew 2026-07-29. Nudge 1er produit 2026-07-24. Relance email envoyée 2026-07-24. Feedback demandé 2026-07-22. Relance email envoyée 2026-07-21. Relance email envoyée 2026-07-18. Relance email envoyée 2026-07-18. Relance email envoyée 2026-07-14. Objectif : 1er produit + 1ère vente. Pas de WhatsApp en base.",
+      "notes": "Kickoff PRO 2026-08-26 Espoir. Nudge PRO renew 2026-07-31. Nudge PRO renew 2026-07-29. Nudge 1er produit 2026-07-24. Relance email envoyée 2026-07-24. Feedback demandé 2026-07-22. Relance email envoyée 2026-07-21. Relance email envoyée 2026-07-18. Relance email envoyée 2026-07-18. Relance email envoyée 2026-07-14. Objectif : 1er produit + 1ère vente. Pas de WhatsApp en base.",
       "score": {
         "products": 0,
         "sales": 0
@@ -95,15 +95,15 @@
       "status": "completed",
       "invitedAt": null,
       "storeSlug": "awodje",
-      "notes": "Demande WhatsApp 2026-07-29. Demande WhatsApp 2026-07-26. Demande WhatsApp 2026-07-25. Pitch PRO 2026-07-24. Feedback demandé 2026-07-22. Parcours OK (1 produit, 1 vente). Email jetable fivejm — demander un vrai email quand possible.",
+      "notes": "Kickoff PRO 2026-08-26. Demande WhatsApp 2026-07-29. Demande WhatsApp 2026-07-26. Demande WhatsApp 2026-07-25. Pitch PRO 2026-07-24. Feedback demandé 2026-07-22. Parcours OK (1 produit, 1 vente). Email jetable fivejm — demander un vrai email quand possible.",
       "score": {
         "products": 1,
         "sales": 1
       },
       "completedAt": "2026-07-11",
-      "nextRelanceAt": "2026-08-01",
+      "nextRelanceAt": "2026-09-02",
       "lastFeedbackAskedAt": "2026-07-22",
-      "lastRelanceAt": "2026-07-29"
+      "lastRelanceAt": "2026-08-26"
     },
     {
       "id": "pilot-6",
@@ -116,15 +116,15 @@
       "status": "completed",
       "invitedAt": null,
       "storeSlug": "boutique-machallah",
-      "notes": "Demande WhatsApp 2026-07-29. Demande WhatsApp 2026-07-26. Demande WhatsApp 2026-07-25. Pitch PRO 2026-07-24. Feedback demandé 2026-07-22. Ajouté 2026-07-14 — organique (2 produits, 2 ventes). Félicitations + guide envoyés.",
+      "notes": "Kickoff PRO 2026-08-26. Demande WhatsApp 2026-07-29. Demande WhatsApp 2026-07-26. Demande WhatsApp 2026-07-25. Pitch PRO 2026-07-24. Feedback demandé 2026-07-22. Ajouté 2026-07-14 — organique (2 produits, 2 ventes). Félicitations + guide envoyés.",
       "score": {
         "products": 2,
         "sales": 2
       },
       "completedAt": "2026-07-14",
-      "nextRelanceAt": "2026-08-01",
+      "nextRelanceAt": "2026-09-02",
       "lastFeedbackAskedAt": "2026-07-22",
-      "lastRelanceAt": "2026-07-29"
+      "lastRelanceAt": "2026-08-26"
     },
     {
       "id": "pilot-7",
@@ -254,9 +254,9 @@
       "status": "completed",
       "invitedAt": "2026-07-24",
       "storeSlug": "paulasco-store",
-      "lastRelanceAt": "2026-07-31",
-      "nextRelanceAt": null,
-      "notes": "Pitch PRO WA 2026-07-31. Pitch PRO WA 2026-07-29. Pitch PRO WA ouvert 2026-07-26. Félicitations 2026-07-26. Congrats+Status+PRO WA ouvert 2026-07-25. Pitch PRO 2026-07-25. Félicitations 2026-07-25. Nudge 1ère vente WA ouvert 2026-07-24. Nudge 1ère vente 2026-07-24. Bienvenue organique envoyée 2026-07-24. Créé 2026-07-23.",
+      "lastRelanceAt": "2026-08-26",
+      "nextRelanceAt": "2026-09-02",
+      "notes": "Kickoff PRO 2026-08-26. Pitch PRO WA 2026-07-31. Pitch PRO WA 2026-07-29. Pitch PRO WA ouvert 2026-07-26. Félicitations 2026-07-26. Congrats+Status+PRO WA ouvert 2026-07-25. Pitch PRO 2026-07-25. Félicitations 2026-07-25. Nudge 1ère vente WA ouvert 2026-07-24. Nudge 1ère vente 2026-07-24. Bienvenue organique envoyée 2026-07-24. Créé 2026-07-23.",
       "score": {
         "products": 8,
         "sales": 2
@@ -350,9 +350,9 @@
       "status": "completed",
       "invitedAt": "2026-07-24",
       "storeSlug": "finesse-shop",
-      "lastRelanceAt": "2026-07-31",
-      "nextRelanceAt": null,
-      "notes": "Pitch PRO WA 2026-07-31. Pitch PRO WA 2026-07-29. Pitch PRO WA ouvert 2026-07-26. Félicitations 2026-07-26. Félicitations 2026-07-25. Pitch PRO 2026-07-24. Félicitations 2026-07-24. Bienvenue organique envoyée 2026-07-24. Créé 2026-07-23.",
+      "lastRelanceAt": "2026-08-26",
+      "nextRelanceAt": "2026-09-02",
+      "notes": "Kickoff PRO 2026-08-26. Pitch PRO WA 2026-07-31. Pitch PRO WA 2026-07-29. Pitch PRO WA ouvert 2026-07-26. Félicitations 2026-07-26. Félicitations 2026-07-25. Pitch PRO 2026-07-24. Félicitations 2026-07-24. Bienvenue organique envoyée 2026-07-24. Créé 2026-07-23.",
       "score": {
         "products": 4,
         "sales": 2
@@ -446,9 +446,9 @@
       "status": "completed",
       "invitedAt": "2026-07-24",
       "storeSlug": "ramatou",
-      "lastRelanceAt": "2026-07-29",
-      "nextRelanceAt": "2026-08-01",
-      "notes": "Demande WhatsApp 2026-07-29. Demande WhatsApp 2026-07-26. Félicitations 2026-07-26. Demande WhatsApp 2026-07-25. Félicitations 2026-07-25. Pitch PRO 2026-07-24. Félicitations 2026-07-24. Bienvenue organique envoyée 2026-07-24. Créé 2026-07-22.",
+      "lastRelanceAt": "2026-08-26",
+      "nextRelanceAt": "2026-09-02",
+      "notes": "Kickoff PRO 2026-08-26. Demande WhatsApp 2026-07-29. Demande WhatsApp 2026-07-26. Félicitations 2026-07-26. Demande WhatsApp 2026-07-25. Félicitations 2026-07-25. Pitch PRO 2026-07-24. Félicitations 2026-07-24. Bienvenue organique envoyée 2026-07-24. Créé 2026-07-22.",
       "score": {
         "products": 2,
         "sales": 5
@@ -618,14 +618,14 @@
       "status": "completed",
       "invitedAt": "2026-07-27",
       "storeSlug": "charity-shop",
-      "notes": "Pitch PRO WA 2026-07-31. Pitch PRO WA 2026-07-29. Pitch PRO WA 2026-07-28. Congrats+PRO WA ouvert 2026-07-27. Ajouté auto sync 2026-07-27.",
+      "notes": "Kickoff PRO 2026-08-26. Pitch PRO WA 2026-07-31. Pitch PRO WA 2026-07-29. Pitch PRO WA 2026-07-28. Congrats+PRO WA ouvert 2026-07-27. Ajouté auto sync 2026-07-27.",
       "score": {
         "products": 3,
         "sales": 1
       },
       "completedAt": "2026-07-27",
-      "lastRelanceAt": "2026-07-31",
-      "nextRelanceAt": null
+      "lastRelanceAt": "2026-08-26",
+      "nextRelanceAt": "2026-09-02"
     },
     {
       "id": "organic-ariolstore",
@@ -638,14 +638,14 @@
       "status": "completed",
       "invitedAt": "2026-07-28",
       "storeSlug": "ariolstore",
-      "notes": "Pitch PRO WA 2026-07-31. Pitch PRO WA 2026-07-29. Pitch PRO WA 2026-07-28. Félicitations 2026-07-28. Ajouté auto sync 2026-07-28.",
+      "notes": "Kickoff PRO 2026-08-26. Pitch PRO WA 2026-07-31. Pitch PRO WA 2026-07-29. Pitch PRO WA 2026-07-28. Félicitations 2026-07-28. Ajouté auto sync 2026-07-28.",
       "score": {
         "products": 1,
         "sales": 1
       },
       "completedAt": "2026-07-28",
-      "lastRelanceAt": "2026-07-31",
-      "nextRelanceAt": "2026-07-31"
+      "lastRelanceAt": "2026-08-26",
+      "nextRelanceAt": "2026-09-02"
     },
     {
       "id": "organic-le-paysan-sarl",
@@ -658,14 +658,14 @@
       "status": "completed",
       "invitedAt": "2026-07-28",
       "storeSlug": "le-paysan-sarl",
-      "notes": "Pitch PRO WA 2026-07-31. Pitch PRO WA 2026-07-29. Pitch PRO WA 2026-07-28. Félicitations email 2026-07-28. Congrats WA ouvert 2026-07-28 (email Resend KO réseau). Ajouté auto sync 2026-07-28.",
+      "notes": "Kickoff PRO 2026-08-26. Pitch PRO WA 2026-07-31. Pitch PRO WA 2026-07-29. Pitch PRO WA 2026-07-28. Félicitations email 2026-07-28. Congrats WA ouvert 2026-07-28 (email Resend KO réseau). Ajouté auto sync 2026-07-28.",
       "score": {
         "products": 2,
         "sales": 2
       },
       "completedAt": "2026-07-28",
-      "lastRelanceAt": "2026-07-31",
-      "nextRelanceAt": "2026-07-31"
+      "lastRelanceAt": "2026-08-26",
+      "nextRelanceAt": "2026-09-02"
     },
     {
       "id": "organic-josgrace",
@@ -678,14 +678,14 @@
       "status": "completed",
       "invitedAt": "2026-07-28",
       "storeSlug": "josgrace",
-      "notes": "Pitch PRO WA 2026-07-31. Pitch PRO WA 2026-07-29. Félicitations 2026-07-29. Pitch PRO 2026-07-29. Ajouté auto sync 2026-07-28.",
+      "notes": "Kickoff PRO 2026-08-26. Pitch PRO WA 2026-07-31. Pitch PRO WA 2026-07-29. Félicitations 2026-07-29. Pitch PRO 2026-07-29. Ajouté auto sync 2026-07-28.",
       "score": {
         "products": 1,
         "sales": 1
       },
-      "nextRelanceAt": "2026-08-01",
+      "nextRelanceAt": "2026-09-02",
       "completedAt": "2026-07-29",
-      "lastRelanceAt": "2026-07-31"
+      "lastRelanceAt": "2026-08-26"
     },
     {
       "id": "organic-godsbag",
@@ -698,14 +698,14 @@
       "status": "completed",
       "invitedAt": "2026-07-28",
       "storeSlug": "godsbag",
-      "notes": "Félicitations 2026-07-31. Pitch PRO 2026-07-31. Pitch PRO WA 2026-07-31. Ajouté auto sync 2026-07-28.",
+      "notes": "Kickoff PRO 2026-08-26. Félicitations 2026-07-31. Pitch PRO 2026-07-31. Pitch PRO WA 2026-07-31. Ajouté auto sync 2026-07-28.",
       "score": {
         "products": 4,
         "sales": 2
       },
-      "nextRelanceAt": "2026-08-03",
+      "nextRelanceAt": "2026-09-02",
       "completedAt": "2026-07-31",
-      "lastRelanceAt": "2026-07-31"
+      "lastRelanceAt": "2026-08-26"
     },
     {
       "id": "organic-ets-saint-jojo",
@@ -772,14 +772,14 @@
       "status": "completed",
       "invitedAt": "2026-07-28",
       "storeSlug": "ange-beugre-academy",
-      "notes": "Félicitations 2026-07-31. Pitch PRO 2026-07-31. Pitch PRO WA 2026-07-31. Nudge 1ere vente WA 2026-07-29. Nudge 1ere vente WA 2026-07-28. Ajouté auto sync 2026-07-28.",
+      "notes": "Kickoff PRO 2026-08-26. Félicitations 2026-07-31. Pitch PRO 2026-07-31. Pitch PRO WA 2026-07-31. Nudge 1ere vente WA 2026-07-29. Nudge 1ere vente WA 2026-07-28. Ajouté auto sync 2026-07-28.",
       "score": {
         "products": 3,
         "sales": 2
       },
-      "nextRelanceAt": "2026-08-03",
+      "nextRelanceAt": "2026-09-02",
       "completedAt": "2026-07-31",
-      "lastRelanceAt": "2026-07-31"
+      "lastRelanceAt": "2026-08-26"
     },
     {
       "id": "organic-kpatogbe",
@@ -827,12 +827,14 @@
       "status": "completed",
       "invitedAt": "2026-08-03",
       "storeSlug": "the-lass-pull",
-      "notes": "Ajouté auto sync 2026-08-03.",
+      "notes": "Kickoff PRO 2026-08-26. Ajouté auto sync 2026-08-03.",
       "score": {
         "products": 3,
         "sales": 1
       },
-      "completedAt": "2026-08-03"
+      "completedAt": "2026-08-03",
+      "lastRelanceAt": "2026-08-26",
+      "nextRelanceAt": "2026-09-02"
     },
     {
       "id": "organic-rachidi-pierre",
@@ -862,12 +864,14 @@
       "status": "completed",
       "invitedAt": "2026-08-03",
       "storeSlug": "ismaila-diallo",
-      "notes": "Ajouté auto sync 2026-08-03.",
+      "notes": "Kickoff PRO 2026-08-26. Ajouté auto sync 2026-08-03.",
       "score": {
         "products": 1,
         "sales": 1
       },
-      "completedAt": "2026-08-03"
+      "completedAt": "2026-08-03",
+      "lastRelanceAt": "2026-08-26",
+      "nextRelanceAt": "2026-09-02"
     },
     {
       "id": "organic-hamade-business-drap-vip-et-rideaux",
@@ -897,12 +901,14 @@
       "status": "completed",
       "invitedAt": "2026-08-26",
       "storeSlug": "awa",
-      "notes": "Ajouté auto sync 2026-08-26.",
+      "notes": "Kickoff PRO 2026-08-26. Ajouté auto sync 2026-08-26.",
       "score": {
         "products": 1,
         "sales": 3
       },
-      "completedAt": "2026-08-26"
+      "completedAt": "2026-08-26",
+      "lastRelanceAt": "2026-08-26",
+      "nextRelanceAt": "2026-09-02"
     },
     {
       "id": "organic-yeubsom",
@@ -949,12 +955,14 @@
       "status": "completed",
       "invitedAt": "2026-08-26",
       "storeSlug": "constant-boutique",
-      "notes": "Ajouté auto sync 2026-08-26.",
+      "notes": "Kickoff PRO 2026-08-26. Ajouté auto sync 2026-08-26.",
       "score": {
         "products": 1,
         "sales": 2
       },
-      "completedAt": "2026-08-26"
+      "completedAt": "2026-08-26",
+      "lastRelanceAt": "2026-08-26",
+      "nextRelanceAt": "2026-09-02"
     },
     {
       "id": "organic-hbk-boutyk-237",
@@ -1035,12 +1043,14 @@
       "status": "completed",
       "invitedAt": "2026-08-26",
       "storeSlug": "digital-master-pro",
-      "notes": "Ajouté auto sync 2026-08-26.",
+      "notes": "Kickoff PRO 2026-08-26. Ajouté auto sync 2026-08-26.",
       "score": {
         "products": 1,
         "sales": 2
       },
-      "completedAt": "2026-08-26"
+      "completedAt": "2026-08-26",
+      "lastRelanceAt": "2026-08-26",
+      "nextRelanceAt": "2026-09-02"
     },
     {
       "id": "organic-chez-mantech",
@@ -1053,12 +1063,14 @@
       "status": "completed",
       "invitedAt": "2026-08-26",
       "storeSlug": "chez-mantech",
-      "notes": "Ajouté auto sync 2026-08-26.",
+      "notes": "Kickoff PRO 2026-08-26. Ajouté auto sync 2026-08-26.",
       "score": {
         "products": 1,
         "sales": 1
       },
-      "completedAt": "2026-08-26"
+      "completedAt": "2026-08-26",
+      "lastRelanceAt": "2026-08-26",
+      "nextRelanceAt": "2026-09-02"
     },
     {
       "id": "organic-esteve-digital-creative",

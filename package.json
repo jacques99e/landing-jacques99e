@@ -42,6 +42,7 @@
     "pilot:nudge-new": "node scripts/pilot-nudge-new-sales.mjs",
     "pilot:nudge-product": "node scripts/pilot-nudge-first-product.mjs",
     "pilot:pitch-pro": "node scripts/pilot-pitch-pro.mjs",
+    "pilot:kickoff-pro": "node scripts/pilot-kickoff-pro.mjs",
     "pilot:ask-whatsapp": "node scripts/pilot-ask-whatsapp.mjs",
     "setup:github-secrets": "powershell -ExecutionPolicy Bypass -File scripts/setup-github-secrets.ps1"
   },
