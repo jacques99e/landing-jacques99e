@@ -16,6 +16,7 @@ export function FeedbackForm() {
   const [worksWell, setWorksWell] = useState("");
   const [improve, setImprove] = useState("");
   const [missingFeature, setMissingFeature] = useState("");
+  const [website, setWebsite] = useState("");
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -36,6 +37,7 @@ export function FeedbackForm() {
           worksWell,
           improve,
           missingFeature,
+          website,
           source: "feedback-page",
         }),
       });
@@ -80,7 +82,20 @@ export function FeedbackForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4 rounded-2xl border border-[#075E54]/15 bg-white p-5 shadow-sm">
+    <form onSubmit={onSubmit} className="relative space-y-4 rounded-2xl border border-[#075E54]/15 bg-white p-5 shadow-sm">
+      <div className="absolute left-[-9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+        <label>
+          Site web
+          <input
+            type="text"
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+          />
+        </label>
+      </div>
       <div className="grid gap-3 sm:grid-cols-2">
         <label className="block text-sm">
           <span className="mb-1 block font-medium">Prénom / nom</span>

@@ -1,25 +1,14 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { clientIp } from "@/lib/client-ip";
+import { allowRequest } from "@/lib/rate-limit";
 import { PROD_LANDING_URL } from "@/lib/site-urls";
+import { verifyTurnstile } from "@/lib/turnstile-server";
 
 export const runtime = "nodejs";
 
-const RATE = new Map<string, number>();
-
-function clientIp(request: Request): string {
-  return (
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    request.headers.get("x-real-ip") ||
-    "unknown"
-  );
-}
-
-function tooFrequent(key: string, minMs = 60_000): boolean {
-  const now = Date.now();
-  const prev = RATE.get(key) || 0;
-  if (now - prev < minMs) return true;
-  RATE.set(key, now);
-  return false;
+function tooFrequent(key: string): boolean {
+  return !allowRequest(key, 1, 60_000);
 }
 
 async function sendResend(params: {
@@ -64,13 +53,19 @@ async function sendResend(params: {
  */
 export async function POST(request: Request) {
   let email = "";
+  let captchaToken = "";
   try {
-    const body = (await request.json()) as { email?: string };
+    const body = (await request.json()) as { email?: string; captchaToken?: string };
     email = String(body.email || "")
       .trim()
       .toLowerCase();
+    captchaToken = String(body.captchaToken || "").trim();
   } catch {
     return NextResponse.json({ success: false, error: "JSON invalide" }, { status: 400 });
+  }
+
+  if (!(await verifyTurnstile(request, captchaToken || null))) {
+    return NextResponse.json({ success: false, error: "Captcha invalide." }, { status: 400 });
   }
 
   if (!email || !email.includes("@") || email.endsWith(".com.com")) {

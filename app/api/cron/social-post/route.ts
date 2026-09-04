@@ -1,17 +1,9 @@
 import { NextResponse } from "next/server";
+import { authorizeCron } from "@/lib/cron-auth";
 import { publishSocialPost } from "@/lib/meta-publish";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
-
-function authorizeCron(request: Request): boolean {
-  const secret = process.env.CRON_SECRET?.trim();
-  if (!secret) return process.env.NODE_ENV !== "production";
-  const auth = request.headers.get("authorization");
-  const url = new URL(request.url);
-  const q = url.searchParams.get("secret");
-  return auth === `Bearer ${secret}` || q === secret;
-}
 
 export async function GET(request: Request) {
   if (!authorizeCron(request)) {

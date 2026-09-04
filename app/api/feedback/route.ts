@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { allowIp } from "@/lib/rate-limit";
 
 export const maxDuration = 30;
 
@@ -11,6 +12,7 @@ type FeedbackBody = {
   improve?: string;
   missingFeature?: string;
   source?: string;
+  website?: string;
 };
 
 function escapeHtml(s: string) {
@@ -21,12 +23,26 @@ function escapeHtml(s: string) {
     .replace(/"/g, "&quot;");
 }
 
+function stripHeader(value: string): string {
+  return value.replace(/[\r\n]+/g, " ").trim();
+}
+
 export async function POST(request: NextRequest) {
   try {
+    if (!allowIp(request, "feedback", 5, 60 * 60 * 1000)) {
+      return NextResponse.json(
+        { success: false, error: "Trop de messages. Réessayez plus tard." },
+        { status: 429 }
+      );
+    }
+
     const body = (await request.json()) as FeedbackBody;
-    const name = String(body.name || "").trim().slice(0, 120);
-    const email = String(body.email || "").trim().slice(0, 180);
-    const store = String(body.store || "").trim().slice(0, 120);
+    if (String(body.website || "").trim()) {
+      return NextResponse.json({ success: true });
+    }
+    const name = stripHeader(String(body.name || "")).slice(0, 120);
+    const email = stripHeader(String(body.email || "")).slice(0, 180);
+    const store = stripHeader(String(body.store || "")).slice(0, 120);
     const rating = Number(body.rating);
     const worksWell = String(body.worksWell || "").trim().slice(0, 2000);
     const improve = String(body.improve || "").trim().slice(0, 2000);
@@ -107,7 +123,7 @@ export async function POST(request: NextRequest) {
         from,
         to: [to],
         reply_to: email || undefined,
-        subject: `Feedback Wazo ${rating}/5 — ${name || store || email || "anonyme"}`,
+        subject: stripHeader(`Feedback Wazo ${rating}/5 — ${name || store || email || "anonyme"}`).slice(0, 120),
         text,
         html,
       }),
