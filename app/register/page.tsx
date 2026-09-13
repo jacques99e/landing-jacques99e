@@ -9,7 +9,9 @@ import { GoogleButton } from "../../components/google-button";
 import { Turnstile, isTurnstileEnabled } from "../../components/turnstile";
 import { getAuthCallbackUrl } from "../../lib/public-urls";
 import { markPlanForCheckout } from "../../lib/plan-checkout";
+import { trackGoogleAdsConversion } from "../../lib/google-ads";
 import { trackMetaCompleteRegistration, trackMetaLead } from "../../lib/meta-pixel";
+import { formatUtm, loadPersistedUtm, persistUtm } from "../../lib/utm";
 import { APP_MODULES, PRICING } from "../../lib/vitrine-data";
 import { isValidWhatsAppPhone, normalizeWhatsAppPhone } from "../../lib/whatsapp-phone";
 
@@ -48,6 +50,7 @@ function RegisterForm() {
       sessionStorage.setItem("wazo_pending_plan", planId);
       markPlanForCheckout(planId);
     }
+    persistUtm(searchParams);
     trackMetaLead(searchParams.get("plan") ? `plan_${searchParams.get("plan")}` : "register");
   }, [searchParams]);
 
@@ -73,6 +76,7 @@ function RegisterForm() {
       }
 
       const wa = normalizeWhatsAppPhone(whatsapp);
+      const utm = loadPersistedUtm();
       const supabase = createSupabaseBrowserClient();
       const { data, error } = await supabase.auth.signUp({
         email: email.trim(),
@@ -82,6 +86,9 @@ function RegisterForm() {
             full_name: fullName.trim(),
             whatsapp: wa,
             phone: wa,
+            utm_source: utm?.source || "",
+            utm_medium: utm?.medium || "",
+            utm_campaign: utm?.campaign || "",
           },
           emailRedirectTo: getAuthCallbackUrl(),
           ...(captchaToken ? { captchaToken } : {}),
@@ -104,11 +111,34 @@ function RegisterForm() {
           /* le profil peut être créé ensuite côté app */
         }
         trackMetaCompleteRegistration("email");
+        trackGoogleAdsConversion();
+        void fetch("/api/signup-alert", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: fullName.trim(),
+            email: email.trim(),
+            whatsapp: wa,
+            stage: "register",
+            utm: formatUtm(utm),
+          }),
+        }).catch(() => undefined);
         router.push("/post-auth");
         router.refresh();
         return;
       }
 
+      void fetch("/api/signup-alert", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: fullName.trim(),
+          email: email.trim(),
+          whatsapp: wa,
+          stage: "register",
+          utm: formatUtm(utm),
+        }),
+      }).catch(() => undefined);
       setSuccessMessage(
         "Compte cree. Verifiez votre boite mail pour confirmer votre adresse, puis connectez-vous.",
       );
@@ -137,7 +167,7 @@ function RegisterForm() {
         <section className="rounded-2xl border border-[#075E54]/10 bg-white p-6 shadow-sm md:p-8">
           <h1 className="text-2xl font-bold text-[#1A1A1A]">Creer un compte</h1>
           <p className="mt-2 text-sm text-[#1A1A1A]/75">
-            Lancez votre activite digitale avec Wazo Digital en 2 minutes.
+            1 produit, 1 lien MoMo. Vos clients paient tout seuls.
           </p>
 
           {planInfo ? (
@@ -250,7 +280,7 @@ function RegisterForm() {
                   Creation...
                 </>
               ) : (
-                "Creer mon compte gratuit"
+                "Creer mon lien MoMo"
               )}
             </button>
           </form>

@@ -29,3 +29,26 @@ export function trackMetaCompleteRegistration(method?: string) {
     status: method ?? "email",
   });
 }
+
+export function trackMetaFirstProduct(name?: string) {
+  trackMetaEvent("AddToCart", {
+    content_name: name?.slice(0, 80) || "first_product",
+    content_type: "product",
+  });
+}
+
+export function trackMetaMomoCheckout(value?: number) {
+  trackMetaEvent("InitiateCheckout", {
+    content_name: "boutique_momo",
+    currency: "XOF",
+    value: Number.isFinite(value) ? Number(value) : 0,
+  });
+}
+
+export function trackMetaPurchase(value: number, contentName = "pro") {
+  trackMetaEvent("Purchase", {
+    content_name: contentName,
+    currency: "XOF",
+    value: Number.isFinite(value) ? Number(value) : 0,
+  });
+}

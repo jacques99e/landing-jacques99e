@@ -1,0 +1,136 @@
+import { NextRequest, NextResponse } from "next/server";
+import { allowIp } from "@/lib/rate-limit";
+
+export const maxDuration = 20;
+
+const ALLOWED_ORIGINS = [
+  "https://app.wazo-digital.com",
+  "https://wazo-digital.com",
+  "http://localhost:3001",
+  "http://localhost:3000",
+];
+
+function withCors(request: NextRequest, res: NextResponse) {
+  const origin = request.headers.get("origin") || "";
+  if (ALLOWED_ORIGINS.includes(origin)) {
+    res.headers.set("Access-Control-Allow-Origin", origin);
+    res.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.headers.set("Access-Control-Allow-Headers", "Content-Type");
+  }
+  return res;
+}
+
+export async function OPTIONS(request: NextRequest) {
+  return withCors(request, new NextResponse(null, { status: 204 }));
+}
+
+function strip(value: string): string {
+  return value.replace(/[\r\n]+/g, " ").trim();
+}
+
+function waDigits(raw: string): string {
+  let digits = raw.replace(/\D/g, "");
+  if (digits.length === 8) digits = `228${digits}`;
+  return digits;
+}
+
+export async function POST(request: NextRequest) {
+  const json = (body: unknown, status = 200) =>
+    withCors(request, NextResponse.json(body, { status }));
+
+  if (!allowIp(request, "signup-alert", 8, 60 * 60 * 1000)) {
+    return json({ success: false, error: "Trop de requêtes." }, 429);
+  }
+
+  const body = (await request.json().catch(() => ({}))) as {
+    name?: string;
+    email?: string;
+    whatsapp?: string;
+    store?: string;
+    slug?: string;
+    stage?: string;
+    utm?: string;
+    website?: string;
+  };
+
+  if (String(body.website || "").trim()) {
+    return json({ success: true });
+  }
+
+  const name = strip(String(body.name || "")).slice(0, 120);
+  const email = strip(String(body.email || "")).slice(0, 180);
+  const whatsapp = strip(String(body.whatsapp || "")).slice(0, 32);
+  const store = strip(String(body.store || "")).slice(0, 120);
+  const slug = strip(String(body.slug || "")).slice(0, 80);
+  const stage = strip(String(body.stage || "register")).slice(0, 40);
+  const utm = strip(String(body.utm || "")).slice(0, 160);
+  const digits = waDigits(whatsapp);
+
+  if (!name && !email && !digits) {
+    return json({ success: false, error: "Contact manquant." }, 400);
+  }
+
+  const key = process.env.RESEND_API_KEY?.trim();
+  const from =
+    process.env.REPORT_EMAIL_FROM?.trim() || "Wazo Digital <onboarding@wazo-digital.com>";
+  const to =
+    process.env.SIGNUP_ALERT_TO?.trim() ||
+    process.env.REPORT_EMAIL_TO?.trim() ||
+    "jacquesnoussougan93@gmail.com";
+
+  if (!key) {
+    return json({ success: false, error: "Email non configuré." }, 503);
+  }
+
+  const payUrl = slug ? `https://app.wazo-digital.com/boutique/${slug}/payer` : "";
+  const merchantText = [
+    `Bonjour ${name || ""} !`.trim(),
+    "",
+    store
+      ? `Votre boutique ${store} est prête.`
+      : "Votre compte Wazo Digital est créé.",
+    payUrl ? `Lien MoMo (après 1 produit) : ${payUrl}` : "Ajoutez 1 produit, puis envoyez le lien MoMo au client.",
+    "",
+    "Bloqué ? Répondez ici avec une capture.",
+    "Jacques — Wazo Digital",
+  ].join("\n");
+  const waLink = digits
+    ? `https://wa.me/${digits}?text=${encodeURIComponent(merchantText)}`
+    : "";
+
+  const text = [
+    `Nouvelle inscription Wazo (${stage})`,
+    `Nom: ${name || "—"}`,
+    `Email: ${email || "—"}`,
+    `WhatsApp: ${whatsapp || "—"}`,
+    `Boutique: ${store || "—"}`,
+    `Slug: ${slug || "—"}`,
+    `UTM: ${utm || "—"}`,
+    "",
+    waLink ? `Écrire maintenant (2 h) : ${waLink}` : "Pas de WhatsApp.",
+    payUrl ? `Lien payer : ${payUrl}` : "",
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${key}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from,
+      to: [to],
+      subject: `Wazo — ${stage === "store" ? "boutique créée" : "inscription"} ${name || email || digits}`,
+      text,
+    }),
+  });
+
+  if (!res.ok) {
+    const err = (await res.json().catch(() => ({}))) as { message?: string };
+    return json({ success: false, error: err.message || "Envoi impossible." }, 502);
+  }
+
+  return json({ success: true, waLink });
+}
