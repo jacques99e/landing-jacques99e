@@ -121,6 +121,11 @@ export async function POST(request: NextRequest) {
   }
 
   const payUrl = slug ? `https://app.wazo-digital.com/boutique/${slug}/payer` : "";
+  const productIdFromNote = stage === "first_product" ? note.split("|").pop()?.trim() || "" : "";
+  const productPayUrl =
+    slug && productIdFromNote && /^[0-9a-f-]{36}$/i.test(productIdFromNote)
+      ? `https://app.wazo-digital.com/boutique/${slug}/payer?product=${productIdFromNote}`
+      : payUrl;
   const proPay = "https://app.wazo-digital.com/billing?plan=pro&pay=1";
   const merchantText =
     stage === "first_sale"
@@ -135,6 +140,18 @@ export async function POST(request: NextRequest) {
           "",
           "Jacques — Wazo Digital",
         ].join("\n")
+      : stage === "first_product"
+        ? [
+            `Bonjour ${name || ""} !`.trim(),
+            "",
+            store
+              ? `Votre produit est en ligne sur ${store}.`
+              : "Votre 1er produit est en ligne.",
+            "Envoyez ce lien à 3 clients maintenant — ils paient tout seuls :",
+            productPayUrl || "Ajoutez le lien MoMo depuis Produits.",
+            "",
+            "Jacques — Wazo Digital",
+          ].join("\n")
       : [
           `Bonjour ${name || ""} !`.trim(),
           "",
@@ -155,7 +172,9 @@ export async function POST(request: NextRequest) {
   const headline =
     stage === "first_sale"
       ? "1ère vente MoMo — relancer PRO"
-      : `Nouvelle inscription Wazo (${stage})`;
+      : stage === "first_product"
+        ? "1er produit — envoyer le lien MoMo"
+        : `Nouvelle inscription Wazo (${stage})`;
   const text = [
     headline,
     `Nom: ${name || "—"}`,
@@ -165,10 +184,10 @@ export async function POST(request: NextRequest) {
     `Slug: ${slug || "—"}`,
     `Plan: ${plan || "—"}`,
     `UTM: ${utm || "—"}`,
-    note ? `Note: ${note}` : "",
+    note ? `Note: ${note.split("|")[0]}` : "",
     "",
     waLink ? `Écrire maintenant : ${waLink}` : "Pas de WhatsApp.",
-    payUrl ? `Lien payer : ${payUrl}` : "",
+    productPayUrl ? `Lien payer : ${productPayUrl}` : payUrl ? `Lien payer : ${payUrl}` : "",
   ]
     .filter(Boolean)
     .join("\n");
@@ -176,7 +195,9 @@ export async function POST(request: NextRequest) {
   const subject =
     stage === "first_sale"
       ? `Wazo — 1ère vente MoMo ${store || name || email || digits}`
-      : `Wazo — ${
+      : stage === "first_product"
+        ? `Wazo — 1er produit ${store || name || email || digits}`
+        : `Wazo — ${
           plan === "pro" || plan === "business"
             ? `essai ${plan.toUpperCase()}`
             : stage === "store"
