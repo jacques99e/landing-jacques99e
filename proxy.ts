@@ -30,8 +30,7 @@ export async function proxy(request: NextRequest) {
       origin &&
       !allowed.includes(origin) &&
       !pathname.startsWith("/api/cron/") &&
-      !pathname.startsWith("/api/social/meta/callback") &&
-      !pathname.startsWith("/api/whatsapp/")
+      !pathname.startsWith("/api/social/meta/callback")
     ) {
       return NextResponse.json({ success: false, error: "Origine non autorisée." }, { status: 403 });
     }

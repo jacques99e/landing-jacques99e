@@ -43,16 +43,11 @@
     "pilot:pitch-pro": "node scripts/pilot-pitch-pro.mjs",
     "pilot:kickoff-pro": "node scripts/pilot-kickoff-pro.mjs",
     "pilot:ask-whatsapp": "node scripts/pilot-ask-whatsapp.mjs",
-    "wa:setup": "node --env-file=.env.local scripts/whatsapp-assistant-setup.mjs",
-    "wa:partenaire": "node scripts/whatsapp-partenaire.mjs",
-    "wa:webhook": "node --env-file=.env.local scripts/whatsapp-partenaire.mjs --webhook",
-    "pilot:relance-momo": "node scripts/pilot-relance-momo.mjs",
     "setup:github-secrets": "powershell -ExecutionPolicy Bypass -File scripts/setup-github-secrets.ps1"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.106.2",
-    "ai": "^7.0.102",
     "framer-motion": "^12.40.0",
     "lucide-react": "^1.17.0",
     "next": "^16.2.6",
