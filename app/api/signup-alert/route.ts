@@ -1,21 +1,51 @@
 import { NextRequest, NextResponse } from "next/server";
 import { allowIp } from "@/lib/rate-limit";
+import { secretsEqual } from "@/lib/secret-compare";
 
 export const maxDuration = 20;
 
 const ALLOWED_ORIGINS = [
   "https://app.wazo-digital.com",
   "https://wazo-digital.com",
+  "https://www.wazo-digital.com",
   "http://localhost:3001",
   "http://localhost:3000",
 ];
 
+function allowedOrigins(): string[] {
+  const extra = [
+    process.env.NEXT_PUBLIC_LANDING_URL?.replace(/\/$/, ""),
+    process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, ""),
+  ].filter(Boolean) as string[];
+  return [...new Set([...ALLOWED_ORIGINS, ...extra])];
+}
+
+function alertSecret(): string {
+  return (
+    process.env.SIGNUP_ALERT_SECRET?.trim() ||
+    process.env.CRON_SECRET?.trim() ||
+    ""
+  );
+}
+
+function authorizeAlert(request: NextRequest): boolean {
+  const origin = request.headers.get("origin")?.trim() || "";
+  if (origin) return allowedOrigins().includes(origin);
+
+  const secret = alertSecret();
+  if (!secret) return true;
+  const auth = request.headers.get("authorization") || "";
+  const bearer = auth.startsWith("Bearer ") ? auth.slice(7).trim() : "";
+  const headerSecret = request.headers.get("x-wazo-alert-secret")?.trim() || "";
+  return secretsEqual(bearer, secret) || secretsEqual(headerSecret, secret);
+}
+
 function withCors(request: NextRequest, res: NextResponse) {
   const origin = request.headers.get("origin") || "";
-  if (ALLOWED_ORIGINS.includes(origin)) {
+  if (allowedOrigins().includes(origin)) {
     res.headers.set("Access-Control-Allow-Origin", origin);
     res.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
-    res.headers.set("Access-Control-Allow-Headers", "Content-Type");
+    res.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization, x-wazo-alert-secret");
   }
   return res;
 }
@@ -37,6 +67,10 @@ function waDigits(raw: string): string {
 export async function POST(request: NextRequest) {
   const json = (body: unknown, status = 200) =>
     withCors(request, NextResponse.json(body, { status }));
+
+  if (!authorizeAlert(request)) {
+    return json({ success: false, error: "Non autorisé." }, 401);
+  }
 
   if (!allowIp(request, "signup-alert", 8, 60 * 60 * 1000)) {
     return json({ success: false, error: "Trop de requêtes." }, 429);

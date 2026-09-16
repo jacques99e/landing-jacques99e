@@ -22,15 +22,22 @@ export async function proxy(request: NextRequest) {
     const origin = request.headers.get("origin")?.trim();
     const allowed = [
       "https://wazo-digital.com",
+      "https://www.wazo-digital.com",
       "https://app.wazo-digital.com",
       process.env.NEXT_PUBLIC_LANDING_URL?.replace(/\/$/, ""),
       process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, ""),
     ].filter(Boolean) as string[];
-    if (
-      origin &&
-      !allowed.includes(origin) &&
+    if (origin) {
+      if (
+        !allowed.includes(origin) &&
+        !pathname.startsWith("/api/cron/") &&
+        !pathname.startsWith("/api/social/meta/callback")
+      ) {
+        return NextResponse.json({ success: false, error: "Origine non autorisée." }, { status: 403 });
+      }
+    } else if (
       !pathname.startsWith("/api/cron/") &&
-      !pathname.startsWith("/api/social/meta/callback")
+      pathname !== "/api/signup-alert"
     ) {
       return NextResponse.json({ success: false, error: "Origine non autorisée." }, { status: 403 });
     }
