@@ -48,7 +48,8 @@ export function trackMetaFirstProduct(name?: string) {
 }
 
 export function trackMetaMomoCheckout(value?: number) {
-  trackMetaEvent("InitiateCheckout", {
+  if (typeof window === "undefined" || !window.fbq) return;
+  window.fbq("trackCustom", "BoutiqueMoMoCheckout", {
     content_name: "boutique_momo",
     currency: "XOF",
     value: Number.isFinite(value) ? Number(value) : 0,
@@ -56,9 +57,17 @@ export function trackMetaMomoCheckout(value?: number) {
 }
 
 export function trackMetaPurchase(value: number, contentName = "pro") {
+  const isSub = contentName === "pro" || contentName === "business";
   trackMetaEvent("Purchase", {
     content_name: contentName,
-    currency: "XOF",
-    value: Number.isFinite(value) ? Number(value) : 0,
+    content_category: isSub ? "subscription" : "other",
+    currency: isSub ? "EUR" : "XOF",
+    value: isSub
+      ? contentName === "business"
+        ? 24.99
+        : 9.99
+      : Number.isFinite(value)
+        ? Number(value)
+        : 0,
   });
 }

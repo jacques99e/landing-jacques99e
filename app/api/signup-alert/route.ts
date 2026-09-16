@@ -52,6 +52,7 @@ export async function POST(request: NextRequest) {
     utm?: string;
     plan?: string;
     website?: string;
+    note?: string;
   };
 
   if (String(body.website || "").trim()) {
@@ -66,6 +67,7 @@ export async function POST(request: NextRequest) {
   const stage = strip(String(body.stage || "register")).slice(0, 40);
   const utm = strip(String(body.utm || "")).slice(0, 160);
   const plan = strip(String(body.plan || "")).slice(0, 20);
+  const note = strip(String(body.note || "")).slice(0, 200);
   const digits = waDigits(whatsapp);
 
   if (!name && !email && !digits) {
@@ -85,23 +87,43 @@ export async function POST(request: NextRequest) {
   }
 
   const payUrl = slug ? `https://app.wazo-digital.com/boutique/${slug}/payer` : "";
-  const merchantText = [
-    `Bonjour ${name || ""} !`.trim(),
-    "",
-    store
-      ? `Votre boutique ${store} est prête.`
-      : "Votre compte Wazo Digital est créé.",
-    payUrl ? `Lien MoMo (après 1 produit) : ${payUrl}` : "Ajoutez 1 produit, puis envoyez le lien MoMo au client.",
-    "",
-    "Bloqué ? Répondez ici avec une capture.",
-    "Jacques — Wazo Digital",
-  ].join("\n");
+  const proPay = "https://app.wazo-digital.com/billing?plan=pro&pay=1";
+  const merchantText =
+    stage === "first_sale"
+      ? [
+          `Bonjour ${name || ""} !`.trim(),
+          "",
+          store
+            ? `Votre boutique ${store} vient d’encaisser une vente MoMo${note ? ` (${note})` : ""}.`
+            : "Vous venez d’encaisser une vente MoMo.",
+          "Pour garder le lien paiement, la caisse et le stock après l’essai :",
+          `PRO 9,99 €/mois (~6550 FCFA) : ${proPay}`,
+          "",
+          "Jacques — Wazo Digital",
+        ].join("\n")
+      : [
+          `Bonjour ${name || ""} !`.trim(),
+          "",
+          store
+            ? `Votre boutique ${store} est prête.`
+            : "Votre compte Wazo Digital est créé.",
+          payUrl
+            ? `Lien MoMo (après 1 produit) : ${payUrl}`
+            : "Ajoutez 1 produit, puis envoyez le lien MoMo au client.",
+          "",
+          "Bloqué ? Répondez ici avec une capture.",
+          "Jacques — Wazo Digital",
+        ].join("\n");
   const waLink = digits
     ? `https://wa.me/${digits}?text=${encodeURIComponent(merchantText)}`
     : "";
 
+  const headline =
+    stage === "first_sale"
+      ? "1ère vente MoMo — relancer PRO"
+      : `Nouvelle inscription Wazo (${stage})`;
   const text = [
-    `Nouvelle inscription Wazo (${stage})`,
+    headline,
     `Nom: ${name || "—"}`,
     `Email: ${email || "—"}`,
     `WhatsApp: ${whatsapp || "—"}`,
@@ -109,12 +131,24 @@ export async function POST(request: NextRequest) {
     `Slug: ${slug || "—"}`,
     `Plan: ${plan || "—"}`,
     `UTM: ${utm || "—"}`,
+    note ? `Note: ${note}` : "",
     "",
-    waLink ? `Écrire maintenant (2 h) : ${waLink}` : "Pas de WhatsApp.",
+    waLink ? `Écrire maintenant : ${waLink}` : "Pas de WhatsApp.",
     payUrl ? `Lien payer : ${payUrl}` : "",
   ]
     .filter(Boolean)
     .join("\n");
+
+  const subject =
+    stage === "first_sale"
+      ? `Wazo — 1ère vente MoMo ${store || name || email || digits}`
+      : `Wazo — ${
+          plan === "pro" || plan === "business"
+            ? `essai ${plan.toUpperCase()}`
+            : stage === "store"
+              ? "boutique créée"
+              : "inscription"
+        } ${name || email || digits}`;
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -125,7 +159,7 @@ export async function POST(request: NextRequest) {
     body: JSON.stringify({
       from,
       to: [to],
-      subject: `Wazo — ${plan === "pro" || plan === "business" ? `essai ${plan.toUpperCase()}` : stage === "store" ? "boutique créée" : "inscription"} ${name || email || digits}`,
+      subject,
       text,
     }),
   });
