@@ -65,9 +65,32 @@ export function resolveAppUrlServer(): string {
 export function buildAppHandoffUrl(
   accessToken: string,
   refreshToken: string,
-  appBase = resolveAppUrlServer()
+  appBase = resolveAppUrlServer(),
+  extras?: {
+    plan?: string | null;
+    module?: string | null;
+    utmJson?: string | null;
+  }
 ): string {
   const handoff = new URL("/auth/receive", appBase);
+  const plan = extras?.plan?.trim();
+  if (plan) handoff.searchParams.set("plan", plan);
+  const moduleId = extras?.module?.trim();
+  if (moduleId) handoff.searchParams.set("module", moduleId);
+  if (extras?.utmJson) {
+    try {
+      const utm = JSON.parse(extras.utmJson) as {
+        source?: string;
+        medium?: string;
+        campaign?: string;
+      };
+      if (utm.source) handoff.searchParams.set("utm_source", utm.source);
+      if (utm.medium) handoff.searchParams.set("utm_medium", utm.medium);
+      if (utm.campaign) handoff.searchParams.set("utm_campaign", utm.campaign);
+    } catch {
+      /* cookie UTM illisible : on continue sans */
+    }
+  }
   handoff.hash = new URLSearchParams({
     access_token: accessToken,
     refresh_token: refreshToken,

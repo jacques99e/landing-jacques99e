@@ -10,18 +10,10 @@ import { Turnstile, isTurnstileEnabled } from "../../components/turnstile";
 import { getAuthCallbackUrl } from "../../lib/public-urls";
 import { trackGoogleAdsConversion } from "../../lib/google-ads";
 import { trackMetaCompleteRegistration, trackMetaLead, trackMetaStartTrial } from "../../lib/meta-pixel";
-import { formatUtm, loadPersistedUtm, persistUtm } from "../../lib/utm";
+import { persistSignupIntent } from "../../lib/pending-signup";
+import { formatUtm, loadPersistedUtm } from "../../lib/utm";
 import { APP_MODULES, PRICING } from "../../lib/vitrine-data";
 import { isValidWhatsAppPhone, normalizeWhatsAppPhone } from "../../lib/whatsapp-phone";
-
-const VALID_MODULES = [
-  "commerce",
-  "agriculture",
-  "health",
-  "logistics",
-  "education",
-  "blockchain",
-] as const;
 
 function RegisterForm() {
   const router = useRouter();
@@ -40,15 +32,7 @@ function RegisterForm() {
   const planInfo = PRICING.find((p) => p.id === selectedPlan);
 
   useEffect(() => {
-    const moduleId = searchParams.get("module");
-    if (moduleId && VALID_MODULES.includes(moduleId as (typeof VALID_MODULES)[number])) {
-      sessionStorage.setItem("wazo_pending_module", moduleId);
-    }
-    const planId = searchParams.get("plan");
-    if (planId && ["free", "pro", "business"].includes(planId)) {
-      sessionStorage.setItem("wazo_pending_plan", planId);
-    }
-    persistUtm(searchParams);
+    persistSignupIntent(searchParams);
     trackMetaLead(searchParams.get("plan") ? `plan_${searchParams.get("plan")}` : "register");
   }, [searchParams]);
 

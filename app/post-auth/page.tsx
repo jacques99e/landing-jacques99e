@@ -49,6 +49,18 @@ export default function PostAuthPage() {
         if (pendingPlan) {
           handoffUrl.searchParams.set("plan", pendingPlan);
         }
+        try {
+          const utm = JSON.parse(sessionStorage.getItem("wazo_utm") || "null") as {
+            source?: string;
+            medium?: string;
+            campaign?: string;
+          } | null;
+          if (utm?.source) handoffUrl.searchParams.set("utm_source", utm.source);
+          if (utm?.medium) handoffUrl.searchParams.set("utm_medium", utm.medium);
+          if (utm?.campaign) handoffUrl.searchParams.set("utm_campaign", utm.campaign);
+        } catch {
+          /* ignore */
+        }
         handoffUrl.hash = new URLSearchParams({
           access_token: session.access_token,
           refresh_token: session.refresh_token,

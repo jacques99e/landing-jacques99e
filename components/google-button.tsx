@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import { persistSignupIntent } from "../lib/pending-signup";
 import { createSupabaseBrowserClient } from "../lib/supabase/client";
 import { getAuthCallbackUrl } from "../lib/public-urls";
 
@@ -14,6 +15,7 @@ export function GoogleButton({ label = "Continuer avec Google" }: { label?: stri
     setIsLoading(true);
 
     try {
+      persistSignupIntent(new URLSearchParams(window.location.search));
       const supabase = createSupabaseBrowserClient();
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",

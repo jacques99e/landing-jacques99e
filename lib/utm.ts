@@ -23,6 +23,7 @@ export function persistUtm(search: URLSearchParams) {
   const next = readUtmFromSearch(search);
   if (!next.source && !next.campaign) return;
   sessionStorage.setItem(UTM_KEY, JSON.stringify(next));
+  document.cookie = `wazo_utm=${encodeURIComponent(JSON.stringify(next))}; Path=/; Max-Age=86400; SameSite=Lax`;
 }
 
 export function loadPersistedUtm(): UtmCapture | null {

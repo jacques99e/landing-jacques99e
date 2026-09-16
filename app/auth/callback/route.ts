@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createSupabaseServerClient } from "../../../lib/supabase/server";
-import { buildAppHandoffUrl } from "../../../lib/public-urls";
+import { buildAppHandoffUrl, resolveAppUrlServer } from "../../../lib/public-urls";
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
@@ -16,9 +16,18 @@ export async function GET(request: NextRequest) {
         return NextResponse.redirect(`${origin}/reset-password`);
       }
 
-      // OAuth / email : envoi direct vers l'app (sans page post-auth intermédiaire)
+      // Google / email : cookies landing → plan + UTM sur l’app (sessionStorage ne survit pas au serveur).
       return NextResponse.redirect(
-        buildAppHandoffUrl(data.session.access_token, data.session.refresh_token)
+        buildAppHandoffUrl(
+          data.session.access_token,
+          data.session.refresh_token,
+          resolveAppUrlServer(),
+          {
+            plan: request.cookies.get("wazo_pending_plan")?.value,
+            module: request.cookies.get("wazo_pending_module")?.value,
+            utmJson: request.cookies.get("wazo_utm")?.value,
+          }
+        )
       );
     }
   }

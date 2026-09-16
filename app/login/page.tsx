@@ -7,6 +7,7 @@ import { ArrowLeft, Loader2, Lock, Mail } from "lucide-react";
 import { createSupabaseBrowserClient } from "../../lib/supabase/client";
 import { GoogleButton } from "../../components/google-button";
 import { Turnstile, isTurnstileEnabled } from "../../components/turnstile";
+import { persistSignupIntent } from "../../lib/pending-signup";
 import { PRICING } from "../../lib/vitrine-data";
 
 function LoginForm() {
@@ -21,10 +22,7 @@ function LoginForm() {
   const planInfo = PRICING.find((p) => p.id === selectedPlan);
 
   useEffect(() => {
-    const planId = searchParams.get("plan");
-    if (planId && ["free", "pro", "business"].includes(planId)) {
-      sessionStorage.setItem("wazo_pending_plan", planId);
-    }
+    persistSignupIntent(searchParams);
   }, [searchParams]);
 
   async function handleLogin(event: FormEvent<HTMLFormElement>) {
