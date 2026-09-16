@@ -33,7 +33,7 @@ function authorizeAlert(request: NextRequest): boolean {
   if (origin) return allowedOrigins().includes(origin);
 
   const secret = alertSecret();
-  if (!secret) return true;
+  if (!secret) return false;
   const auth = request.headers.get("authorization") || "";
   const bearer = auth.startsWith("Bearer ") ? auth.slice(7).trim() : "";
   const headerSecret = request.headers.get("x-wazo-alert-secret")?.trim() || "";
