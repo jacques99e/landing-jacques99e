@@ -26,7 +26,13 @@ export async function proxy(request: NextRequest) {
       process.env.NEXT_PUBLIC_LANDING_URL?.replace(/\/$/, ""),
       process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, ""),
     ].filter(Boolean) as string[];
-    if (origin && !allowed.includes(origin) && !pathname.startsWith("/api/cron/") && !pathname.startsWith("/api/social/meta/callback")) {
+    if (
+      origin &&
+      !allowed.includes(origin) &&
+      !pathname.startsWith("/api/cron/") &&
+      !pathname.startsWith("/api/social/meta/callback") &&
+      !pathname.startsWith("/api/whatsapp/")
+    ) {
       return NextResponse.json({ success: false, error: "Origine non autorisée." }, { status: 403 });
     }
   }

@@ -50,6 +50,7 @@ export async function POST(request: NextRequest) {
     slug?: string;
     stage?: string;
     utm?: string;
+    plan?: string;
     website?: string;
   };
 
@@ -64,6 +65,7 @@ export async function POST(request: NextRequest) {
   const slug = strip(String(body.slug || "")).slice(0, 80);
   const stage = strip(String(body.stage || "register")).slice(0, 40);
   const utm = strip(String(body.utm || "")).slice(0, 160);
+  const plan = strip(String(body.plan || "")).slice(0, 20);
   const digits = waDigits(whatsapp);
 
   if (!name && !email && !digits) {
@@ -105,6 +107,7 @@ export async function POST(request: NextRequest) {
     `WhatsApp: ${whatsapp || "—"}`,
     `Boutique: ${store || "—"}`,
     `Slug: ${slug || "—"}`,
+    `Plan: ${plan || "—"}`,
     `UTM: ${utm || "—"}`,
     "",
     waLink ? `Écrire maintenant (2 h) : ${waLink}` : "Pas de WhatsApp.",
@@ -122,7 +125,7 @@ export async function POST(request: NextRequest) {
     body: JSON.stringify({
       from,
       to: [to],
-      subject: `Wazo — ${stage === "store" ? "boutique créée" : "inscription"} ${name || email || digits}`,
+      subject: `Wazo — ${plan === "pro" || plan === "business" ? `essai ${plan.toUpperCase()}` : stage === "store" ? "boutique créée" : "inscription"} ${name || email || digits}`,
       text,
     }),
   });

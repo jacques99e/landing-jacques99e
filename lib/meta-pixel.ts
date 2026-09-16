@@ -30,6 +30,16 @@ export function trackMetaCompleteRegistration(method?: string) {
   });
 }
 
+export function trackMetaStartTrial(plan = "pro") {
+  trackMetaEvent("StartTrial", {
+    content_name: plan,
+    content_category: "subscription",
+    currency: "EUR",
+    value: plan === "business" ? 24.99 : 9.99,
+    predicted_ltv: plan === "business" ? 24.99 : 9.99,
+  });
+}
+
 export function trackMetaFirstProduct(name?: string) {
   trackMetaEvent("AddToCart", {
     content_name: name?.slice(0, 80) || "first_product",

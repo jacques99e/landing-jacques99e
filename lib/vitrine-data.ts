@@ -298,7 +298,7 @@ export const PRICING = [
       "Sans engagement",
     ],
     popular: true,
-    cta: "Choisir PRO — je m'abonne",
+    cta: "Commencer l'essai PRO — 14 jours",
     ctaVariant: "primary" as const,
   },
   {

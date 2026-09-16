@@ -8,9 +8,8 @@ import { createSupabaseBrowserClient } from "../../lib/supabase/client";
 import { GoogleButton } from "../../components/google-button";
 import { Turnstile, isTurnstileEnabled } from "../../components/turnstile";
 import { getAuthCallbackUrl } from "../../lib/public-urls";
-import { markPlanForCheckout } from "../../lib/plan-checkout";
 import { trackGoogleAdsConversion } from "../../lib/google-ads";
-import { trackMetaCompleteRegistration, trackMetaLead } from "../../lib/meta-pixel";
+import { trackMetaCompleteRegistration, trackMetaLead, trackMetaStartTrial } from "../../lib/meta-pixel";
 import { formatUtm, loadPersistedUtm, persistUtm } from "../../lib/utm";
 import { APP_MODULES, PRICING } from "../../lib/vitrine-data";
 import { isValidWhatsAppPhone, normalizeWhatsAppPhone } from "../../lib/whatsapp-phone";
@@ -48,7 +47,6 @@ function RegisterForm() {
     const planId = searchParams.get("plan");
     if (planId && ["free", "pro", "business"].includes(planId)) {
       sessionStorage.setItem("wazo_pending_plan", planId);
-      markPlanForCheckout(planId);
     }
     persistUtm(searchParams);
     trackMetaLead(searchParams.get("plan") ? `plan_${searchParams.get("plan")}` : "register");
@@ -111,6 +109,9 @@ function RegisterForm() {
           /* le profil peut être créé ensuite côté app */
         }
         trackMetaCompleteRegistration("email");
+        if (selectedPlan === "pro" || selectedPlan === "business") {
+          trackMetaStartTrial(selectedPlan);
+        }
         trackGoogleAdsConversion();
         void fetch("/api/signup-alert", {
           method: "POST",
@@ -121,6 +122,7 @@ function RegisterForm() {
             whatsapp: wa,
             stage: "register",
             utm: formatUtm(utm),
+            plan: selectedPlan || "",
           }),
         }).catch(() => undefined);
         router.push("/post-auth");
@@ -136,9 +138,13 @@ function RegisterForm() {
           email: email.trim(),
           whatsapp: wa,
           stage: "register",
-          utm: formatUtm(utm),
-        }),
-      }).catch(() => undefined);
+            utm: formatUtm(utm),
+            plan: selectedPlan || "",
+          }),
+        }).catch(() => undefined);
+      if (selectedPlan === "pro" || selectedPlan === "business") {
+        trackMetaStartTrial(selectedPlan);
+      }
       setSuccessMessage(
         "Compte cree. Verifiez votre boite mail pour confirmer votre adresse, puis connectez-vous.",
       );

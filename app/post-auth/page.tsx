@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import { createSupabaseBrowserClient } from "../../lib/supabase/client";
-import { isPaidVitrinePlan } from "../../lib/plan-checkout";
 import { resolveAppUrl } from "../../lib/public-urls";
 
 export default function PostAuthPage() {
@@ -49,9 +48,6 @@ export default function PostAuthPage() {
         const pendingPlan = sessionStorage.getItem("wazo_pending_plan");
         if (pendingPlan) {
           handoffUrl.searchParams.set("plan", pendingPlan);
-        }
-        if (pendingPlan && isPaidVitrinePlan(pendingPlan)) {
-          handoffUrl.searchParams.set("pay", "1");
         }
         handoffUrl.hash = new URLSearchParams({
           access_token: session.access_token,

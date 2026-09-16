@@ -5,6 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 import { SiteHeader } from "@/components/vitrine/SiteHeader";
 import { SiteFooter } from "@/components/vitrine/SiteFooter";
 import { PRICING, PRICING_COMPARISON } from "@/lib/vitrine-data";
+import { UtmCapture } from "@/components/UtmCapture";
 
 export const metadata: Metadata = pageMetadata(
   "Tarifs",
@@ -26,14 +27,15 @@ function CellValue({ value }: { value: boolean | string }) {
 export default function TarifsPage() {
   return (
     <div className="scroll-smooth bg-[#FFF8F0] font-[system-ui,sans-serif] text-[#1A1A1A]">
+      <UtmCapture />
       <SiteHeader />
 
       <main className="mx-auto max-w-6xl px-4 pb-20 pt-32 md:px-6">
         <div className="text-center">
           <h1 className="text-3xl font-bold md:text-4xl">Tarifs Wazo Digital</h1>
           <p className="mx-auto mt-3 max-w-2xl text-[#1A1A1A]/75">
-            Commencez gratuitement, passez au Pro quand votre activité grandit, et au Business pour
-            gérer une équipe avec rapports automatiques.
+            14 jours d&apos;essai gratuit, sans carte bancaire. Ensuite PRO à 9,99 €/mois,
+            payé en Mobile Money — seulement si l&apos;outil vous sert.
           </p>
         </div>
 
@@ -131,7 +133,7 @@ export default function TarifsPage() {
               href="/register?plan=pro"
               className="inline-flex rounded-full bg-[#FF6F00] px-6 py-3 text-sm font-semibold text-white"
             >
-              Je m&apos;abonne au PRO
+              Je commence l&apos;essai PRO
             </Link>
             <Link
               href="/register?plan=business"

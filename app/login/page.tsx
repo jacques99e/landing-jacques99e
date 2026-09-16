@@ -7,7 +7,6 @@ import { ArrowLeft, Loader2, Lock, Mail } from "lucide-react";
 import { createSupabaseBrowserClient } from "../../lib/supabase/client";
 import { GoogleButton } from "../../components/google-button";
 import { Turnstile, isTurnstileEnabled } from "../../components/turnstile";
-import { markPlanForCheckout } from "../../lib/plan-checkout";
 import { PRICING } from "../../lib/vitrine-data";
 
 function LoginForm() {
@@ -25,7 +24,6 @@ function LoginForm() {
     const planId = searchParams.get("plan");
     if (planId && ["free", "pro", "business"].includes(planId)) {
       sessionStorage.setItem("wazo_pending_plan", planId);
-      markPlanForCheckout(planId);
     }
   }, [searchParams]);
 
