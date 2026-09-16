@@ -8,6 +8,7 @@ import { createSupabaseBrowserClient } from "../../lib/supabase/client";
 import { GoogleButton } from "../../components/google-button";
 import { Turnstile, isTurnstileEnabled } from "../../components/turnstile";
 import { persistSignupIntent } from "../../lib/pending-signup";
+import { isEmailNotConfirmedError } from "../../lib/email-confirm";
 import { PRICING } from "../../lib/vitrine-data";
 
 function LoginForm() {
@@ -45,7 +46,13 @@ function LoginForm() {
       });
 
       if (error) {
-        setErrorMessage(error.message);
+        if (isEmailNotConfirmedError(error.message)) {
+          router.push(
+            `/register/check-email?email=${encodeURIComponent(email.trim())}&reason=login`
+          );
+          return;
+        }
+        setErrorMessage("Email ou mot de passe incorrect.");
         return;
       }
 

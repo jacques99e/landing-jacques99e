@@ -24,7 +24,6 @@ function RegisterForm() {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const selectedModule = searchParams.get("module");
   const moduleInfo = APP_MODULES.find((mod) => mod.id === selectedModule);
@@ -39,7 +38,6 @@ function RegisterForm() {
   async function handleRegister(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setErrorMessage(null);
-    setSuccessMessage(null);
     setIsLoading(true);
 
     try {
@@ -129,9 +127,7 @@ function RegisterForm() {
       if (selectedPlan === "pro" || selectedPlan === "business") {
         trackMetaStartTrial(selectedPlan);
       }
-      setSuccessMessage(
-        "Compte cree. Verifiez votre boite mail pour confirmer votre adresse, puis connectez-vous.",
-      );
+      router.push(`/register/check-email?email=${encodeURIComponent(email.trim())}`);
     } catch (error) {
       setErrorMessage(
         error instanceof Error
@@ -248,12 +244,6 @@ function RegisterForm() {
             {errorMessage && (
               <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700">
                 {errorMessage}
-              </p>
-            )}
-
-            {successMessage && (
-              <p className="rounded-lg border border-[#075E54]/30 bg-[#075E54]/5 px-3 py-2 text-xs text-[#075E54]">
-                {successMessage}
               </p>
             )}
 
