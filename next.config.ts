@@ -39,6 +39,16 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    const app = "https://app.wazo-digital.com";
+    return [
+      { source: "/boutique", destination: `${app}/boutique`, permanent: true },
+      { source: "/boutique/:path*", destination: `${app}/boutique/:path*`, permanent: true },
+      { source: "/formation/:path*", destination: `${app}/formation/:path*`, permanent: true },
+      { source: "/suivi/:path*", destination: `${app}/suivi/:path*`, permanent: true },
+      { source: "/trace/:path*", destination: `${app}/trace/:path*`, permanent: true },
+    ];
+  },
   async rewrites() {
     return [{ source: "/indexnow-key.txt", destination: "/api/indexing/key" }];
   },
