@@ -29,15 +29,17 @@ function alertSecret(): string {
 }
 
 function authorizeAlert(request: NextRequest): boolean {
-  const origin = request.headers.get("origin")?.trim() || "";
-  if (origin) return allowedOrigins().includes(origin);
-
   const secret = alertSecret();
-  if (!secret) return false;
   const auth = request.headers.get("authorization") || "";
   const bearer = auth.startsWith("Bearer ") ? auth.slice(7).trim() : "";
   const headerSecret = request.headers.get("x-wazo-alert-secret")?.trim() || "";
-  return secretsEqual(bearer, secret) || secretsEqual(headerSecret, secret);
+  if (secret && (secretsEqual(bearer, secret) || secretsEqual(headerSecret, secret))) {
+    return true;
+  }
+
+  const origin = request.headers.get("origin")?.trim() || "";
+  const site = (request.headers.get("sec-fetch-site") || "").toLowerCase();
+  return site === "same-origin" && Boolean(origin) && allowedOrigins().includes(origin);
 }
 
 function withCors(request: NextRequest, res: NextResponse) {

@@ -14,7 +14,7 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com https://connect.facebook.net",
+      "script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com https://connect.facebook.net",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https://images.unsplash.com https://www.facebook.com https://www.google-analytics.com",
       "font-src 'self' data:",
@@ -30,8 +30,12 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
   images: {
     qualities: [65, 75],
+    dangerouslyAllowSVG: false,
+    contentDispositionType: "attachment",
+    formats: ["image/webp"],
     remotePatterns: [
       {
         protocol: "https",
