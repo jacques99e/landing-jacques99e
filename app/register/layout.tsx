@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata(
-  "Inscription",
-  "Créez votre compte Wazo Digital gratuitement. Caisse MoMo, stock, boutique WhatsApp et 6 modules métier pour votre activité.",
+  "Créer un compte gratuit",
+  "Inscrivez-vous en 30 secondes. Sans carte bancaire. Encaissez en Mobile Money dès aujourd’hui.",
   "/register"
 );
 

@@ -9,8 +9,8 @@ import { GoogleButton } from "../../components/google-button";
 import { Turnstile, isTurnstileEnabled } from "../../components/turnstile";
 import { getAuthCallbackUrl } from "../../lib/public-urls";
 import { trackGoogleAdsConversion } from "../../lib/google-ads";
-import { trackMetaCompleteRegistration, trackMetaLead, trackMetaStartTrial } from "../../lib/meta-pixel";
-import { persistSignupIntent } from "../../lib/pending-signup";
+import { trackMetaCompleteRegistration, trackMetaEvent, trackMetaLead, trackMetaStartTrial } from "../../lib/meta-pixel";
+import { inferSignupPlan, persistSignupIntent } from "../../lib/pending-signup";
 import { formatUtm, loadPersistedUtm } from "../../lib/utm";
 import { APP_MODULES, PRICING } from "../../lib/vitrine-data";
 import { isValidWhatsAppPhone, normalizeWhatsAppPhone } from "../../lib/whatsapp-phone";
@@ -27,13 +27,23 @@ function RegisterForm() {
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const selectedModule = searchParams.get("module");
   const moduleInfo = APP_MODULES.find((mod) => mod.id === selectedModule);
-  const selectedPlan = searchParams.get("plan");
+  const selectedPlan = searchParams.get("plan") || inferSignupPlan(searchParams);
   const planInfo = PRICING.find((p) => p.id === selectedPlan);
+  const fromAds = selectedPlan === "pro" || selectedPlan === "business";
 
   useEffect(() => {
     persistSignupIntent(searchParams);
-    trackMetaLead(searchParams.get("plan") ? `plan_${searchParams.get("plan")}` : "register");
+    trackMetaEvent("ViewContent", { content_name: "register" });
   }, [searchParams]);
+
+  function markRealSignup(method: "email" | "pending_email") {
+    trackMetaCompleteRegistration(method);
+    trackMetaLead("signup");
+    if (selectedPlan === "pro" || selectedPlan === "business") {
+      trackMetaStartTrial(selectedPlan);
+    }
+    trackGoogleAdsConversion();
+  }
 
   async function handleRegister(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -66,6 +76,7 @@ function RegisterForm() {
             full_name: fullName.trim(),
             whatsapp: wa,
             phone: wa,
+            pending_plan: selectedPlan || "",
             utm_source: utm?.source || "",
             utm_medium: utm?.medium || "",
             utm_campaign: utm?.campaign || "",
@@ -90,11 +101,7 @@ function RegisterForm() {
         } catch {
           /* le profil peut être créé ensuite côté app */
         }
-        trackMetaCompleteRegistration("email");
-        if (selectedPlan === "pro" || selectedPlan === "business") {
-          trackMetaStartTrial(selectedPlan);
-        }
-        trackGoogleAdsConversion();
+        markRealSignup("email");
         void fetch("/api/signup-alert", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -124,9 +131,7 @@ function RegisterForm() {
             plan: selectedPlan || "",
           }),
         }).catch(() => undefined);
-      if (selectedPlan === "pro" || selectedPlan === "business") {
-        trackMetaStartTrial(selectedPlan);
-      }
+      markRealSignup("pending_email");
       router.push(`/register/check-email?email=${encodeURIComponent(email.trim())}`);
     } catch (error) {
       setErrorMessage(
@@ -142,21 +147,31 @@ function RegisterForm() {
   return (
     <main className="min-h-screen bg-[#FFF8F0] px-4 py-8">
       <div className="mx-auto w-full max-w-md">
-        <Link
-          href="/"
-          className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-[#075E54] hover:underline"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Retour a l'accueil
-        </Link>
+        {fromAds ? null : (
+          <Link
+            href="/"
+            className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-[#075E54] hover:underline"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Retour à l'accueil
+          </Link>
+        )}
 
         <section className="rounded-2xl border border-[#075E54]/10 bg-white p-6 shadow-sm md:p-8">
-          <h1 className="text-2xl font-bold text-[#1A1A1A]">Creer un compte</h1>
+          <h1 className="text-2xl font-bold text-[#1A1A1A]">
+            {fromAds ? "Créez votre compte gratuit" : "Créer un compte"}
+          </h1>
           <p className="mt-2 text-sm text-[#1A1A1A]/75">
-            1 produit, 1 lien MoMo. Vos clients paient tout seuls.
+            {fromAds
+              ? "30 secondes. Sans carte bancaire. Ensuite vous encaissez en Mobile Money."
+              : "1 produit, 1 lien MoMo. Vos clients paient tout seuls."}
           </p>
 
-          {planInfo ? (
+          {fromAds ? (
+            <p className="mt-4 rounded-xl border border-[#FF6F00]/30 bg-[#FF6F00]/10 px-4 py-3 text-sm text-[#1A1A1A]">
+              <strong>14 jours d’essai PRO</strong> — sans carte. Puis 6 550 FCFA / mois en MoMo.
+            </p>
+          ) : planInfo ? (
             <p className="mt-4 rounded-xl border border-[#FF6F00]/30 bg-[#FF6F00]/10 px-4 py-3 text-sm text-[#FF6F00]">
               Plan choisi : <strong>{planInfo.title}</strong> — {planInfo.price}
               {planInfo.priceSuffix}
@@ -171,7 +186,21 @@ function RegisterForm() {
             </p>
           ) : null}
 
-          <form className="mt-6 space-y-4" onSubmit={handleRegister}>
+          {fromAds ? (
+            <div className="mt-6">
+              <GoogleButton label="S'inscrire avec Google — plus rapide" />
+              <p className="mt-2 text-center text-xs text-[#1A1A1A]/55">
+                Le plus simple depuis Facebook. WhatsApp demandé ensuite dans l’app.
+              </p>
+              <div className="my-5 flex items-center gap-3">
+                <span className="h-px flex-1 bg-[#075E54]/10" />
+                <span className="text-xs text-[#1A1A1A]/50">ou avec email</span>
+                <span className="h-px flex-1 bg-[#075E54]/10" />
+              </div>
+            </div>
+          ) : null}
+
+          <form className={fromAds ? "space-y-4" : "mt-6 space-y-4"} onSubmit={handleRegister}>
             <label className="block text-sm font-medium text-[#1A1A1A]">
               Nom complet
               <div className="mt-1 flex items-center gap-2 rounded-xl border border-[#075E54]/20 px-3 py-2">
@@ -260,21 +289,25 @@ function RegisterForm() {
                   Creation...
                 </>
               ) : (
-                "Creer mon lien MoMo"
+                fromAds ? "Créer mon compte gratuit" : "Créer mon lien MoMo"
               )}
             </button>
           </form>
 
-          <div className="my-5 flex items-center gap-3">
-            <span className="h-px flex-1 bg-[#075E54]/10" />
-            <span className="text-xs text-[#1A1A1A]/50">ou</span>
-            <span className="h-px flex-1 bg-[#075E54]/10" />
-          </div>
+          {fromAds ? null : (
+            <>
+              <div className="my-5 flex items-center gap-3">
+                <span className="h-px flex-1 bg-[#075E54]/10" />
+                <span className="text-xs text-[#1A1A1A]/50">ou</span>
+                <span className="h-px flex-1 bg-[#075E54]/10" />
+              </div>
 
-          <GoogleButton label="S'inscrire avec Google" />
-          <p className="mt-2 text-center text-xs text-[#1A1A1A]/55">
-            Avec Google, le numéro WhatsApp vous sera demandé juste après dans l&apos;app.
-          </p>
+              <GoogleButton label="S'inscrire avec Google" />
+              <p className="mt-2 text-center text-xs text-[#1A1A1A]/55">
+                Avec Google, le numéro WhatsApp vous sera demandé juste après dans l&apos;app.
+              </p>
+            </>
+          )}
 
           <p className="mt-4 text-center text-sm text-[#1A1A1A]/75">
             Deja un compte ?{" "}

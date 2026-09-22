@@ -13,6 +13,7 @@ declare global {
           "expired-callback"?: () => void;
           "error-callback"?: () => void;
           theme?: "light" | "dark" | "auto";
+          appearance?: "always" | "execute" | "interaction-only";
         }
       ) => string;
       remove: (widgetId?: string) => void;
@@ -50,6 +51,7 @@ export function Turnstile({ onToken }: Props) {
         "expired-callback": () => onTokenRef.current(null),
         "error-callback": () => onTokenRef.current(null),
         theme: "light",
+        appearance: "interaction-only",
       });
     }
 
