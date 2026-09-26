@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
     return json({ success: false, error: "Non autorisé." }, 401);
   }
 
-  if (!allowIp(request, "signup-alert", 8, 60 * 60 * 1000)) {
+  if (!(await allowIp(request, "signup-alert", 8, 60 * 60 * 1000))) {
     return json({ success: false, error: "Trop de requêtes." }, 429);
   }
 

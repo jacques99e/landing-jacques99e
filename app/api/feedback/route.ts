@@ -29,7 +29,7 @@ function stripHeader(value: string): string {
 
 export async function POST(request: NextRequest) {
   try {
-    if (!allowIp(request, "feedback", 5, 60 * 60 * 1000)) {
+    if (!(await allowIp(request, "feedback", 5, 60 * 60 * 1000))) {
       return NextResponse.json(
         { success: false, error: "Trop de messages. Réessayez plus tard." },
         { status: 429 }

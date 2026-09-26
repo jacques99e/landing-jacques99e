@@ -7,8 +7,8 @@ import { verifyTurnstile } from "@/lib/turnstile-server";
 
 export const runtime = "nodejs";
 
-function tooFrequent(key: string): boolean {
-  return !allowRequest(key, 1, 60_000);
+async function tooFrequent(key: string): Promise<boolean> {
+  return !(await allowRequest(key, 1, 60_000));
 }
 
 async function sendResend(params: {
@@ -76,7 +76,7 @@ export async function POST(request: Request) {
   }
 
   const ip = clientIp(request);
-  if (tooFrequent(`ip:${ip}`) || tooFrequent(`email:${email}`)) {
+  if ((await tooFrequent(`ip:${ip}`)) || (await tooFrequent(`email:${email}`))) {
     // Réponse neutre anti-énumération
     return NextResponse.json({
       success: true,
